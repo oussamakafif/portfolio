@@ -4033,47 +4033,26 @@ const OFFICIAL_TECH_SKILLS: TechItem[] = [
 
 function DockKeyItem({
   tech,
-  mouseX,
-  mouseY,
   isDark,
   onSelect,
   isSelected,
 }: {
   tech: TechItem;
-  mouseX: MotionValue<number>;
-  mouseY: MotionValue<number>;
   isDark: boolean;
   onSelect: () => void;
   isSelected: boolean;
 }) {
-  const ref = useRef<HTMLButtonElement>(null);
-
-  const distance = useTransform([mouseX, mouseY], ([x, y]: number[]) => {
-    const el = ref.current;
-    if (!el || x === Infinity || y === Infinity) return 999;
-    const rect = el.getBoundingClientRect();
-    const cx = rect.left + rect.width / 2;
-    const cy = rect.top + rect.height / 2;
-    return Math.hypot(x - cx, y - cy);
-  });
-
-  const scaleTransform = useTransform(distance, [0, 110, 240], [1.22, 1.07, 1]);
-  const yTransform = useTransform(distance, [0, 110, 240], [-14, -4, 0]);
-
-  const scale = useSpring(scaleTransform, { stiffness: 320, damping: 22, mass: 0.5 });
-  const y = useSpring(yTransform, { stiffness: 320, damping: 22, mass: 0.5 });
-
   return (
     <motion.button
-      ref={ref}
       type="button"
       onClick={onSelect}
-      style={{ scale, y }}
-      whileTap={{ scale: 0.94 }}
-      className={`group relative flex flex-col items-center justify-center p-5 sm:p-6 rounded-3xl border transition-colors duration-300 cursor-pointer select-none ${
+      whileHover={{ y: -5, scale: 1.03 }}
+      whileTap={{ scale: 0.96 }}
+      transition={{ duration: 0.2, ease: "easeOut" }}
+      className={`group relative flex flex-col items-center justify-center p-5 sm:p-6 rounded-3xl border transition-colors duration-200 cursor-pointer select-none ${
         isDark
-          ? "bg-[#101016]/90 border-white/10 hover:border-red-500/60 shadow-[0_18px_38px_-15px_rgba(0,0,0,0.85)]"
-          : "bg-[#ECEEF3]/95 border-zinc-300/90 hover:border-red-500/60 shadow-[0_14px_30px_-12px_rgba(0,0,0,0.12)]"
+          ? "bg-[#101016]/90 border-white/10 hover:border-red-500/60 shadow-[0_10px_25px_-10px_rgba(0,0,0,0.5)]"
+          : "bg-[#ECEEF3]/95 border-zinc-300/90 hover:border-red-500/60 shadow-[0_8px_20px_-10px_rgba(0,0,0,0.08)]"
       }`}
     >
       {/* Top Physical Keycap Specular Rim */}
@@ -4085,17 +4064,17 @@ function DockKeyItem({
 
       {/* Ambient Brand Color Glow on Hover / Active */}
       <div
-        className="absolute inset-0 rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none"
+        className="absolute inset-0 rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none"
         style={{
-          background: `radial-gradient(circle at 50% 35%, ${tech.color}26, transparent 72%)`,
-          boxShadow: isSelected ? `0 0 32px -4px ${tech.color}55` : undefined,
+          background: `radial-gradient(circle at 50% 35%, ${tech.color}22, transparent 70%)`,
+          boxShadow: isSelected ? `0 0 24px -4px ${tech.color}44` : undefined,
         }}
       />
 
       {/* Official Vector Icon */}
       <div
         style={{ color: tech.color }}
-        className="relative z-10 w-14 h-14 sm:w-16 sm:h-16 rounded-2xl flex items-center justify-center transition-transform duration-300 group-hover:scale-110"
+        className="relative z-10 w-12 h-12 sm:w-14 sm:h-14 rounded-2xl flex items-center justify-center transition-transform duration-200 group-hover:scale-108"
       >
         <div
           className="absolute inset-0 rounded-2xl opacity-15 group-hover:opacity-30 transition-opacity"
@@ -4106,7 +4085,7 @@ function DockKeyItem({
 
       {/* Technology Name */}
       <span
-        className={`relative z-10 mt-3.5 font-sans font-bold text-xs sm:text-sm tracking-tight transition-colors ${
+        className={`relative z-10 mt-3 font-sans font-bold text-xs sm:text-sm tracking-tight transition-colors ${
           isDark ? "text-zinc-200 group-hover:text-white" : "text-zinc-800 group-hover:text-zinc-950"
         }`}
       >
@@ -4115,10 +4094,10 @@ function DockKeyItem({
 
       {/* Active / Hover Laser Indicator Dot */}
       <span
-        className="mt-2 w-6 h-1 rounded-full opacity-35 group-hover:opacity-100 transition-all duration-300 group-hover:w-10"
+        className="mt-2 w-6 h-1 rounded-full opacity-35 group-hover:opacity-100 transition-all duration-200 group-hover:w-8"
         style={{
           backgroundColor: tech.color,
-          boxShadow: `0 0 10px ${tech.color}`,
+          boxShadow: `0 0 8px ${tech.color}`,
         }}
       />
     </motion.button>
@@ -4126,28 +4105,18 @@ function DockKeyItem({
 }
 
 export function SkillsSection({ isDark, lang }: { isDark: boolean; lang: "EN" | "FR" }) {
-  const mouseX = useMotionValue(Infinity);
-  const mouseY = useMotionValue(Infinity);
   const [selectedIdx, setSelectedIdx] = useState<number>(0);
 
   return (
     <section
       id="skills"
-      onPointerMove={(e) => {
-        mouseX.set(e.clientX);
-        mouseY.set(e.clientY);
-      }}
-      onPointerLeave={() => {
-        mouseX.set(Infinity);
-        mouseY.set(Infinity);
-      }}
       className={`relative z-10 py-24 px-4 sm:px-6 overflow-hidden border-t transition-colors duration-500 ${
         isDark ? "border-white/5 bg-[#070709]" : "border-zinc-300/80 bg-[#E2E4EC]"
       }`}
     >
       {/* Subtle Ambient Glow */}
       <div
-        className="pointer-events-none absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[560px] h-[340px] rounded-full blur-[130px] opacity-25 transition-colors duration-500"
+        className="pointer-events-none absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[560px] h-[340px] rounded-full blur-[100px] opacity-20 transition-colors duration-500"
         style={{ backgroundColor: OFFICIAL_TECH_SKILLS[selectedIdx]?.color || "#EF4444" }}
       />
 
@@ -4164,10 +4133,10 @@ export function SkillsSection({ isDark, lang }: { isDark: boolean; lang: "EN" | 
 
         {/* Realistic Glass Hardware Dock Surface */}
         <div
-          className={`relative p-5 sm:p-8 rounded-[36px] border backdrop-blur-2xl transition-colors duration-500 ${
+          className={`relative p-5 sm:p-8 rounded-[36px] border backdrop-blur-md transition-colors duration-500 ${
             isDark
-              ? "bg-[#0B0B10]/85 border-white/10 shadow-[0_30px_90px_-20px_rgba(0,0,0,0.9)]"
-              : "bg-[#D8DBE4]/85 border-zinc-300/90 shadow-[0_25px_60px_-15px_rgba(0,0,0,0.08)]"
+              ? "bg-[#0B0B10]/85 border-white/10 shadow-[0_20px_50px_-20px_rgba(0,0,0,0.8)]"
+              : "bg-[#D8DBE4]/85 border-zinc-300/90 shadow-[0_15px_40px_-15px_rgba(0,0,0,0.06)]"
           }`}
         >
           {/* Top Dock Status Strip */}
@@ -4179,7 +4148,7 @@ export function SkillsSection({ isDark, lang }: { isDark: boolean; lang: "EN" | 
             <div className="flex items-center gap-2">
               <span className="w-2.5 h-2.5 rounded-full bg-red-500 animate-pulse" />
               <span className="uppercase tracking-wider font-bold">
-                {lang === "EN" ? "Interactive Tech Stack" : "Stack Technique Interactive"}
+                {lang === "EN" ? "Tech Stack" : "Stack Technique"}
               </span>
             </div>
 
@@ -4194,14 +4163,12 @@ export function SkillsSection({ isDark, lang }: { isDark: boolean; lang: "EN" | 
             </div>
           </div>
 
-          {/* 12 Tactile Glass Keys with Real Proximity Magnification */}
+          {/* Clean, Lightweight Responsive Tech Grid */}
           <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-3.5 sm:gap-4">
             {OFFICIAL_TECH_SKILLS.map((tech, idx) => (
               <DockKeyItem
                 key={tech.id}
                 tech={tech}
-                mouseX={mouseX}
-                mouseY={mouseY}
                 isDark={isDark}
                 isSelected={selectedIdx === idx}
                 onSelect={() => setSelectedIdx(idx)}
@@ -4500,19 +4467,7 @@ export default function App() {
   const [showIntro, setShowIntro] = useState<boolean>(true);
   const [selectedModalProject, setSelectedModalProject] = useState<"masarif" | "datahack" | "usthb" | null>(null);
 
-  // 3D Perspective Tilt for the Home Mobile
-  const [homeTilt, setHomeTilt] = useState<{ x: number; y: number }>({ x: 0, y: 0 });
 
-  const handleHomeMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
-    const rect = e.currentTarget.getBoundingClientRect();
-    const x = ((e.clientX - rect.left) / rect.width - 0.5) * 22;
-    const y = (0.5 - (e.clientY - rect.top) / rect.height) * 22;
-    setHomeTilt({ x, y });
-  };
-
-  const handleHomeMouseLeave = () => {
-    setHomeTilt({ x: 0, y: 0 });
-  };
 
   useEffect(() => {
     const updateClock = () => {
@@ -4907,13 +4862,12 @@ export default function App() {
         )}
       </AnimatePresence>
 
-      {/* React Bits Fluid SplashCursor — 100% PURE RED PALETTE (RAINBOW OFF) */}
+      {/* React Bits Fluid SplashCursor — Rainbow Multicolor Mode */}
       <SplashCursor
-        rainbow={false}
-        colors={["#EF4444", "#DC2626", "#B91C1C", "#991B1B"]}
-        colorSpeed={0.5}
+        rainbow={true}
+        colorSpeed={1}
         size={1}
-        force={1.1}
+        force={1}
         swirl={3}
         trail={1}
         clickSplash={true}
@@ -5127,64 +5081,47 @@ export default function App() {
             </motion.div>
           </motion.div>
 
-          {/* Right Column: Interactive 3D Smartphone with Entrance Animation */}
+          {/* Right Column: Modern Sleek Smartphone Frame (Optimized 2D CSS) */}
           <motion.div
-            initial={{ opacity: 0, y: 45, scale: 0.88, rotateY: -18 }}
-            whileInView={{ opacity: 1, y: 0, scale: 1, rotateY: 0 }}
-            viewport={{ once: false, amount: 0.25 }}
-            transition={{ duration: 0.85, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
-            onMouseMove={handleHomeMouseMove}
-            onMouseLeave={handleHomeMouseLeave}
+            initial={{ opacity: 0, y: 30, scale: 0.95 }}
+            whileInView={{ opacity: 1, y: 0, scale: 1 }}
+            viewport={{ once: true, amount: 0.2 }}
+            transition={{ duration: 0.7, delay: 0.15, ease: "easeOut" }}
             className="lg:col-span-5 flex justify-center items-center relative py-4"
-            style={{ perspective: "1200px" }}
           >
-            <motion.div
-              animate={{
-                scale: [1, 1.12, 1],
-                opacity: [0.2, 0.35, 0.2],
-              }}
-              transition={{ duration: 4.5, repeat: Infinity, ease: "easeInOut" }}
-              className="absolute w-72 h-72 rounded-full bg-red-600/25 blur-3xl pointer-events-none"
+            {/* Subtle Static Ambient Glow (No heavy GPU blur recalculation) */}
+            <div
+              className="absolute w-64 h-64 rounded-full bg-red-600/15 pointer-events-none"
+              style={{ filter: "blur(40px)" }}
             />
 
-            {/* Floating Orbiting Mobile Dev Badges */}
-            <motion.div
-              initial={{ opacity: 0, x: -30 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              animate={{ y: [0, -8, 0] }}
-              transition={{ y: { duration: 3.6, repeat: Infinity, ease: "easeInOut" }, opacity: { duration: 0.6, delay: 0.45 } }}
-              className={`hidden sm:flex items-center gap-2 px-3 py-1.5 rounded-full border backdrop-blur-md shadow-lg absolute -left-2 top-10 z-20 font-mono-code text-[11px] font-bold ${
-                isDark ? "bg-[#12121A]/90 border-white/15 text-white" : "bg-white/95 border-zinc-300 text-zinc-900"
+            {/* Floating Mobile Dev Badges */}
+            <div
+              className={`hidden sm:flex items-center gap-2 px-3 py-1.5 rounded-full border shadow-md absolute -left-2 top-10 z-20 font-mono-code text-[11px] font-bold ${
+                isDark ? "bg-[#12121A] border-white/15 text-white" : "bg-white border-zinc-300 text-zinc-900"
               }`}
             >
-              <span className="w-2 h-2 rounded-full bg-sky-400 animate-pulse" />
+              <span className="w-2 h-2 rounded-full bg-sky-400" />
               <span>Flutter &amp; Dart</span>
-            </motion.div>
+            </div>
 
-            <motion.div
-              initial={{ opacity: 0, x: 30 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              animate={{ y: [0, 8, 0] }}
-              transition={{ y: { duration: 4.2, repeat: Infinity, ease: "easeInOut" }, opacity: { duration: 0.6, delay: 0.55 } }}
-              className={`hidden sm:flex items-center gap-2 px-3 py-1.5 rounded-full border backdrop-blur-md shadow-lg absolute -right-2 bottom-14 z-20 font-mono-code text-[11px] font-bold ${
-                isDark ? "bg-[#12121A]/90 border-white/15 text-white" : "bg-white/95 border-zinc-300 text-zinc-900"
+            <div
+              className={`hidden sm:flex items-center gap-2 px-3 py-1.5 rounded-full border shadow-md absolute -right-2 bottom-14 z-20 font-mono-code text-[11px] font-bold ${
+                isDark ? "bg-[#12121A] border-white/15 text-white" : "bg-white border-zinc-300 text-zinc-900"
               }`}
             >
-              <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
+              <span className="w-2 h-2 rounded-full bg-emerald-400" />
               <span>Supabase • Firebase</span>
-            </motion.div>
+            </div>
 
-            {/* 3D Interactive Device Frame with dynamic rotation on mouse move */}
+            {/* Clean, High-Performance 2D Device Frame with smooth hover lift */}
             <motion.div
-              style={{
-                transform: `rotateX(${homeTilt.y}deg) rotateY(${homeTilt.x}deg)`,
-                transition: "transform 0.18s cubic-bezier(0.16, 1, 0.3, 1)",
-                transformStyle: "preserve-3d",
-              }}
+              whileHover={{ y: -6 }}
+              transition={{ duration: 0.25, ease: "easeOut" }}
               className={`relative w-[285px] sm:w-[310px] rounded-[44px] p-2.5 border-[2px] transition-shadow duration-300 ${
                 isDark
-                  ? "bg-[#101016] border-white/15 shadow-[0_30px_80px_-15px_rgba(239,68,68,0.3)]"
-                  : "bg-zinc-900 border-zinc-700 shadow-[0_30px_70px_-15px_rgba(0,0,0,0.35)]"
+                  ? "bg-[#101016] border-white/15 shadow-[0_20px_50px_-10px_rgba(239,68,68,0.2)]"
+                  : "bg-zinc-900 border-zinc-700 shadow-[0_20px_40px_-10px_rgba(0,0,0,0.25)]"
               }`}
             >
               {/* Outer Edge 3D Bevel depth */}
