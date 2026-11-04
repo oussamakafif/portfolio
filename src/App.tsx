@@ -22,8 +22,7 @@ import {
   Database,
   Layers,
   ArrowRight,
-  Code2,
-  BriefcaseBusiness,
+
   Mail,
   ExternalLink,
   GraduationCap,
@@ -46,6 +45,22 @@ import {
   Copy,
   Check,
 } from "lucide-react";
+
+/* Custom SVG icons for Github & Linkedin (removed from lucide-react v1.x) */
+const Github = ({ className = "" }: { className?: string }) => (
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}>
+    <path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4" />
+    <path d="M9 18c-4.51 2-5-2-7-2" />
+  </svg>
+);
+
+const Linkedin = ({ className = "" }: { className?: string }) => (
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}>
+    <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z" />
+    <rect width="4" height="12" x="2" y="9" />
+    <circle cx="4" cy="4" r="2" />
+  </svg>
+);
 
 /* ============================================================================
  * 0. SPLASH CURSOR (React Bits Fluid WebGL2 Simulation)
@@ -854,7 +869,8 @@ export const NimbusIcons = {
 
 const DEFAULT_ITEMS: LiquidNavItem[] = [
   { label: "Home", icon: NimbusIcons.home, fx: "glow" },
-  { label: "Experience", icon: NimbusIcons.user, fx: "wave" },
+  { label: "About", icon: NimbusIcons.user, fx: "wave" },
+  { label: "Experience", icon: NimbusIcons.drop, fx: "pop" },
   { label: "Work", icon: NimbusIcons.drop, fx: "pop" },
   { label: "Skills", icon: NimbusIcons.globe, fx: "spin" },
   { label: "Contact", icon: NimbusIcons.plane, fx: "plane" },
@@ -1524,7 +1540,7 @@ function SectionAnimatedHeading({
               }}
               className={`inline-block cursor-default select-none transition-colors ${
                 char === " " ? "mr-2.5" : ""
-              } ${isDark ? "text-white" : "text-zinc-950"}`}
+              } ${isDark ? "text-white" : "text-zinc-950 font-black"}`}
             >
               {char === " " ? "\u00A0" : char}
             </motion.span>
@@ -1552,7 +1568,7 @@ function SectionAnimatedHeading({
             >
               <span
                 className={`inline-block cursor-default ${
-                  isDark ? "name-crimson-shimmer-dark" : "name-crimson-shimmer-light"
+                  isDark ? "name-crimson-shimmer-dark" : "name-crimson-shimmer-light font-black"
                 }`}
               >
                 {char}
@@ -1574,73 +1590,59 @@ function SectionAnimatedHeading({
 }
 
 function HeroAnimatedName({ isDark }: { isDark: boolean }) {
-  const firstName = "Oussama";
-  const lastName = "Kafif";
+  const fullName = "Oussama Kafif";
 
   return (
     <div className="relative mb-3">
-      <h1 className="font-sans font-extrabold text-5xl sm:text-6xl lg:text-7xl tracking-tight leading-[1.04] flex flex-wrap items-baseline gap-x-4">
-        <span className="inline-flex">
-          {firstName.split("").map((char, index) => (
-            <motion.span
-              key={index}
-              initial={{ opacity: 0, y: 24 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{
-                duration: 0.45,
-                delay: index * 0.04,
-                ease: [0.22, 1, 0.36, 1],
-              }}
-              whileHover={{
-                y: -6,
-                color: "#EF4444",
-                transition: { duration: 0.16 },
-              }}
-              className={`inline-block cursor-default select-none transition-colors ${
-                isDark ? "text-white" : "text-zinc-950"
-              }`}
-            >
-              {char}
-            </motion.span>
-          ))}
-        </span>
-
-        <span className="relative inline-flex">
-          {lastName.split("").map((char, index) => (
-            <motion.span
-              key={index}
-              initial={{ opacity: 0, y: 24 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{
-                duration: 0.45,
-                delay: 0.28 + index * 0.04,
-                ease: [0.22, 1, 0.36, 1],
-              }}
-              whileHover={{
-                scale: 1.12,
-                y: -4,
-                transition: { duration: 0.16 },
-              }}
-              className="inline-block cursor-default select-none"
-            >
-              <span
-                className={`inline-block cursor-default ${
-                  isDark ? "name-crimson-shimmer-dark" : "name-crimson-shimmer-light"
-                }`}
-              >
-                {char}
-              </span>
-            </motion.span>
-          ))}
-
-          <motion.span
-            initial={{ scaleX: 0, opacity: 0 }}
-            animate={{ scaleX: 1, opacity: 1 }}
-            transition={{ duration: 0.75, delay: 0.48, ease: [0.16, 1, 0.3, 1] }}
-            className="absolute -bottom-1 left-0 right-0 h-[3px] rounded-full bg-gradient-to-r from-red-600 via-rose-500 to-transparent origin-left shadow-[0_0_12px_rgba(239,68,68,0.8)]"
-          />
-        </span>
+      <h1 className="font-sans font-extrabold text-5xl sm:text-6xl lg:text-7xl tracking-tight leading-[1.04] flex flex-wrap items-baseline gap-x-3 sm:gap-x-4">
+        {fullName.split(" ").map((word, wordIdx) => (
+          <span key={wordIdx} className="inline-flex">
+            {word.split("").map((char, charIdx) => {
+              const globalIdx = wordIdx * 8 + charIdx;
+              const isLastName = wordIdx === 1;
+              return (
+                <motion.span
+                  key={charIdx}
+                  initial={{ opacity: 0, y: 24 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{
+                    duration: 0.45,
+                    delay: globalIdx * 0.035,
+                    ease: [0.22, 1, 0.36, 1],
+                  }}
+                  whileHover={{
+                    y: -6,
+                    scale: 1.08,
+                    color: "#EF4444",
+                    transition: { duration: 0.16 },
+                  }}
+                  className="inline-block cursor-default select-none transition-transform"
+                >
+                  <span
+                    className={
+                      isLastName
+                        ? isDark
+                          ? "name-crimson-shimmer-dark"
+                          : "name-crimson-shimmer-light font-black"
+                        : isDark
+                        ? "text-white"
+                        : "text-zinc-950 font-black"
+                    }
+                  >
+                    {char}
+                  </span>
+                </motion.span>
+              );
+            })}
+          </span>
+        ))}
       </h1>
+      <motion.div
+        initial={{ scaleX: 0, opacity: 0 }}
+        animate={{ scaleX: 1, opacity: 1 }}
+        transition={{ duration: 0.8, delay: 0.5, ease: [0.16, 1, 0.3, 1] }}
+        className="h-[3px] w-48 sm:w-64 rounded-full bg-gradient-to-r from-red-600 via-rose-500 to-transparent origin-left shadow-[0_0_12px_rgba(239,68,68,0.8)]"
+      />
     </div>
   );
 }
@@ -1656,16 +1658,19 @@ interface WorkEmulatorItem {
   shortDesc: string;
   stack: string;
   repoUrl: string;
+  screens: { title: string; subtitle: string; icon: any }[];
 }
 
 function WorkPhoneSplitSection({
   isDark,
   lang,
   clock,
+  onOpenProjectModal,
 }: {
   isDark: boolean;
   lang: "EN" | "FR";
   clock: string;
+  onOpenProjectModal: (id: "masarif" | "datahack" | "usthb") => void;
 }) {
   const sectionRef = useRef<HTMLElement>(null);
   const [customScreens, setCustomScreens] = useState<Record<string, string>>({
@@ -1712,6 +1717,11 @@ function WorkPhoneSplitSection({
           : "Application de suivi de budget familial transfrontalier (Algérie ⇄ Arabie Saoudite).",
       stack: "Flutter • Supabase • PostgreSQL",
       repoUrl: "https://github.com/oussamakafif/masarif",
+      screens: [
+        { title: "Dashboard Financier", subtitle: "Double devise DZD ⇄ SAR", icon: Wallet },
+        { title: "Analytics Gauche", subtitle: "Filtre par membre familial", icon: Database },
+        { title: "RLS Policies", subtitle: "Sécurisation Supabase", icon: Shield },
+      ],
     },
     {
       id: "datahack",
@@ -1723,6 +1733,11 @@ function WorkPhoneSplitSection({
           : "Application mobile temps réel créée pour gérer le datathon phare DataHack du CSE.",
       stack: "Flutter • Firebase • Firestore",
       repoUrl: "https://github.com/oussamakafif/Organizer-App-DH",
+      screens: [
+        { title: "QR Check-in", subtitle: "Scannage participant < 1s", icon: QrCode },
+        { title: "Planning Live", subtitle: "Synchronisation Firestore", icon: Rocket },
+        { title: "File Mentors", subtitle: "Role-based dispatch", icon: Users },
+      ],
     },
     {
       id: "usthb",
@@ -1734,6 +1749,11 @@ function WorkPhoneSplitSection({
           : "Plateforme de partage de ressources académiques USTHB à 3 rôles.",
       stack: "Flutter • Supabase • React",
       repoUrl: "https://github.com/oussamakafif/USTHB-SRC",
+      screens: [
+        { title: "Espace Étudiant", subtitle: "Modules CS & CyberSec", icon: FileText },
+        { title: "Validation Délégué", subtitle: "Modération de cours", icon: CheckCircle2 },
+        { title: "Super Admin", subtitle: "Gestion stockage Supabase", icon: Lock },
+      ],
     },
   ];
 
@@ -1762,6 +1782,7 @@ function WorkPhoneSplitSection({
           isDark={isDark}
           centered={true}
         />
+
       </div>
 
       <div className="relative mt-6">
@@ -1793,15 +1814,27 @@ function WorkPhoneSplitSection({
                 }}
                 className="flex flex-col items-center transition-transform duration-150 ease-out"
               >
-                <div className="relative group/phone w-[290px] sm:w-[305px]">
+                {/* Clickable Mobile Chassis */}
+                <div
+                  onClick={() => onOpenProjectModal(item.id)}
+                  className="relative group/phone w-[290px] sm:w-[305px] cursor-pointer"
+                >
                   <div
                     className={`absolute -inset-3 rounded-[48px] bg-gradient-to-b ${item.accentGlow} blur-2xl opacity-60 group-hover/phone:opacity-100 transition-opacity pointer-events-none`}
                   />
 
+                  {/* Badge overlay on hover to invite click */}
+                  <div className="absolute top-4 inset-x-0 z-30 flex justify-center opacity-0 group-hover/phone:opacity-100 transition-all pointer-events-none -translate-y-1 group-hover/phone:translate-y-0">
+                    <span className="px-3 py-1 rounded-full bg-red-600 text-white font-mono-code text-[10px] font-bold shadow-lg flex items-center gap-1.5">
+                      <span>{lang === "EN" ? "Click to Expand" : "Cliquer pour Agrandir"}</span>
+                      <ExternalLink className="w-3 h-3" />
+                    </span>
+                  </div>
+
                   <div
-                    className={`relative rounded-[40px] p-2.5 border-2 transition-all duration-300 group-hover/phone:-translate-y-1.5 ${
+                    className={`relative rounded-[40px] p-2.5 border-2 transition-all duration-300 group-hover/phone:-translate-y-2 group-hover/phone:scale-[1.02] ${
                       isDark
-                        ? "bg-[#121218] border-white/15 group-hover/phone:border-red-500/60 shadow-[0_25px_60px_-15px_rgba(0,0,0,0.85)]"
+                        ? "bg-[#121218] border-white/15 group-hover/phone:border-red-500 shadow-[0_25px_60px_-15px_rgba(0,0,0,0.85)] group-hover/phone:shadow-[0_25px_60px_-10px_rgba(239,68,68,0.35)]"
                         : "bg-zinc-900 border-zinc-700 group-hover/phone:border-red-500 shadow-[0_25px_50px_-15px_rgba(0,0,0,0.28)]"
                     }`}
                   >
@@ -1822,6 +1855,7 @@ function WorkPhoneSplitSection({
                           <span className="w-1.5 h-1.5 rounded-full bg-red-500" />
                         </div>
                         <label
+                          onClick={(e) => e.stopPropagation()}
                           title={lang === "EN" ? "Upload screenshot" : "Insérer capture d'écran"}
                           className="inline-flex items-center gap-1 text-[9px] font-bold text-red-500 hover:underline cursor-pointer"
                         >
@@ -1844,9 +1878,10 @@ function WorkPhoneSplitSection({
                           />
                           <button
                             type="button"
-                            onClick={() =>
-                              setCustomScreens((prev) => ({ ...prev, [item.id]: "" }))
-                            }
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              setCustomScreens((prev) => ({ ...prev, [item.id]: "" }));
+                            }}
                             className="absolute top-2 right-2 px-2 py-1 rounded-lg bg-black/75 text-white font-mono-code text-[10px] opacity-0 group-hover/scr:opacity-100 transition-opacity cursor-pointer"
                           >
                             Reset
@@ -1873,9 +1908,10 @@ function WorkPhoneSplitSection({
 
                                 <button
                                   type="button"
-                                  onClick={() =>
-                                    setMasarifCurrency(masarifCurrency === "DZD" ? "SAR" : "DZD")
-                                  }
+                                  onClick={(e) => {
+                                    e.stopPropagation();
+                                    setMasarifCurrency(masarifCurrency === "DZD" ? "SAR" : "DZD");
+                                  }}
                                   className="px-2 py-1 rounded-lg bg-red-600 text-white font-mono-code text-[10px] font-bold cursor-pointer"
                                 >
                                   {masarifCurrency === "DZD" ? "DZD" : "SAR"}
@@ -1958,7 +1994,10 @@ function WorkPhoneSplitSection({
                                   <button
                                     key={tab}
                                     type="button"
-                                    onClick={() => setDhTab(tab)}
+                                    onClick={(e) => {
+                                      e.stopPropagation();
+                                      setDhTab(tab);
+                                    }}
                                     className={`py-1 rounded-lg uppercase font-bold transition-all cursor-pointer ${
                                       dhTab === tab ? "bg-red-600 text-white" : "text-zinc-400 hover:text-white"
                                     }`}
@@ -2017,7 +2056,10 @@ function WorkPhoneSplitSection({
                                   <button
                                     key={r}
                                     type="button"
-                                    onClick={() => setUsthbRole(r)}
+                                    onClick={(e) => {
+                                      e.stopPropagation();
+                                      setUsthbRole(r);
+                                    }}
                                     className={`py-1 rounded-lg font-bold transition-all cursor-pointer ${
                                       usthbRole === r ? "bg-red-600 text-white" : "text-zinc-400 hover:text-white"
                                     }`}
@@ -2071,7 +2113,10 @@ function WorkPhoneSplitSection({
                 </div>
 
                 <div className="mt-5 w-full max-w-[295px] text-center flex flex-col items-center">
-                  <h3 className="font-sans font-bold text-lg tracking-tight">
+                  <h3
+                    onClick={() => onOpenProjectModal(item.id)}
+                    className="font-sans font-bold text-lg tracking-tight cursor-pointer hover:text-red-500 transition-colors"
+                  >
                     {item.name}
                   </h3>
                   <p
@@ -2081,20 +2126,29 @@ function WorkPhoneSplitSection({
                   >
                     {item.shortDesc}
                   </p>
-                  <a
-                    href={item.repoUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className={`inline-flex items-center gap-2 px-4 py-2 rounded-full font-mono-code text-xs font-semibold border transition-all hover:border-red-500 hover:text-red-500 ${
-                      isDark
-                        ? "bg-white/[0.03] border-white/10 text-zinc-200"
-                        : "bg-white border-zinc-200 text-zinc-800 shadow-2xs"
-                    }`}
-                  >
-                    <Code2 className="w-3.5 h-3.5" />
-                    <span>GitHub</span>
-                    <ExternalLink className="w-3 h-3 opacity-70" />
-                  </a>
+                  <div className="flex items-center gap-2">
+                    <button
+                      type="button"
+                      onClick={() => onOpenProjectModal(item.id)}
+                      className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full font-mono-code text-xs font-bold bg-red-600 text-white hover:bg-red-500 transition-colors cursor-pointer"
+                    >
+                      <span>Screenshots</span>
+                      <Smartphone className="w-3.5 h-3.5" />
+                    </button>
+                    <a
+                      href={item.repoUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full font-mono-code text-xs font-semibold border transition-all hover:border-red-500 hover:text-red-500 ${
+                        isDark
+                          ? "bg-white/[0.03] border-white/10 text-zinc-200"
+                          : "bg-white border-zinc-200 text-zinc-800 shadow-2xs"
+                      }`}
+                    >
+                      <Github className="w-3.5 h-3.5" />
+                      <span>Code</span>
+                    </a>
+                  </div>
                 </div>
               </motion.div>
             );
@@ -2106,361 +2160,329 @@ function WorkPhoneSplitSection({
 }
 
 /* ============================================================================
- * 1E. SECTION 4: SKILLS & TECHNOLOGIES (#skills)
+ * 1D-B. INTERACTIVE FULL-PAGE / MODAL PROJECT SHOWCASE (Emulators & Captures)
  * ============================================================================ */
 
-interface TechItem {
-  id: string;
-  name: string;
-  color: string;
-  svg: React.ReactNode;
-}
+function ProjectModalViewer({
+  projectId,
+  onClose,
+  isDark,
+  lang,
+  clock,
+}: {
+  projectId: "masarif" | "datahack" | "usthb" | null;
+  onClose: () => void;
+  isDark: boolean;
+  lang: "EN" | "FR";
+  clock: string;
+}) {
+  if (!projectId) return null;
 
-const TECH_ITEMS: TechItem[] = [
-  {
-    id: "flutter",
-    name: "Flutter",
-    color: "#38BDF8",
-    svg: (
-      <svg viewBox="0 0 24 24" className="w-7 h-7" fill="currentColor">
-        <path d="M14.314 0L2.3 12 6 15.7 21.684.013h-7.357zm.014 11.072L7.857 17.53l6.47 6.47H21.7l-6.46-6.468 6.46-6.46h-7.37z" />
-      </svg>
-    ),
-  },
-  {
-    id: "dart",
-    name: "Dart",
-    color: "#00B4AB",
-    svg: (
-      <svg viewBox="0 0 24 24" className="w-7 h-7" fill="currentColor">
-        <path d="M4.105 4.105S9.158 1.58 11.684.316a3.079 3.079 0 0 1 2.526 0L24 5.368v13.264L18.632 24H5.368L.316 14.21a3.079 3.079 0 0 1 0-2.526L4.105 4.105zm2.21 3.474v9.474l5.685 3.158h6.315v-6.316L15.158 8.21 6.315 7.58z" />
-      </svg>
-    ),
-  },
-  {
-    id: "supabase",
-    name: "Supabase",
-    color: "#3ECF8E",
-    svg: (
-      <svg viewBox="0 0 24 24" className="w-7 h-7" fill="currentColor">
-        <path d="M13.7 21.8c-.5.7-1.6.3-1.6-.5v-7.8h8.6c1 0 1.6 1.2.9 2l-7.9 6.3zM10.3 2.2c.5-.7 1.6-.3 1.6.5v7.8H3.3c-1 0-1.6-1.2-.9-2l7.9-6.3z" />
-      </svg>
-    ),
-  },
-  {
-    id: "firebase",
-    name: "Firebase",
-    color: "#FFCA28",
-    svg: (
-      <svg viewBox="0 0 24 24" className="w-7 h-7" fill="currentColor">
-        <path d="M3.89 15.672L6.255.461A.542.542 0 0 1 7.27.288l2.543 4.771zm16.794 3.692l-2.25-14a.54.54 0 0 0-.919-.295L3.316 19.365l7.856 4.427a1.621 1.621 0 0 0 1.588 0zM14.3 7.147l-1.82-3.482a.542.542 0 0 0-.96 0L3.53 17.984z" />
-      </svg>
-    ),
-  },
-  {
-    id: "postgresql",
-    name: "PostgreSQL",
-    color: "#60A5FA",
-    svg: (
-      <svg viewBox="0 0 24 24" className="w-7 h-7" fill="none" stroke="currentColor" strokeWidth="1.9" strokeLinecap="round" strokeLinejoin="round">
-        <ellipse cx="12" cy="5" rx="8" ry="3" />
-        <path d="M4 5v6c0 1.66 3.58 3 8 3s8-1.34 8-3V5" />
-        <path d="M4 11v6c0 1.66 3.58 3 8 3s8-1.34 8-3v-6" />
-      </svg>
-    ),
-  },
-  {
-    id: "java",
-    name: "Java",
-    color: "#F87171",
-    svg: (
-      <svg viewBox="0 0 24 24" className="w-7 h-7" fill="none" stroke="currentColor" strokeWidth="1.9" strokeLinecap="round" strokeLinejoin="round">
-        <path d="M17 8h1a4 4 0 1 1 0 8h-1" />
-        <path d="M3 8h14v7a4 4 0 0 1-4 4H7a4 4 0 0 1-4-4Z" />
-        <path d="M7 2c0 2 2 2 2 4" />
-        <path d="M11 2c0 2 2 2 2 4" />
-      </svg>
-    ),
-  },
-  {
-    id: "javascript",
-    name: "JavaScript",
-    color: "#FACC15",
-    svg: (
-      <svg viewBox="0 0 24 24" className="w-7 h-7" fill="currentColor">
-        <path d="M3 3h18v18H3V3zm10.7 13.7c0 1.8-1 2.6-2.5 2.6-1.3 0-2.1-.7-2.5-1.5l1.4-.8c.3.5.6.9 1.2.9.6 0 1-.2 1-1.2v-5.8h1.4v5.8zm4.8 2.6c-1.5 0-2.5-.7-3-1.7l1.4-.8c.4.6.8 1.1 1.7 1.1.7 0 1.2-.4 1.2-.9 0-.6-.5-.9-1.4-1.3l-.5-.2c-1.4-.6-2.3-1.3-2.3-2.9 0-1.4 1.1-2.5 2.8-2.5 1.2 0 2.1.4 2.7 1.5l-1.3.8c-.3-.5-.7-.8-1.4-.8-.6 0-1 .4-1 .8 0 .6.4.8 1.3 1.2l.5.2c1.6.7 2.5 1.4 2.5 3 0 1.7-1.3 2.5-3.2 2.5z" />
-      </svg>
-    ),
-  },
-  {
-    id: "c",
-    name: "C",
-    color: "#818CF8",
-    svg: (
-      <svg viewBox="0 0 24 24" className="w-7 h-7" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
-        <path d="M17.5 7.5a6.5 6.5 0 1 0 0 9" />
-        <polygon points="12 2 20.5 7 20.5 17 12 22 3.5 17 3.5 7 12 2" strokeWidth="1.5" />
-      </svg>
-    ),
-  },
-  {
-    id: "git",
-    name: "Git",
-    color: "#F97316",
-    svg: (
-      <svg viewBox="0 0 24 24" className="w-7 h-7" fill="none" stroke="currentColor" strokeWidth="1.9" strokeLinecap="round" strokeLinejoin="round">
-        <circle cx="6" cy="6" r="2.5" />
-        <circle cx="18" cy="6" r="2.5" />
-        <circle cx="6" cy="18" r="2.5" />
-        <path d="M6 8.5v7" />
-        <path d="M18 8.5c0 4.5-12 3.5-12 7" />
-      </svg>
-    ),
-  },
-  {
-    id: "github",
-    name: "GitHub",
-    color: "#F4F4F6",
-    svg: (
-      <svg viewBox="0 0 24 24" className="w-7 h-7" fill="currentColor">
-        <path d="M12 2C6.477 2 2 6.477 2 12c0 4.42 2.865 8.166 6.839 9.489.5.092.682-.217.682-.482 0-.237-.008-.866-.013-1.7-2.782.603-3.369-1.34-3.369-1.34-.454-1.156-1.11-1.464-1.11-1.464-.908-.62.069-.608.069-.608 1.003.07 1.531 1.03 1.531 1.03.892 1.529 2.341 1.087 2.91.831.092-.646.35-1.086.636-1.336-2.22-.253-4.555-1.11-4.555-4.943 0-1.091.39-1.984 1.029-2.683-.103-.253-.446-1.27.098-2.647 0 0 .84-.269 2.75 1.025A9.578 9.578 0 0112 6.836c.85.004 1.705.114 2.504.336 1.909-1.294 2.747-1.025 2.747-1.025.546 1.377.203 2.394.1 2.647.64.699 1.028 1.592 1.028 2.683 0 3.842-2.339 4.687-4.566 4.935.359.309.678.919.678 1.852 0 1.336-.012 2.415-.012 2.743 0 .267.18.578.688.48C19.138 20.161 22 16.416 22 12c0-5.523-4.477-10-10-10z" />
-      </svg>
-    ),
-  },
-  {
-    id: "linux",
-    name: "Linux",
-    color: "#EF4444",
-    svg: (
-      <svg viewBox="0 0 24 24" className="w-7 h-7" fill="none" stroke="currentColor" strokeWidth="1.9" strokeLinecap="round" strokeLinejoin="round">
-        <polyline points="4 17 10 11 4 5" />
-        <line x1="12" y1="19" x2="20" y2="19" />
-      </svg>
-    ),
-  },
-  {
-    id: "rest",
-    name: "REST API",
-    color: "#FB7185",
-    svg: (
-      <svg viewBox="0 0 24 24" className="w-7 h-7" fill="none" stroke="currentColor" strokeWidth="1.9" strokeLinecap="round" strokeLinejoin="round">
-        <path d="M12 2v4m0 12v4M4.93 4.93l2.83 2.83m8.48 8.48l2.83 2.83M2 12h4m12 0h4M4.93 19.07l2.83-2.83m8.48-8.48l2.83-2.83" />
-        <circle cx="12" cy="12" r="3" />
-      </svg>
-    ),
-  },
-];
-
-function SkillsSection({ isDark, lang }: { isDark: boolean; lang: "EN" | "FR" }) {
-  const [hoveredIdx, setHoveredIdx] = useState<number | null>(null);
-  const [cursorCoords, setCursorCoords] = useState<{ x: number; y: number } | null>(null);
-  const containerRef = useRef<HTMLDivElement>(null);
-  const cardRefs = useRef<(HTMLDivElement | null)[]>([]);
-  const [proximities, setProximities] = useState<number[]>(() => TECH_ITEMS.map(() => 0));
-
-  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
-    if (!containerRef.current) return;
-    const rect = containerRef.current.getBoundingClientRect();
-    setCursorCoords({
-      x: e.clientX - rect.left,
-      y: e.clientY - rect.top,
-    });
-
-    const nextProximities = cardRefs.current.map((el) => {
-      if (!el) return 0;
-      const b = el.getBoundingClientRect();
-      const cx = b.left + b.width / 2;
-      const cy = b.top + b.height / 2;
-      const dist = Math.hypot(e.clientX - cx, e.clientY - cy);
-      const maxRadius = 210;
-      if (dist >= maxRadius) return 0;
-      const norm = 1 - dist / maxRadius;
-      return Math.pow(norm, 1.5);
-    });
-    setProximities(nextProximities);
+  const projectDetails: Record<
+    "masarif" | "datahack" | "usthb",
+    {
+      title: string;
+      category: string;
+      summary: string;
+      repo: string;
+      stack: string[];
+      emulators: {
+        title: string;
+        tag: string;
+        description: string;
+        accent: string;
+        stats: { label: string; value: string }[];
+      }[];
+    }
+  > = {
+    masarif: {
+      title: "Masarif (مصاريف)",
+      category: lang === "EN" ? "Cross-Border Fintech & Family Budget Tracker" : "Fintech Familiale & Budget Transfrontalier",
+      summary:
+        lang === "EN"
+          ? "Architected for real-time dual-currency tracking between Algeria (DZD) and Saudi Arabia (SAR). Built using Flutter with Supabase Row-Level Security (RLS) ensuring strict personal and family data privacy."
+          : "Conçu pour le suivi instantané en double devise entre l'Algérie (DZD) et l'Arabie Saoudite (SAR). Développé sous Flutter avec la sécurité Supabase Row-Level Security (RLS) pour un cloisonnement étanche des dépenses.",
+      repo: "https://github.com/oussamakafif/masarif",
+      stack: ["Flutter", "Dart", "Supabase", "PostgreSQL", "RLS Engine", "Provider"],
+      emulators: [
+        {
+          title: "Screen 01: Multi-Currency Hub",
+          tag: "DZD ⇄ SAR Engine",
+          description: "Live conversion engine, monthly family ledger, categorized debit/credit entries.",
+          accent: "#EF4444",
+          stats: [
+            { label: "Active Currencies", value: "DZD & SAR" },
+            { label: "Exchange Precision", value: "Realtime API" },
+          ],
+        },
+        {
+          title: "Screen 02: Analytical Left-Tab",
+          tag: "Family Analytics",
+          description: "Interactive visual charts, breakdown per family member, custom date filters.",
+          accent: "#F97316",
+          stats: [
+            { label: "Charts Engine", value: "Custom Canvas" },
+            { label: "Timeframe Filter", value: "Daily/Monthly" },
+          ],
+        },
+        {
+          title: "Screen 03: Security & RLS Vault",
+          tag: "PostgreSQL Guard",
+          description: "Encrypted authentication, role-based table privileges, Row-Level Security.",
+          accent: "#10B981",
+          stats: [
+            { label: "Database", value: "Supabase PG" },
+            { label: "Access Policy", value: "Strict RLS" },
+          ],
+        },
+      ],
+    },
+    datahack: {
+      title: "DataHack Operations App",
+      category: lang === "EN" ? "CSE Flagship Datathon Management Platform" : "Plateforme Opérationnelle du Grand Datathon CSE",
+      summary:
+        lang === "EN"
+          ? "Sole developer for CSE's largest datathon operations: instant participant check-in via camera QR codes, cloud schedule broadcasts, and real-time mentor queue management."
+          : "Développeur solo de l'application de gestion du plus grand datathon du CSE : check-in instantané des participants par QR Code, synchronisation du planning et gestion de la file d'attente des mentors.",
+      repo: "https://github.com/oussamakafif/Organizer-App-DH",
+      stack: ["Flutter", "Dart", "Firebase Auth", "Cloud Firestore", "Mobile Scanner QR"],
+      emulators: [
+        {
+          title: "Screen 01: Sub-Second QR Scanner",
+          tag: "Participant Check-In",
+          description: "Instant barcode and QR hardware scan with real-time Firestore verification.",
+          accent: "#EF4444",
+          stats: [
+            { label: "Scan Latency", value: "< 250ms" },
+            { label: "Participants", value: "150+ Verified" },
+          ],
+        },
+        {
+          title: "Screen 02: Live Datathon Schedule",
+          tag: "Realtime Broadcast",
+          description: "Timeline synchronization, live event announcements, and dynamic phase updates.",
+          accent: "#3B82F6",
+          stats: [
+            { label: "Sync Protocol", value: "Firestore Stream" },
+            { label: "Notification", value: "Cloud Messaging" },
+          ],
+        },
+        {
+          title: "Screen 03: Mentor Dispatch Desk",
+          tag: "Role-Based Guard",
+          description: "Ticket dispatching, organizer approvals, and mentor room allocation.",
+          accent: "#8B5CF6",
+          stats: [
+            { label: "Queue Logic", value: "FIFO Priority" },
+            { label: "Role Guard", value: "Admin / Mentor" },
+          ],
+        },
+      ],
+    },
+    usthb: {
+      title: "USTHB Docs Ecosystem",
+      category: lang === "EN" ? "University Academic Hub & Course Repository" : "Portail Académique & Hub de Ressources USTHB",
+      summary:
+        lang === "EN"
+          ? "Centralizing academic computer science & cybersecurity engineering documents for USTHB students with a granular 3-tier permission engine (Student, Delegate, and Administrator)."
+          : "Centralisation des cours et archives académiques en informatique et cybersécurité de l'USTHB avec un moteur de permissions à 3 niveaux (Étudiant, Délégué et Administrateur).",
+      repo: "https://github.com/oussamakafif/USTHB-SRC",
+      stack: ["Flutter", "Supabase Storage", "PostgreSQL", "React Admin", "PDF Viewer"],
+      emulators: [
+        {
+          title: "Screen 01: Engineering Modules Hub",
+          tag: "CS & CyberSec Stream",
+          description: "Categorized repositories for C programming, OOP Java, Networking, and CTFs.",
+          accent: "#10B981",
+          stats: [
+            { label: "Branches", value: "Cycle Sup & Prépa" },
+            { label: "Format Support", value: "PDF, Code, Slides" },
+          ],
+        },
+        {
+          title: "Screen 02: Delegate Approval Desk",
+          tag: "Content Moderation",
+          description: "Review workflow for student-submitted exam writeups and lecture notes.",
+          accent: "#F59E0B",
+          stats: [
+            { label: "Role Engine", value: "Role-Based ACL" },
+            { label: "Validation", value: "2-Step Verify" },
+          ],
+        },
+        {
+          title: "Screen 03: Cloud Storage Buckets",
+          tag: "Supabase Buckets",
+          description: "Direct signed URLs, document previewing, and low-latency download mirrors.",
+          accent: "#EF4444",
+          stats: [
+            { label: "Storage", value: "Supabase CDN" },
+            { label: "Offline Mode", value: "Cached SQL" },
+          ],
+        },
+      ],
+    },
   };
 
-  const handleMouseLeave = () => {
-    setHoveredIdx(null);
-    setCursorCoords(null);
-    setProximities(TECH_ITEMS.map(() => 0));
-  };
+  const project = projectDetails[projectId];
 
   return (
-    <section
-      id="skills"
-      className={`relative z-10 py-28 overflow-hidden border-t transition-colors duration-500 ${
-        isDark ? "border-white/5 bg-[#070709]/90" : "border-zinc-300/80 bg-[#DFE1E8]/75"
-      }`}
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      className="fixed inset-0 z-[100] overflow-y-auto bg-black/85 backdrop-blur-2xl flex flex-col p-4 sm:p-8"
     >
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 mb-16 text-center relative z-20">
-        <SectionAnimatedHeading
-          firstPart={lang === "EN" ? "Skills &" : "Compétences &"}
-          highlightPart="Technologies"
-          isDark={isDark}
-          centered={true}
-        />
-      </div>
+      <div className="max-w-7xl mx-auto w-full flex-1 flex flex-col">
+        {/* Modal Top Bar */}
+        <div className="flex items-center justify-between pb-6 border-b border-white/10">
+          <div className="flex items-center gap-3">
+            <span className="w-3 h-3 rounded-full bg-red-500 animate-ping" />
+            <div>
+              <span className="font-mono-code text-[11px] uppercase tracking-wider text-red-500 font-bold block">
+                {project.category}
+              </span>
+              <h2 className="font-sans font-extrabold text-2xl sm:text-3xl text-white">
+                {project.title}
+              </h2>
+            </div>
+          </div>
 
-      <div className="max-w-5xl mx-auto px-4 sm:px-6 relative z-20">
-        <div
-          ref={containerRef}
-          onMouseMove={handleMouseMove}
-          onMouseLeave={handleMouseLeave}
-          className={`relative rounded-[32px] p-6 sm:p-10 border backdrop-blur-2xl transition-colors duration-500 overflow-hidden ${
-            isDark
-              ? "bg-[#0C0C12]/90 border-white/10 shadow-[0_30px_80px_-20px_rgba(0,0,0,0.85)]"
-              : "bg-[#ECEEF3]/90 border-zinc-300/90 shadow-[0_25px_60px_-15px_rgba(0,0,0,0.1)]"
-          }`}
-        >
-          {cursorCoords && (
-            <div
-              className="pointer-events-none absolute -inset-px transition-opacity duration-300"
-              style={{
-                background: `radial-gradient(380px circle at ${cursorCoords.x}px ${cursorCoords.y}px, ${
-                  hoveredIdx !== null ? `${TECH_ITEMS[hoveredIdx].color}22` : "rgba(239,68,68,0.13)"
-                }, transparent 70%)`,
-              }}
-            />
-          )}
-
-          <div className="pointer-events-none absolute inset-x-10 top-0 h-[1px] bg-gradient-to-r from-transparent via-red-500/40 to-transparent" />
-
-          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4 sm:gap-5 relative z-10">
-            {TECH_ITEMS.map((tech, idx) => {
-              const prox = proximities[idx] || 0;
-              const isHovered = hoveredIdx === idx;
-              const scale = 1 + prox * 0.16;
-              const liftY = -prox * 10;
-
-              return (
-                <motion.div
-                  key={tech.id}
-                  ref={(el) => {
-                    cardRefs.current[idx] = el;
-                  }}
-                  initial={{ opacity: 0, y: 24 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true, margin: "-30px" }}
-                  transition={{
-                    duration: 0.45,
-                    delay: idx * 0.04,
-                    ease: [0.22, 1, 0.36, 1],
-                  }}
-                  onMouseEnter={() => setHoveredIdx(idx)}
-                  onTouchStart={() => setHoveredIdx(idx)}
-                  style={{
-                    transform: `translate3d(0, ${liftY}px, 0) scale(${scale})`,
-                    transition: "transform 0.16s cubic-bezier(0.22, 1, 0.36, 1)",
-                    zIndex: isHovered ? 30 : 10,
-                  }}
-                  className="group relative"
-                >
-                  <div
-                    className="absolute -inset-1.5 rounded-2xl blur-xl transition-opacity duration-300 pointer-events-none"
-                    style={{
-                      background: tech.color,
-                      opacity: isHovered ? 0.32 : prox * 0.15,
-                    }}
-                  />
-
-                  <div
-                    className={`relative h-28 sm:h-32 rounded-2xl border flex flex-col items-center justify-center gap-3 p-4 transition-colors duration-300 select-none cursor-pointer ${
-                      isDark
-                        ? "bg-[#12121A]/90 border-white/10 group-hover:border-white/25"
-                        : "bg-white/95 border-zinc-200/90 group-hover:border-zinc-400 shadow-sm"
-                    }`}
-                    style={{
-                      borderColor: isHovered ? tech.color : undefined,
-                      boxShadow: isHovered ? `0 12px 30px -10px ${tech.color}55` : undefined,
-                    }}
-                  >
-                    <div
-                      className="transition-transform duration-300 group-hover:scale-110"
-                      style={{
-                        color: isHovered || prox > 0.35 ? tech.color : isDark ? "#E4E4E7" : "#27272A",
-                      }}
-                    >
-                      {tech.svg}
-                    </div>
-                    <span
-                      className={`font-mono-code text-xs font-bold tracking-tight transition-colors ${
-                        isHovered
-                          ? isDark
-                            ? "text-white"
-                            : "text-zinc-950"
-                          : isDark
-                          ? "text-zinc-400"
-                          : "text-zinc-600"
-                      }`}
-                    >
-                      {tech.name}
-                    </span>
-                  </div>
-                </motion.div>
-              );
-            })}
+          <div className="flex items-center gap-3">
+            <a
+              href={project.repo}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 px-4 py-2 rounded-xl font-mono-code text-xs font-bold bg-white/10 text-white hover:bg-red-600 border border-white/15 transition-all"
+            >
+              <Github className="w-4 h-4" />
+              <span>GitHub</span>
+              <ExternalLink className="w-3.5 h-3.5" />
+            </a>
+            <button
+              type="button"
+              onClick={onClose}
+              className="w-10 h-10 rounded-xl bg-white/10 hover:bg-red-600 text-white flex items-center justify-center font-bold text-lg transition-colors cursor-pointer border border-white/15"
+            >
+              ✕
+            </button>
           </div>
         </div>
+
+        {/* Project Description Banner */}
+        <div className="py-6 flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
+          <p className="text-sm sm:text-base text-zinc-300 max-w-3xl leading-relaxed">
+            {project.summary}
+          </p>
+          <div className="flex flex-wrap gap-1.5 shrink-0">
+            {project.stack.map((tech) => (
+              <span
+                key={tech}
+                className="font-mono-code text-[11px] font-bold px-3 py-1 rounded-lg bg-red-500/10 text-red-400 border border-red-500/30"
+              >
+                {tech}
+              </span>
+            ))}
+          </div>
+        </div>
+
+        {/* 3 Realtime Device Mockups Side-by-Side */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 py-6 flex-1 items-center">
+          {project.emulators.map((emu, idx) => (
+            <motion.div
+              key={idx}
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: idx * 0.12 }}
+              className="flex flex-col items-center"
+            >
+              {/* Smartphone Frame */}
+              <div
+                className="relative w-[275px] sm:w-[295px] rounded-[40px] p-2.5 bg-[#101016] border-2 border-white/15 shadow-[0_30px_70px_-15px_rgba(239,68,68,0.25)] transition-transform hover:scale-[1.02]"
+                style={{ borderColor: `${emu.accent}66` }}
+              >
+                <div className="w-full h-[470px] rounded-[30px] bg-[#07070B] overflow-hidden flex flex-col justify-between p-4 text-white relative border border-white/5">
+                  {/* Top Notch */}
+                  <div className="flex items-center justify-between text-[10px] font-mono-code text-zinc-400 border-b border-white/10 pb-2">
+                    <span>{clock}</span>
+                    <div className="w-14 h-3.5 rounded-full bg-black border border-white/10 flex items-center justify-end pr-1.5">
+                      <span className="w-1.5 h-1.5 rounded-full bg-red-500" />
+                    </div>
+                    <span className="font-bold text-red-400">FLUTTER</span>
+                  </div>
+
+                  {/* App Screen Simulation */}
+                  <div className="space-y-3 my-auto">
+                    <div className="p-3 rounded-2xl bg-white/5 border border-white/10 space-y-1">
+                      <span className="font-mono-code text-[10px] font-bold uppercase" style={{ color: emu.accent }}>
+                        {emu.tag}
+                      </span>
+                      <h4 className="font-sans font-bold text-sm leading-tight text-white">
+                        {emu.title}
+                      </h4>
+                      <p className="text-xs text-zinc-400 leading-relaxed pt-1">
+                        {emu.description}
+                      </p>
+                    </div>
+
+                    {/* Stats Grid inside Phone */}
+                    <div className="grid grid-cols-2 gap-2">
+                      {emu.stats.map((st, sIdx) => (
+                        <div key={sIdx} className="p-2.5 rounded-xl bg-white/[0.03] border border-white/5">
+                          <div className="text-[10px] text-zinc-400 font-mono-code">{st.label}</div>
+                          <div className="font-sans font-extrabold text-xs text-white mt-0.5">{st.value}</div>
+                        </div>
+                      ))}
+                    </div>
+
+                    {/* Interactive Mock Data Bars */}
+                    <div className="p-3 rounded-xl bg-white/[0.02] border border-white/5 space-y-2">
+                      <div className="flex justify-between text-[10px] font-mono-code text-zinc-400">
+                        <span>Architecture Pipeline</span>
+                        <span style={{ color: emu.accent }}>Ready</span>
+                      </div>
+                      <div className="h-1.5 w-full bg-white/10 rounded-full overflow-hidden">
+                        <div className="h-full bg-red-500 rounded-full" style={{ width: `${80 + idx * 8}%` }} />
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Gesture bar */}
+                  <div className="pt-2 flex justify-center border-t border-white/5">
+                    <div className="w-20 h-1 rounded-full bg-zinc-600" />
+                  </div>
+                </div>
+              </div>
+
+              {/* Caption below Emulator */}
+              <div className="mt-4 text-center max-w-[270px]">
+                <h4 className="font-sans font-bold text-sm text-white">{emu.title}</h4>
+                <span className="font-mono-code text-xs text-red-400 block mt-0.5">{emu.tag}</span>
+              </div>
+            </motion.div>
+          ))}
+        </div>
+
+        {/* Modal Bottom Close */}
+        <div className="pt-6 border-t border-white/10 flex justify-center">
+          <button
+            type="button"
+            onClick={onClose}
+            className="px-8 py-3 rounded-full bg-red-600 hover:bg-red-500 text-white font-sans font-bold text-sm transition-all cursor-pointer shadow-lg shadow-red-600/30"
+          >
+            {lang === "EN" ? "Close Project Gallery" : "Fermer la Galerie"}
+          </button>
+        </div>
       </div>
-    </section>
+    </motion.div>
   );
 }
 
 /* ============================================================================
- * 0B. PERSPECTIVE 3D TUNNEL INTRO ("INTO THE WORKSPACE" - Oussama Edition)
+ * 1D-C. 3D TUNNEL INTRO DATA & SUBCOMPONENTS
  * ============================================================================ */
 
-const TUNNEL_ITEMS = [
-  {
-    src: "https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?auto=format&fit=crop&w=800&q=80",
-    title: "FLUTTER • DART",
-    tag: "Cross-Platform Mobile",
-  },
-  {
-    src: "https://images.unsplash.com/photo-1550751827-4bd374c3f58b?auto=format&fit=crop&w=800&q=80",
-    title: "USTHB • CYBERSEC",
-    tag: "Engineering Cycle",
-  },
-  {
-    src: "https://images.unsplash.com/photo-1540575467063-178a50c2df87?auto=format&fit=crop&w=800&q=80",
-    title: "CSE • RELEV MANAGER",
-    tag: "ICT Summit & DataHack",
-  },
-  {
-    src: "https://images.unsplash.com/photo-1563986768609-322da13575f3?auto=format&fit=crop&w=800&q=80",
-    title: "MASARIF • مصاريف",
-    tag: "DZD ⇄ SAR Fintech",
-  },
-  {
-    src: "https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?auto=format&fit=crop&w=800&q=80",
-    title: "CTF • NETWORKING",
-    tag: "Security Architecture",
-  },
-  {
-    src: "https://images.unsplash.com/photo-1555066931-4365d14bab8c?auto=format&fit=crop&w=800&q=80",
-    title: "SUPABASE • FIREBASE",
-    tag: "Realtime Cloud & RLS",
-  },
-  {
-    src: "https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?auto=format&fit=crop&w=800&q=80",
-    title: "DATAHACK • APP",
-    tag: "Flagship Datathon Ops",
-  },
-  {
-    src: "https://images.unsplash.com/photo-1461749280684-dccba630e2f6?auto=format&fit=crop&w=800&q=80",
-    title: "USTHB • DOCS",
-    tag: "3-Role Academic Hub",
-  },
-  {
-    src: "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=800&q=80",
-    title: "JAVA • OOP & C",
-    tag: "Core Systems",
-  },
-];
-
 interface TunnelCardData {
-  item: { src: string; title: string; tag: string };
+  item: { title: string; category: string; accent: string };
   angleCos: number;
   angleSin: number;
   radiusFactorX: number;
@@ -2468,6 +2490,17 @@ interface TunnelCardData {
   rotationZ: number;
   index: number;
 }
+
+const TUNNEL_ITEMS = [
+  { title: "Flutter & Dart", category: "Core Mobile SDK", accent: "#EF4444" },
+  { title: "Masarif App", category: "Cross-Border Fintech", accent: "#F97316" },
+  { title: "DataHack App", category: "CSE Flagship Datathon", accent: "#DC2626" },
+  { title: "USTHB CyberSec", category: "Engineering Specialization", accent: "#10B981" },
+  { title: "Supabase & RLS", category: "PostgreSQL Security", accent: "#3B82F6" },
+  { title: "CSE RELEV", category: "Department Manager", accent: "#8B5CF6" },
+  { title: "USTHB Docs", category: "3-Tier Permission Hub", accent: "#EC4899" },
+  { title: "CTFs & Networking", category: "Offensive & Defensive", accent: "#EAB308" },
+];
 
 const TUNNEL_CARDS: TunnelCardData[] = TUNNEL_ITEMS.map((item, i) => {
   const goldenAngle = i * 137.5 * (Math.PI / 180);
@@ -2485,7 +2518,7 @@ const TUNNEL_CARDS: TunnelCardData[] = TUNNEL_ITEMS.map((item, i) => {
   };
 });
 
-const TUNNEL_SPRING_CONFIG = { stiffness: 60, damping: 25, mass: 0.5 };
+const SPRING_CONFIG = { stiffness: 60, damping: 25, mass: 0.5 };
 
 interface StageDimensions {
   width: number;
@@ -2496,8 +2529,8 @@ interface StageDimensions {
 function useCameraParallax(enabled: boolean) {
   const rawX = useMotionValue(0);
   const rawY = useMotionValue(0);
-  const x = useSpring(rawX, TUNNEL_SPRING_CONFIG);
-  const y = useSpring(rawY, TUNNEL_SPRING_CONFIG);
+  const x = useSpring(rawX, SPRING_CONFIG);
+  const y = useSpring(rawY, SPRING_CONFIG);
 
   useEffect(() => {
     if (!enabled) return;
@@ -2531,25 +2564,25 @@ function TunnelCard({
 
   const localProgress = useTransform(progress, [start, end], [0, 1]);
 
-  const farZ = stage.isMobile ? -1200 : -1700;
-  const nearZ = stage.isMobile ? 350 : 500;
+  const farZ = stage.isMobile ? -1100 : -1600;
+  const nearZ = stage.isMobile ? 320 : 480;
   const z = useTransform(localProgress, [0, 1], [farZ, nearZ]);
 
   const opacity = useTransform(localProgress, [0, 0.18, 0.82, 0.98], [0, 1, 1, 0]);
 
   const cardWidth = stage.isMobile
-    ? Math.max(130, Math.min(180, stage.width * 0.38))
-    : Math.max(185, Math.min(265, stage.width * 0.17));
+    ? Math.max(140, Math.min(190, stage.width * 0.42))
+    : Math.max(190, Math.min(280, stage.width * 0.2));
 
   const baseX = card.angleCos * (stage.width * card.radiusFactorX);
   const baseY = card.angleSin * (stage.height * card.radiusFactorY);
-  const panStrength = stage.isMobile ? 20 : 45;
+  const panStrength = stage.isMobile ? 18 : 40;
 
   const transform = useTransform(
     [z, pointer.x, pointer.y],
-    ([currZ, px, py]: any[]) => {
-      const offsetX = baseX - Number(px) * panStrength;
-      const offsetY = baseY - Number(py) * panStrength;
+    ([currZ, px, py]: number[]) => {
+      const offsetX = baseX - px * panStrength;
+      const offsetY = baseY - py * panStrength;
       return `translate3d(calc(-50% + ${offsetX}px), calc(-50% + ${offsetY}px), ${currZ}px) rotateZ(${card.rotationZ}deg)`;
     }
   );
@@ -2564,20 +2597,26 @@ function TunnelCard({
       }}
       className="pointer-events-auto absolute left-1/2 top-1/2 aspect-[4/5] will-change-transform select-none cursor-pointer"
     >
-      <div className="group relative h-full w-full overflow-hidden rounded-2xl bg-zinc-900 shadow-2xl shadow-black/90 ring-1 ring-white/15 transition-all duration-500 hover:ring-red-500/80 hover:shadow-red-500/25">
-        <img
-          src={card.item.src}
-          alt={card.item.title}
-          draggable={false}
-          className="h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-110"
-        />
-        <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/25 to-transparent flex flex-col justify-end p-4">
-          <span className="text-[10px] font-mono-code text-red-400 uppercase tracking-wider">
-            {card.item.tag}
+      <div className="group relative h-full w-full overflow-hidden rounded-2xl bg-[#111118]/90 border border-white/10 p-5 flex flex-col justify-between shadow-2xl shadow-black/80 hover:border-red-500/60 transition-all">
+        <div className="flex items-center justify-between">
+          <span className="font-mono-code text-[10px] uppercase font-bold text-red-500">
+            0{card.index + 1} //
           </span>
-          <span className="text-xs sm:text-sm font-mono-code font-bold tracking-widest uppercase text-white drop-shadow-md mt-0.5">
+          <span className="w-2 h-2 rounded-full" style={{ backgroundColor: card.item.accent }} />
+        </div>
+
+        <div>
+          <span className="text-[11px] font-mono-code text-zinc-400 block mb-1">
+            {card.item.category}
+          </span>
+          <h3 className="font-sans font-extrabold text-lg sm:text-xl text-white leading-tight">
             {card.item.title}
-          </span>
+          </h3>
+        </div>
+
+        <div className="pt-2 border-t border-white/5 flex items-center justify-between text-[10px] font-mono-code text-zinc-500">
+          <span>Oussama Kafif</span>
+          <span style={{ color: card.item.accent }}>Active</span>
         </div>
       </div>
     </motion.div>
@@ -2594,6 +2633,7 @@ export function PerspectiveTunnelIntro({
   const containerRef = useRef<HTMLDivElement>(null);
   const reduce = useReducedMotion();
   const [pct, setPct] = useState(0);
+  const [assetsLoaded, setAssetsLoaded] = useState(false);
 
   const [stage, setStage] = useState<StageDimensions>({
     width: 1440,
@@ -2614,17 +2654,51 @@ export function PerspectiveTunnelIntro({
     return () => window.removeEventListener("resize", updateDimensions);
   }, []);
 
-  const rawProgress = useMotionValue(0.08);
+  const rawProgress = useMotionValue(0.02);
   const smoothProgress = useSpring(rawProgress, {
-    stiffness: 80,
-    damping: 30,
+    stiffness: 70,
+    damping: 26,
     restDelta: 0.0001,
   });
 
+  // Preload portfolio images & auto-advance the 3D tunnel splash loader
+  useEffect(() => {
+    const urlsToPreload = [
+      "/profile.jpeg",
+    ];
+
+    let loadedCount = 0;
+    const markLoaded = () => {
+      loadedCount += 1;
+      if (loadedCount >= urlsToPreload.length) {
+        setAssetsLoaded(true);
+      }
+    };
+
+    urlsToPreload.forEach((src) => {
+      const img = new Image();
+      img.onload = markLoaded;
+      img.onerror = markLoaded;
+      img.src = src;
+    });
+
+    // Smoothly auto-drive the 3D tunnel while preloading so user sees a real splash sequence
+    const interval = setInterval(() => {
+      const curr = rawProgress.get();
+      if (curr < 1) {
+        rawProgress.set(Math.min(1, curr + 0.016));
+      } else {
+        clearInterval(interval);
+      }
+    }, 45);
+
+    return () => clearInterval(interval);
+  }, [rawProgress]);
+
   useEffect(() => {
     const unsub = smoothProgress.on("change", (v) => {
-      setPct(Math.round(v * 100));
-      if (v >= 0.96) {
+      setPct(Math.min(100, Math.round(v * 100)));
+      if (v >= 0.97) {
         onEnter();
       }
     });
@@ -2640,7 +2714,7 @@ export function PerspectiveTunnelIntro({
     const handleWheel = (e: WheelEvent) => {
       e.preventDefault();
       const current = rawProgress.get();
-      const delta = e.deltaY * 0.00095;
+      const delta = e.deltaY * 0.0011;
       const next = Math.min(1, Math.max(0, current + delta));
       rawProgress.set(next);
     };
@@ -2654,7 +2728,7 @@ export function PerspectiveTunnelIntro({
       const dy = touchStartY - y;
       touchStartY = y;
       const current = rawProgress.get();
-      const next = Math.min(1, Math.max(0, current + dy * 0.0025));
+      const next = Math.min(1, Math.max(0, current + dy * 0.0028));
       rawProgress.set(next);
     };
 
@@ -2676,10 +2750,10 @@ export function PerspectiveTunnelIntro({
   return (
     <motion.div
       ref={containerRef}
-      initial={{ opacity: 0 }}
+      initial={{ opacity: 1 }}
       animate={{ opacity: 1 }}
-      exit={{ opacity: 0, scale: 1.08, filter: "blur(12px)" }}
-      transition={{ duration: 0.65, ease: [0.22, 1, 0.36, 1] }}
+      exit={{ opacity: 0, scale: 1.1, filter: "blur(16px)" }}
+      transition={{ duration: 0.75, ease: [0.22, 1, 0.36, 1] }}
       className="fixed inset-0 z-[90] h-[100svh] w-screen overflow-hidden bg-[#060609] text-white select-none flex items-center justify-center"
       style={{
         perspective: stage.isMobile ? "900px" : "1200px",
@@ -2695,14 +2769,18 @@ export function PerspectiveTunnelIntro({
       <div className="absolute top-6 inset-x-6 z-40 flex items-center justify-between max-w-6xl mx-auto">
         <div className="flex items-center gap-2 font-mono-code text-xs text-zinc-400">
           <span className="w-2 h-2 rounded-full bg-red-500 animate-ping" />
-          <span>OUSSAMA.KAFIF // 3D WARP INTRO</span>
+          <span>
+            {assetsLoaded
+              ? "ASSETS READY // INITIALIZING WORKSPACE"
+              : "PRELOADING ASSETS & 3D SHADERS..."}
+          </span>
         </div>
         <button
           type="button"
           onClick={onEnter}
           className="pointer-events-auto inline-flex items-center gap-2 px-4 py-2 rounded-full font-mono-code text-xs font-bold bg-white/10 hover:bg-red-600 text-white border border-white/15 transition-all cursor-pointer"
         >
-          <span>{lang === "EN" ? "Skip to Portfolio" : "Entrer dans le Portfolio"}</span>
+          <span>{lang === "EN" ? "Skip Intro" : "Passer l'Intro"}</span>
           <ArrowRight className="w-3.5 h-3.5" />
         </button>
       </div>
@@ -2721,31 +2799,31 @@ export function PerspectiveTunnelIntro({
         </h1>
         <p className="mt-4 max-w-[40ch] text-sm sm:text-base text-zinc-400">
           {lang === "EN"
-            ? "Scroll your wheel or swipe to fly through my universe, or click below to enter directly."
-            : "Scrolle avec ta souris ou glisse pour traverser mon univers en 3D, ou clique ci-dessous."}
+            ? "Loading your interactive mobile & cybersecurity experience..."
+            : "Chargement de l'expérience interactive mobile & cybersécurité..."}
         </p>
 
         <div className="mt-7 pointer-events-auto flex items-center gap-3">
           <button
             type="button"
-            onClick={() => rawProgress.set(1)}
+            onClick={onEnter}
             className="inline-flex items-center gap-2.5 px-6 py-3 rounded-full font-sans font-bold text-xs sm:text-sm text-white bg-red-600 hover:bg-red-500 shadow-[0_0_30px_rgba(239,68,68,0.65)] transition-all cursor-pointer"
           >
-            <span>{lang === "EN" ? "Launch Into Portfolio" : "Lancer le Portfolio"}</span>
+            <span>{lang === "EN" ? "Enter Portfolio Now" : "Entrer Maintenant"}</span>
             <ArrowRight className="w-4 h-4" />
           </button>
         </div>
       </motion.div>
 
       <div className="pointer-events-none absolute bottom-8 z-30 flex flex-col items-center gap-2.5 text-xs font-mono-code uppercase tracking-[0.25em] text-zinc-400">
-        <div className="w-44 h-1 rounded-full bg-white/10 overflow-hidden">
+        <div className="w-56 h-1.5 rounded-full bg-white/10 overflow-hidden p-[1px]">
           <div
-            className="h-full bg-gradient-to-r from-red-600 to-rose-400 transition-all duration-150"
+            className="h-full rounded-full bg-gradient-to-r from-red-600 via-rose-500 to-amber-400 transition-all duration-100 shadow-[0_0_12px_rgba(239,68,68,0.9)]"
             style={{ width: `${pct}%` }}
           />
         </div>
         <span>
-          {lang === "EN" ? `Scroll to Warp • ${pct}%` : `Scrolle pour Avancer • ${pct}%`}
+          {lang === "EN" ? `Loading Experience • ${pct}%` : `Chargement du Portfolio • ${pct}%`}
         </span>
       </div>
 
@@ -3767,10 +3845,10 @@ function GlassFoldersSection({ isDark, lang }: { isDark: boolean; lang: "EN" | "
       <div className="text-center mb-12">
         <span className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-mono-code font-bold bg-red-500/10 text-red-500 border border-red-500/25 mb-3">
           <FolderOpen className="w-3.5 h-3.5" />
-          <span>{lang === "EN" ? "INTERACTIVE PROJECT ARCHIVES (5 FOLDERS)" : "ARCHIVES INTERACTIVES DES PROJETS (5 DOSSIERS)"}</span>
+          <span>{lang === "EN" ? "PROJECT ARCHIVES" : "ARCHIVES DES PROJETS"}</span>
         </span>
         <h3 className={`font-sans font-extrabold text-2xl sm:text-3xl tracking-tight ${isDark ? "text-white" : "text-zinc-900"}`}>
-          {lang === "EN" ? "Hover to lean glass • Click any folder to fan out files" : "Survole pour incliner le verre • Clique sur un dossier pour déployer les fichiers"}
+          {lang === "EN" ? "More Projects & Experiments" : "Autres Projets & Expériences"}
         </h3>
       </div>
 
@@ -3792,6 +3870,347 @@ function GlassFoldersSection({ isDark, lang }: { isDark: boolean; lang: "EN" | "
         ))}
       </div>
     </div>
+  );
+}
+
+/* ============================================================================
+ * 1F-B. SECTION 4: SKILLS & TECHNOLOGIES COMPONENT (#skills)
+ *       Original Realistic 3D Glass Tactile Dock + Official Vector Logos
+ * ============================================================================ */
+
+interface TechItem {
+  id: string;
+  name: string;
+  color: string;
+  svg: React.ReactNode;
+}
+
+const OFFICIAL_TECH_SKILLS: TechItem[] = [
+  {
+    id: "flutter",
+    name: "Flutter",
+    color: "#38BDF8",
+    svg: (
+      <svg viewBox="0 0 24 24" className="w-8 h-8" fill="currentColor">
+        <path d="M14.314 0L2.3 12 6 15.7 21.684.013h-7.357zm.014 11.072L7.857 17.53l6.47 6.47H21.7l-6.46-6.468 6.46-6.46h-7.37z" />
+      </svg>
+    ),
+  },
+  {
+    id: "dart",
+    name: "Dart",
+    color: "#00B4AB",
+    svg: (
+      <svg viewBox="0 0 24 24" className="w-8 h-8" fill="currentColor">
+        <path d="M4.105 4.105S9.158 1.58 11.684.316a3.079 3.079 0 0 1 2.526.315l5.684 5.685c.632.631.948 1.579.948 2.526v11.368h-11.37L4.106 14.84V4.105zm1.895 12.632l4.42 4.42h8.843v-7.578l-6.947-6.948H5.999v10.106z" />
+      </svg>
+    ),
+  },
+  {
+    id: "supabase",
+    name: "Supabase",
+    color: "#3ECF8E",
+    svg: (
+      <svg viewBox="0 0 24 24" className="w-8 h-8" fill="currentColor">
+        <path d="M13.7 21.8c-.5.6-1.5.2-1.5-.6v-7.5h8.4c1 0 1.6 1.2.9 2l-7.8 6.1zM10.3 2.2c.5-.6 1.5-.2 1.5.6v7.5H3.4c-1 0-1.6-1.2-.9-2l7.8-6.1z" />
+      </svg>
+    ),
+  },
+  {
+    id: "firebase",
+    name: "Firebase",
+    color: "#FFCA28",
+    svg: (
+      <svg viewBox="0 0 24 24" className="w-8 h-8" fill="currentColor">
+        <path d="M3.89 15.672L6.255.461A.542.542 0 0 1 7.27.288l2.543 4.771zm16.794 3.692l-2.25-14a.54.54 0 0 0-.919-.295L3.316 19.365l7.856 4.427a1.621 1.621 0 0 0 1.588 0zM14.3 7.147l-1.82-3.482a.542.542 0 0 0-.96 0L3.53 17.984z" />
+      </svg>
+    ),
+  },
+  {
+    id: "postgresql",
+    name: "PostgreSQL",
+    color: "#60A5FA",
+    svg: (
+      <svg viewBox="0 0 24 24" className="w-8 h-8" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+        <ellipse cx="12" cy="5" rx="9" ry="3" />
+        <path d="M3 5v14c0 1.66 4.03 3 9 3s9-1.34 9-3V5" />
+        <path d="M3 12c0 1.66 4.03 3 9 3s9-1.34 9-3" />
+      </svg>
+    ),
+  },
+  {
+    id: "java",
+    name: "Java",
+    color: "#F97316",
+    svg: (
+      <svg viewBox="0 0 24 24" className="w-8 h-8" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+        <path d="M17 8h1a4 4 0 1 1 0 8h-1" />
+        <path d="M3 8h14v9a4 4 0 0 1-4 4H7a4 4 0 0 1-4-4Z" />
+        <line x1="6" y1="2" x2="6" y2="4" />
+        <line x1="10" y1="2" x2="10" y2="4" />
+        <line x1="14" y1="2" x2="14" y2="4" />
+      </svg>
+    ),
+  },
+  {
+    id: "javascript",
+    name: "JavaScript",
+    color: "#FACC15",
+    svg: (
+      <svg viewBox="0 0 24 24" className="w-8 h-8" fill="currentColor">
+        <rect x="2" y="2" width="20" height="20" rx="4" fillOpacity="0.18" stroke="currentColor" strokeWidth="1.6" />
+        <text x="6.5" y="17" fontSize="10.5" fontWeight="800" fontFamily="JetBrains Mono, monospace" fill="currentColor">
+          JS
+        </text>
+      </svg>
+    ),
+  },
+  {
+    id: "c",
+    name: "C Language",
+    color: "#818CF8",
+    svg: (
+      <svg viewBox="0 0 24 24" className="w-8 h-8" fill="currentColor">
+        <polygon points="12 2 21 7 21 17 12 22 3 17 3 7 12 2" fillOpacity="0.16" stroke="currentColor" strokeWidth="1.6" />
+        <text x="8.2" y="16.2" fontSize="11.5" fontWeight="800" fontFamily="JetBrains Mono, monospace" fill="currentColor">
+          C
+        </text>
+      </svg>
+    ),
+  },
+  {
+    id: "git",
+    name: "Git",
+    color: "#F43F5E",
+    svg: (
+      <svg viewBox="0 0 24 24" className="w-8 h-8" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+        <circle cx="6" cy="6" r="2.5" />
+        <circle cx="18" cy="6" r="2.5" />
+        <circle cx="6" cy="18" r="2.5" />
+        <path d="M6 8.5v7" />
+        <path d="M18 8.5c0 4.5-12 2.5-12 7" />
+      </svg>
+    ),
+  },
+  {
+    id: "github",
+    name: "GitHub",
+    color: "#E4E4E7",
+    svg: (
+      <svg viewBox="0 0 24 24" className="w-8 h-8" fill="currentColor">
+        <path
+          fillRule="evenodd"
+          clipRule="evenodd"
+          d="M12 2C6.477 2 2 6.477 2 12c0 4.42 2.865 8.166 6.839 9.489.5.092.682-.217.682-.482 0-.237-.008-.866-.013-1.7-2.782.603-3.369-1.34-3.369-1.34-.454-1.156-1.11-1.464-1.11-1.464-.908-.62.069-.608.069-.608 1.003.07 1.531 1.03 1.531 1.03.892 1.529 2.341 1.087 2.91.831.092-.646.35-1.086.636-1.336-2.22-.253-4.555-1.11-4.555-4.943 0-1.091.39-1.984 1.029-2.683-.103-.253-.446-1.27.098-2.647 0 0 .84-.269 2.75 1.025A9.578 9.578 0 0112 6.836c.85.004 1.705.114 2.504.336 1.909-1.294 2.747-1.025 2.747-1.025.546 1.377.203 2.394.1 2.647.64.699 1.028 1.592 1.028 2.683 0 3.842-2.339 4.687-4.566 4.935.359.309.678.919.678 1.852 0 1.336-.012 2.415-.012 2.743 0 .267.18.578.688.48C19.138 20.161 22 16.416 22 12c0-5.523-4.477-10-10-10z"
+        />
+      </svg>
+    ),
+  },
+  {
+    id: "linux",
+    name: "Linux",
+    color: "#FBBF24",
+    svg: (
+      <svg viewBox="0 0 24 24" className="w-8 h-8" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+        <rect x="2" y="4" width="20" height="16" rx="3" />
+        <path d="m7 9 3 3-3 3" />
+        <path d="M12 15h5" />
+      </svg>
+    ),
+  },
+  {
+    id: "restapi",
+    name: "REST API",
+    color: "#EF4444",
+    svg: (
+      <svg viewBox="0 0 24 24" className="w-8 h-8" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+        <path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83" />
+        <circle cx="12" cy="12" r="3" />
+      </svg>
+    ),
+  },
+];
+
+function DockKeyItem({
+  tech,
+  mouseX,
+  mouseY,
+  isDark,
+  onSelect,
+  isSelected,
+}: {
+  tech: TechItem;
+  mouseX: MotionValue<number>;
+  mouseY: MotionValue<number>;
+  isDark: boolean;
+  onSelect: () => void;
+  isSelected: boolean;
+}) {
+  const ref = useRef<HTMLButtonElement>(null);
+
+  const distance = useTransform([mouseX, mouseY], ([x, y]: number[]) => {
+    const el = ref.current;
+    if (!el || x === Infinity || y === Infinity) return 999;
+    const rect = el.getBoundingClientRect();
+    const cx = rect.left + rect.width / 2;
+    const cy = rect.top + rect.height / 2;
+    return Math.hypot(x - cx, y - cy);
+  });
+
+  const scaleTransform = useTransform(distance, [0, 110, 240], [1.22, 1.07, 1]);
+  const yTransform = useTransform(distance, [0, 110, 240], [-14, -4, 0]);
+
+  const scale = useSpring(scaleTransform, { stiffness: 320, damping: 22, mass: 0.5 });
+  const y = useSpring(yTransform, { stiffness: 320, damping: 22, mass: 0.5 });
+
+  return (
+    <motion.button
+      ref={ref}
+      type="button"
+      onClick={onSelect}
+      style={{ scale, y }}
+      whileTap={{ scale: 0.94 }}
+      className={`group relative flex flex-col items-center justify-center p-5 sm:p-6 rounded-3xl border transition-colors duration-300 cursor-pointer select-none ${
+        isDark
+          ? "bg-[#101016]/90 border-white/10 hover:border-red-500/60 shadow-[0_18px_38px_-15px_rgba(0,0,0,0.85)]"
+          : "bg-[#ECEEF3]/95 border-zinc-300/90 hover:border-red-500/60 shadow-[0_14px_30px_-12px_rgba(0,0,0,0.12)]"
+      }`}
+    >
+      {/* Top Physical Keycap Specular Rim */}
+      <div
+        className={`absolute inset-x-3 top-0 h-[1px] bg-gradient-to-r from-transparent ${
+          isDark ? "via-white/25" : "via-white"
+        } to-transparent opacity-80`}
+      />
+
+      {/* Ambient Brand Color Glow on Hover / Active */}
+      <div
+        className="absolute inset-0 rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none"
+        style={{
+          background: `radial-gradient(circle at 50% 35%, ${tech.color}26, transparent 72%)`,
+          boxShadow: isSelected ? `0 0 32px -4px ${tech.color}55` : undefined,
+        }}
+      />
+
+      {/* Official Vector Icon */}
+      <div
+        style={{ color: tech.color }}
+        className="relative z-10 w-14 h-14 sm:w-16 sm:h-16 rounded-2xl flex items-center justify-center transition-transform duration-300 group-hover:scale-110"
+      >
+        <div
+          className="absolute inset-0 rounded-2xl opacity-15 group-hover:opacity-30 transition-opacity"
+          style={{ backgroundColor: tech.color }}
+        />
+        {tech.svg}
+      </div>
+
+      {/* Technology Name */}
+      <span
+        className={`relative z-10 mt-3.5 font-sans font-bold text-xs sm:text-sm tracking-tight transition-colors ${
+          isDark ? "text-zinc-200 group-hover:text-white" : "text-zinc-800 group-hover:text-zinc-950"
+        }`}
+      >
+        {tech.name}
+      </span>
+
+      {/* Active / Hover Laser Indicator Dot */}
+      <span
+        className="mt-2 w-6 h-1 rounded-full opacity-35 group-hover:opacity-100 transition-all duration-300 group-hover:w-10"
+        style={{
+          backgroundColor: tech.color,
+          boxShadow: `0 0 10px ${tech.color}`,
+        }}
+      />
+    </motion.button>
+  );
+}
+
+export function SkillsSection({ isDark, lang }: { isDark: boolean; lang: "EN" | "FR" }) {
+  const mouseX = useMotionValue(Infinity);
+  const mouseY = useMotionValue(Infinity);
+  const [selectedIdx, setSelectedIdx] = useState<number>(0);
+
+  return (
+    <section
+      id="skills"
+      onPointerMove={(e) => {
+        mouseX.set(e.clientX);
+        mouseY.set(e.clientY);
+      }}
+      onPointerLeave={() => {
+        mouseX.set(Infinity);
+        mouseY.set(Infinity);
+      }}
+      className={`relative z-10 py-24 px-4 sm:px-6 overflow-hidden border-t transition-colors duration-500 ${
+        isDark ? "border-white/5 bg-[#070709]" : "border-zinc-300/80 bg-[#E2E4EC]"
+      }`}
+    >
+      {/* Subtle Ambient Glow */}
+      <div
+        className="pointer-events-none absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[560px] h-[340px] rounded-full blur-[130px] opacity-25 transition-colors duration-500"
+        style={{ backgroundColor: OFFICIAL_TECH_SKILLS[selectedIdx]?.color || "#EF4444" }}
+      />
+
+      <div className="max-w-5xl mx-auto">
+        {/* Heading matching Hero Name style */}
+        <div className="mb-14 flex flex-col items-center text-center">
+          <SectionAnimatedHeading
+            firstPart="Skills &"
+            highlightPart="Technologies"
+            isDark={isDark}
+            centered={true}
+          />
+        </div>
+
+        {/* Realistic Glass Hardware Dock Surface */}
+        <div
+          className={`relative p-5 sm:p-8 rounded-[36px] border backdrop-blur-2xl transition-colors duration-500 ${
+            isDark
+              ? "bg-[#0B0B10]/85 border-white/10 shadow-[0_30px_90px_-20px_rgba(0,0,0,0.9)]"
+              : "bg-[#D8DBE4]/85 border-zinc-300/90 shadow-[0_25px_60px_-15px_rgba(0,0,0,0.08)]"
+          }`}
+        >
+          {/* Top Dock Status Strip */}
+          <div
+            className={`flex items-center justify-between px-3 pb-5 mb-5 border-b text-xs font-mono-code ${
+              isDark ? "border-white/10 text-zinc-400" : "border-zinc-300/90 text-zinc-600"
+            }`}
+          >
+            <div className="flex items-center gap-2">
+              <span className="w-2.5 h-2.5 rounded-full bg-red-500 animate-pulse" />
+              <span className="uppercase tracking-wider font-bold">
+                {lang === "EN" ? "Interactive Tech Stack" : "Stack Technique Interactive"}
+              </span>
+            </div>
+
+            <div className="flex items-center gap-2">
+              <span
+                className="w-2 h-2 rounded-full"
+                style={{ backgroundColor: OFFICIAL_TECH_SKILLS[selectedIdx]?.color }}
+              />
+              <span className={`font-bold ${isDark ? "text-white" : "text-zinc-900"}`}>
+                {OFFICIAL_TECH_SKILLS[selectedIdx]?.name}
+              </span>
+            </div>
+          </div>
+
+          {/* 12 Tactile Glass Keys with Real Proximity Magnification */}
+          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-3.5 sm:gap-4">
+            {OFFICIAL_TECH_SKILLS.map((tech, idx) => (
+              <DockKeyItem
+                key={tech.id}
+                tech={tech}
+                mouseX={mouseX}
+                mouseY={mouseY}
+                isDark={isDark}
+                isSelected={selectedIdx === idx}
+                onSelect={() => setSelectedIdx(idx)}
+              />
+            ))}
+          </div>
+        </div>
+      </div>
+    </section>
   );
 }
 
@@ -3937,7 +4356,7 @@ function ContactSection({ isDark, lang }: { isDark: boolean; lang: "EN" | "FR" }
                     : "bg-white border-zinc-300 hover:border-red-500 text-zinc-900"
                 }`}
               >
-                <Code2 className="w-4 h-4 text-red-500" />
+                <Github className="w-4 h-4 text-red-500" />
                 <span>GitHub</span>
               </a>
               <a
@@ -3950,7 +4369,7 @@ function ContactSection({ isDark, lang }: { isDark: boolean; lang: "EN" | "FR" }
                     : "bg-white border-zinc-300 hover:border-red-500 text-zinc-900"
                 }`}
               >
-                <BriefcaseBusiness className="w-4 h-4 text-red-500" />
+                <Linkedin className="w-4 h-4 text-red-500" />
                 <span>LinkedIn</span>
               </a>
             </div>
@@ -4079,6 +4498,21 @@ export default function App() {
   const [activeNav, setActiveNav] = useState<number>(0);
   const [clock, setClock] = useState<string>("14:20");
   const [showIntro, setShowIntro] = useState<boolean>(true);
+  const [selectedModalProject, setSelectedModalProject] = useState<"masarif" | "datahack" | "usthb" | null>(null);
+
+  // 3D Perspective Tilt for the Home Mobile
+  const [homeTilt, setHomeTilt] = useState<{ x: number; y: number }>({ x: 0, y: 0 });
+
+  const handleHomeMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+    const rect = e.currentTarget.getBoundingClientRect();
+    const x = ((e.clientX - rect.left) / rect.width - 0.5) * 22;
+    const y = (0.5 - (e.clientY - rect.top) / rect.height) * 22;
+    setHomeTilt({ x, y });
+  };
+
+  const handleHomeMouseLeave = () => {
+    setHomeTilt({ x: 0, y: 0 });
+  };
 
   useEffect(() => {
     const updateClock = () => {
@@ -4099,18 +4533,21 @@ export default function App() {
   useEffect(() => {
     const handleScroll = () => {
       const scrollY = window.scrollY;
+      const aboutEl = document.getElementById("about");
       const expEl = document.getElementById("experience");
       const workEl = document.getElementById("work");
       const skillsEl = document.getElementById("skills");
       const contactEl = document.getElementById("contact");
 
       if (contactEl && scrollY >= contactEl.offsetTop - 320) {
-        setActiveNav(4);
+        setActiveNav(5);
       } else if (skillsEl && scrollY >= skillsEl.offsetTop - 280) {
-        setActiveNav(3);
+        setActiveNav(4);
       } else if (workEl && scrollY >= workEl.offsetTop - 280) {
-        setActiveNav(2);
+        setActiveNav(3);
       } else if (expEl && scrollY >= expEl.offsetTop - 280) {
+        setActiveNav(2);
+      } else if (aboutEl && scrollY >= aboutEl.offsetTop - 280) {
         setActiveNav(1);
       } else {
         setActiveNav(0);
@@ -4122,7 +4559,8 @@ export default function App() {
 
   const navItems: LiquidNavItem[] = [
     { label: lang === "EN" ? "Home" : "Accueil", href: "#home", icon: NimbusIcons.home, fx: "glow" },
-    { label: lang === "EN" ? "Experience" : "Parcours", href: "#experience", icon: NimbusIcons.user, fx: "wave" },
+    { label: lang === "EN" ? "About" : "À propos", href: "#about", icon: NimbusIcons.user, fx: "wave" },
+    { label: lang === "EN" ? "Experience" : "Parcours", href: "#experience", icon: NimbusIcons.drop, fx: "pop" },
     { label: lang === "EN" ? "Work" : "Projets", href: "#work", icon: NimbusIcons.drop, fx: "pop" },
     { label: lang === "EN" ? "Skills" : "Skills", href: "#skills", icon: NimbusIcons.globe, fx: "spin" },
     { label: lang === "EN" ? "Contact" : "Contact", href: "#contact", icon: NimbusIcons.plane, fx: "plane" },
@@ -4420,7 +4858,7 @@ export default function App() {
       <style
         dangerouslySetInnerHTML={{
           __html: `
-          @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
+          @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&display=swap');
           body { font-family: 'Plus Jakarta Sans', sans-serif; }
           .font-mono-code { font-family: 'JetBrains Mono', monospace; }
           .name-crimson-shimmer-dark {
@@ -4430,12 +4868,14 @@ export default function App() {
             -webkit-text-fill-color: transparent;
             animation: crimsonShine 4.5s linear infinite;
           }
+          /* WHITE MODE: 100% PURE BLACK AND DEEP CRIMSON - ZERO WHITE ON TEXT */
           .name-crimson-shimmer-light {
-            background: linear-gradient(110deg, #DC2626 0%, #991B1B 35%, #18181B 50%, #B91C1C 65%, #EF4444 100%);
+            background: linear-gradient(110deg, #DC2626 0%, #991B1B 28%, #09090B 50%, #7F1D1D 72%, #EF4444 100%);
             background-size: 220% auto;
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             animation: crimsonShine 4.5s linear infinite;
+            font-weight: 900;
           }
           @keyframes crimsonShine {
             to { background-position: 220% center; }
@@ -4454,11 +4894,26 @@ export default function App() {
         )}
       </AnimatePresence>
 
-      {/* React Bits Fluid SplashCursor */}
+      {/* Project Multi-Screen Showcase Modal */}
+      <AnimatePresence>
+        {selectedModalProject && (
+          <ProjectModalViewer
+            projectId={selectedModalProject}
+            onClose={() => setSelectedModalProject(null)}
+            isDark={isDark}
+            lang={lang}
+            clock={clock}
+          />
+        )}
+      </AnimatePresence>
+
+      {/* React Bits Fluid SplashCursor — 100% PURE RED PALETTE (RAINBOW OFF) */}
       <SplashCursor
-        rainbow={true}
+        rainbow={false}
+        colors={["#EF4444", "#DC2626", "#B91C1C", "#991B1B"]}
+        colorSpeed={0.5}
         size={1}
-        force={1}
+        force={1.1}
         swirl={3}
         trail={1}
         clickSplash={true}
@@ -4521,199 +4976,513 @@ export default function App() {
         </div>
       </header>
 
-      {/* SECTION 1: HERO (#home) */}
-      <main id="home" className="relative z-10 max-w-6xl mx-auto px-4 sm:px-6 pt-32 pb-20 md:pt-40 md:pb-24">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center">
-          {/* Left Column */}
-          <div className="lg:col-span-7 flex flex-col items-start text-left">
-            <div className="flex flex-wrap items-center gap-2.5 mb-5">
+      {/* =========================================================================
+       * SECTION 1: HERO (#home) — Animated Staggered Entrance & 3D Interactive Phone
+       * ========================================================================= */}
+      <motion.main
+        id="home"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 0.6 }}
+        className="relative z-10 max-w-6xl mx-auto px-4 sm:px-6 pt-32 pb-20 md:pt-40 md:pb-28"
+      >
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-8 items-center">
+          {/* Left Column: Focused on Identity and Mobile Specialization */}
+          <motion.div
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: false, amount: 0.25 }}
+            variants={{
+              hidden: { opacity: 0 },
+              visible: {
+                opacity: 1,
+                transition: { staggerChildren: 0.12, delayChildren: 0.05 },
+              },
+            }}
+            className="lg:col-span-7 flex flex-col items-start text-left"
+          >
+            <motion.div
+              variants={{
+                hidden: { opacity: 0, y: 24, filter: "blur(8px)" },
+                visible: { opacity: 1, y: 0, filter: "blur(0px)", transition: { duration: 0.55, ease: [0.22, 1, 0.36, 1] } },
+              }}
+              className="flex flex-wrap items-center gap-2.5 mb-5"
+            >
+              <span className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-mono-code font-bold bg-red-500/10 border border-red-500/30 text-red-500">
+                <span className="w-2 h-2 rounded-full bg-red-500 animate-ping" />
+                <span>{lang === "EN" ? "Mobile Application Developer" : "Développeur d'Applications Mobiles"}</span>
+              </span>
+
               <span
                 className={`inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-mono-code font-medium border ${
                   isDark
                     ? "bg-white/[0.03] border-white/10 text-zinc-300"
-                    : "bg-[#ECEEF3] border-zinc-300 text-zinc-700"
+                    : "bg-[#ECEEF3] border-zinc-300 text-zinc-800 font-semibold"
                 }`}
               >
                 <MapPin className="w-3.5 h-3.5 text-red-500" />
-                <span>{lang === "EN" ? "Algiers, Algeria 🇩🇿" : "Alger, Algérie 🇩🇿"}</span>
+                <span>Algiers, Algeria 🇩🇿</span>
               </span>
+            </motion.div>
 
-              <span className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-mono-code font-medium bg-red-500/10 border border-red-500/30 text-red-500">
-                <span className="w-2 h-2 rounded-full bg-red-500 animate-ping" />
-                <span>{lang === "EN" ? "Open to Remote & Freelance" : "Dispo Remote & Freelance"}</span>
-              </span>
+            {/* FULL NAME: OUSSAMA KAFIF ANIMATED TOGETHER */}
+            <motion.div
+              variants={{
+                hidden: { opacity: 0, y: 28, filter: "blur(8px)" },
+                visible: { opacity: 1, y: 0, filter: "blur(0px)", transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] } },
+              }}
+            >
+              <HeroAnimatedName isDark={isDark} />
+            </motion.div>
 
-              <button
-                type="button"
-                onClick={() => setShowIntro(true)}
-                className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-mono-code font-bold bg-white/5 hover:bg-red-600 hover:text-white border border-red-500/30 text-red-400 transition-colors cursor-pointer"
-              >
-                <Play className="w-3 h-3" />
-                <span>{lang === "EN" ? "3D Intro" : "Intro 3D"}</span>
-              </button>
-            </div>
-
-            <HeroAnimatedName isDark={isDark} />
-
-            <div className="flex flex-wrap items-center gap-3 mb-5">
-              <h2 className="font-sans font-bold text-2xl sm:text-3xl text-red-500 tracking-tight">
-                {lang === "EN" ? "Flutter Mobile Developer" : "Développeur Mobile Flutter"}
+            <motion.div
+              variants={{
+                hidden: { opacity: 0, y: 24, filter: "blur(6px)" },
+                visible: { opacity: 1, y: 0, filter: "blur(0px)", transition: { duration: 0.55, ease: [0.22, 1, 0.36, 1] } },
+              }}
+              className="flex flex-wrap items-center gap-3 mb-6"
+            >
+              <h2 className="font-sans font-extrabold text-2xl sm:text-3xl text-red-500 tracking-tight">
+                Flutter Mobile Developer
               </h2>
               <span
                 className={`font-mono-code text-[11px] uppercase tracking-widest px-2.5 py-1 rounded-md border ${
                   isDark
                     ? "bg-white/5 text-zinc-300 border-white/10"
-                    : "bg-zinc-900 text-white border-zinc-800"
+                    : "bg-zinc-900 text-white border-zinc-800 font-bold"
                 }`}
               >
-                iOS • Android • CyberSec
+                iOS • Android
               </span>
-            </div>
+            </motion.div>
 
-            <p
-              className={`text-base sm:text-lg leading-relaxed max-w-2xl mb-8 ${
-                isDark ? "text-zinc-400" : "text-zinc-700"
+            {/* YOUR EXACT DESCRIPTION */}
+            <motion.p
+              variants={{
+                hidden: { opacity: 0, y: 24, filter: "blur(6px)" },
+                visible: { opacity: 1, y: 0, filter: "blur(0px)", transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] } },
+              }}
+              className={`text-base sm:text-lg leading-relaxed max-w-xl mb-8 ${
+                isDark ? "text-zinc-400" : "text-zinc-800 font-medium"
               }`}
             >
               {lang === "EN" ? (
                 <>
-                  I design and ship high-performance cross-platform mobile applications with{" "}
-                  <span className="font-semibold text-red-500">Flutter &amp; Dart</span>, backed by{" "}
-                  <span className="font-semibold text-red-500">Supabase &amp; Firebase</span>. Currently a 3rd-year{" "}
-                  <span className="font-semibold">Cybersecurity Engineering student at USTHB</span> &amp;{" "}
-                  <span className="font-semibold">RELEV Department Manager at CSE</span>.
+                  Développeur mobile spécialisé en <span className="font-bold text-red-500">Flutter &amp; Dart</span> et étudiant en 3ème année (Cycle Supérieur) en{" "}
+                  <span className={`font-bold ${isDark ? "text-white" : "text-zinc-950"}`}>Ingénierie Cybersécurité à l'USTHB</span>. Concepteur d'applications mobiles fluides avec Supabase &amp; Firebase, et Manager du département RELEV au Club Scientifique de l'ESI (CSE).
                 </>
               ) : (
                 <>
-                  Je conçois et déploie des applications mobiles multiplateformes fluides avec{" "}
-                  <span className="font-semibold text-red-500">Flutter &amp; Dart</span>, propulsées par{" "}
-                  <span className="font-semibold text-red-500">Supabase &amp; Firebase</span>. Étudiant en 3ème année{" "}
-                  <span className="font-semibold">Ingénierie Cybersécurité à l'USTHB</span> &amp;{" "}
-                  <span className="font-semibold">Manager du Département RELEV au CSE</span>.
+                  Développeur mobile spécialisé en <span className="font-bold text-red-500">Flutter &amp; Dart</span> et étudiant en 3ème année (Cycle Supérieur) en{" "}
+                  <span className={`font-bold ${isDark ? "text-white" : "text-zinc-950"}`}>Ingénierie Cybersécurité à l'USTHB</span>. Concepteur d'applications mobiles réactives avec Supabase &amp; Firebase, et Manager du département RELEV au Club Scientifique de l'ESI (CSE).
                 </>
               )}
-            </p>
+            </motion.p>
 
-            <div className="flex flex-wrap items-center gap-3 sm:gap-4 mb-10">
-              <a
+            <motion.div
+              variants={{
+                hidden: { opacity: 0, y: 24 },
+                visible: { opacity: 1, y: 0, transition: { duration: 0.55, ease: [0.22, 1, 0.36, 1] } },
+              }}
+              className="flex flex-wrap items-center gap-3 sm:gap-4"
+            >
+              <motion.a
+                whileHover={{ scale: 1.04, y: -2 }}
+                whileTap={{ scale: 0.97 }}
                 href="#work"
-                className="group inline-flex items-center gap-2.5 px-6 py-3.5 rounded-xl font-semibold text-sm sm:text-base text-white bg-red-600 hover:bg-red-500 shadow-[0_10px_30px_-5px_rgba(220,38,38,0.55)] transition-all"
+                className="group inline-flex items-center gap-2.5 px-6 py-3.5 rounded-xl font-bold text-sm text-white bg-red-600 hover:bg-red-500 shadow-[0_10px_30px_-5px_rgba(220,38,38,0.55)] transition-all"
               >
-                <span>{lang === "EN" ? "Explore My Work" : "Voir Mes Projets"}</span>
+                <span>{lang === "EN" ? "View Mobile Apps" : "Voir mes Apps"}</span>
                 <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
-              </a>
+              </motion.a>
 
-              <a
-                href="#contact"
+              <motion.a
+                whileHover={{ scale: 1.04, y: -2 }}
+                whileTap={{ scale: 0.97 }}
+                href="#about"
                 className={`inline-flex items-center gap-2 px-5 py-3.5 rounded-xl font-mono-code text-xs sm:text-sm font-bold border transition-all ${
                   isDark
-                    ? "bg-white/[0.04] border-red-500/40 text-red-400 hover:bg-red-600 hover:text-white"
-                    : "bg-white border-red-500/50 text-red-600 hover:bg-red-600 hover:text-white shadow-xs"
+                    ? "bg-white/[0.04] border-white/15 text-zinc-200 hover:border-red-500 hover:text-red-400"
+                    : "bg-white border-zinc-300 text-zinc-900 hover:border-red-500 shadow-2xs"
                 }`}
               >
-                <MessageCircle className="w-4 h-4" />
-                <span>WhatsApp / Contact</span>
-              </a>
+                <span>{lang === "EN" ? "About Me" : "En savoir plus"}</span>
+                <ChevronRight className="w-4 h-4 text-red-500" />
+              </motion.a>
 
-              <a
-                href="https://github.com/oussamakafif"
-                target="_blank"
-                rel="noopener noreferrer"
-                className={`inline-flex items-center gap-2 px-4 py-3.5 rounded-xl font-mono-code text-xs sm:text-sm font-medium border transition-all ${
+              <motion.button
+                type="button"
+                whileHover={{ scale: 1.04, y: -2 }}
+                whileTap={{ scale: 0.97 }}
+                onClick={() => setShowIntro(true)}
+                className={`inline-flex items-center gap-2 px-4 py-3.5 rounded-xl font-mono-code text-xs font-bold border transition-all cursor-pointer ${
                   isDark
-                    ? "bg-[#0F0F14] border-white/10 text-zinc-200 hover:border-red-500/60"
-                    : "bg-[#ECEEF3] border-zinc-300 text-zinc-800 hover:border-red-500/60 shadow-2xs"
+                    ? "bg-red-500/10 border-red-500/30 text-red-400 hover:bg-red-600 hover:text-white"
+                    : "bg-red-50 border-red-300 text-red-700 hover:bg-red-600 hover:text-white"
                 }`}
               >
-                <Code2 className="w-4 h-4" />
-                <span>GitHub</span>
-              </a>
-            </div>
+                <Play className="w-3.5 h-3.5" />
+                <span>{lang === "EN" ? "Replay 3D Splash" : "Rejouer l'Intro 3D"}</span>
+              </motion.button>
+            </motion.div>
+          </motion.div>
 
-            {/* Hero Metrics Strip to make Home richer */}
-            <div
-              className={`grid grid-cols-2 sm:grid-cols-4 gap-3 w-full pt-6 border-t ${
-                isDark ? "border-white/10" : "border-zinc-300"
+          {/* Right Column: Interactive 3D Smartphone with Entrance Animation */}
+          <motion.div
+            initial={{ opacity: 0, y: 45, scale: 0.88, rotateY: -18 }}
+            whileInView={{ opacity: 1, y: 0, scale: 1, rotateY: 0 }}
+            viewport={{ once: false, amount: 0.25 }}
+            transition={{ duration: 0.85, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
+            onMouseMove={handleHomeMouseMove}
+            onMouseLeave={handleHomeMouseLeave}
+            className="lg:col-span-5 flex justify-center items-center relative py-4"
+            style={{ perspective: "1200px" }}
+          >
+            <motion.div
+              animate={{
+                scale: [1, 1.12, 1],
+                opacity: [0.2, 0.35, 0.2],
+              }}
+              transition={{ duration: 4.5, repeat: Infinity, ease: "easeInOut" }}
+              className="absolute w-72 h-72 rounded-full bg-red-600/25 blur-3xl pointer-events-none"
+            />
+
+            {/* Floating Orbiting Mobile Dev Badges */}
+            <motion.div
+              initial={{ opacity: 0, x: -30 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              animate={{ y: [0, -8, 0] }}
+              transition={{ y: { duration: 3.6, repeat: Infinity, ease: "easeInOut" }, opacity: { duration: 0.6, delay: 0.45 } }}
+              className={`hidden sm:flex items-center gap-2 px-3 py-1.5 rounded-full border backdrop-blur-md shadow-lg absolute -left-2 top-10 z-20 font-mono-code text-[11px] font-bold ${
+                isDark ? "bg-[#12121A]/90 border-white/15 text-white" : "bg-white/95 border-zinc-300 text-zinc-900"
               }`}
             >
-              {[
-                { val: "5+", label: lang === "EN" ? "Apps & Systems" : "Apps & Projets" },
-                { val: "6+", label: lang === "EN" ? "CSE Events Led" : "Events CSE Dirigés" },
-                { val: "3rd Yr", label: lang === "EN" ? "USTHB CyberSec" : "USTHB CyberSec" },
-                { val: "100%", label: lang === "EN" ? "Cross-Platform" : "Multiplateforme" },
-              ].map((m, idx) => (
+              <span className="w-2 h-2 rounded-full bg-sky-400 animate-pulse" />
+              <span>Flutter &amp; Dart</span>
+            </motion.div>
+
+            <motion.div
+              initial={{ opacity: 0, x: 30 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              animate={{ y: [0, 8, 0] }}
+              transition={{ y: { duration: 4.2, repeat: Infinity, ease: "easeInOut" }, opacity: { duration: 0.6, delay: 0.55 } }}
+              className={`hidden sm:flex items-center gap-2 px-3 py-1.5 rounded-full border backdrop-blur-md shadow-lg absolute -right-2 bottom-14 z-20 font-mono-code text-[11px] font-bold ${
+                isDark ? "bg-[#12121A]/90 border-white/15 text-white" : "bg-white/95 border-zinc-300 text-zinc-900"
+              }`}
+            >
+              <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
+              <span>Supabase • Firebase</span>
+            </motion.div>
+
+            {/* 3D Interactive Device Frame with dynamic rotation on mouse move */}
+            <motion.div
+              style={{
+                transform: `rotateX(${homeTilt.y}deg) rotateY(${homeTilt.x}deg)`,
+                transition: "transform 0.18s cubic-bezier(0.16, 1, 0.3, 1)",
+                transformStyle: "preserve-3d",
+              }}
+              className={`relative w-[285px] sm:w-[310px] rounded-[44px] p-2.5 border-[2px] transition-shadow duration-300 ${
+                isDark
+                  ? "bg-[#101016] border-white/15 shadow-[0_30px_80px_-15px_rgba(239,68,68,0.3)]"
+                  : "bg-zinc-900 border-zinc-700 shadow-[0_30px_70px_-15px_rgba(0,0,0,0.35)]"
+              }`}
+            >
+              {/* Outer Edge 3D Bevel depth */}
+              <div
+                className="w-full h-[470px] rounded-[34px] overflow-hidden flex flex-col justify-between border relative"
+                style={{
+                  backgroundColor: isDark ? "#09090E" : "#F8FAFC",
+                  borderColor: isDark ? "rgba(255,255,255,0.08)" : "#E2E8F0",
+                  color: isDark ? "#FFFFFF" : "#09090B",
+                }}
+              >
+                {/* Dynamic Island Header */}
+                <div className="px-5 pt-3 pb-2 flex items-center justify-between text-[11px] font-mono-code border-b border-white/5 text-zinc-400">
+                  <span>{clock}</span>
+                  <div className="w-16 h-3.5 rounded-full bg-black border border-white/10 flex items-center justify-end pr-1.5">
+                    <span className="w-1.5 h-1.5 rounded-full bg-red-500 animate-pulse" />
+                  </div>
+                  <span className="text-red-500 font-bold">FLUTTER</span>
+                </div>
+
+                {/* Animated Mobile Screen Simulation */}
+                <div className="p-4 flex-1 flex flex-col justify-between space-y-3">
+                  <div className="space-y-3">
+                    <div className="flex items-center justify-between">
+                      <div className="flex items-center gap-2">
+                        <div className="w-8 h-8 rounded-xl bg-red-500/15 border border-red-500/30 flex items-center justify-center text-red-500">
+                          <Smartphone className="w-4 h-4" />
+                        </div>
+                        <div>
+                          <div className="font-sans font-bold text-xs">Mobile Engineer</div>
+                          <div className="text-[10px] text-zinc-400 font-mono-code">Flutter SDK 3.x</div>
+                        </div>
+                      </div>
+                      <span className="px-2 py-0.5 rounded-full bg-emerald-500/15 text-emerald-400 font-mono-code text-[10px] font-bold">
+                        ● 60 FPS
+                      </span>
+                    </div>
+
+                    <div className="p-3.5 rounded-2xl bg-gradient-to-br from-red-600 via-rose-600 to-red-800 text-white shadow-md">
+                      <div className="text-[10px] font-mono-code uppercase opacity-85">Core Specialization</div>
+                      <div className="font-sans font-extrabold text-lg mt-0.5">Flutter &amp; Dart</div>
+                      <div className="text-[11px] font-mono-code opacity-90 mt-1">Cross-Platform Mobile</div>
+                    </div>
+
+                    <div
+                      className={`p-3 rounded-xl border text-[11px] space-y-2 ${
+                        isDark ? "bg-white/[0.02] border-white/10" : "bg-white border-zinc-200 shadow-2xs"
+                      }`}
+                    >
+                      <div className="flex items-center justify-between">
+                        <span className="text-zinc-400">CyberSec Engineering</span>
+                        <span className="font-mono-code font-bold text-red-500">USTHB 3rd Yr</span>
+                      </div>
+                      <div className="flex items-center justify-between">
+                        <span className="text-zinc-400">Cloud Backends</span>
+                        <span className="font-mono-code font-bold text-emerald-500">Supabase &amp; Firebase</span>
+                      </div>
+                      <div className="flex items-center justify-between">
+                        <span className="text-zinc-400">Department Lead</span>
+                        <span className="font-mono-code font-bold text-sky-400">RELEV CSE Manager</span>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="pt-2 text-center">
+                    <span className="font-mono-code text-[10px] text-zinc-500">
+                      Oussama Kafif • 3D Motion Stage
+                    </span>
+                  </div>
+                </div>
+
+                {/* Bottom Notch Bar */}
+                <div className="py-2.5 flex justify-center border-t border-white/5 bg-black/40">
+                  <div className="w-20 h-1 rounded-full bg-zinc-600" />
+                </div>
+              </div>
+            </motion.div>
+          </motion.div>
+        </div>
+      </motion.main>
+
+      {/* =========================================================================
+       * SECTION 1.5: ABOUT ME (#about) — Animated Staggered Reveal & 3D Portrait
+       * ========================================================================= */}
+      <motion.section
+        id="about"
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: false, amount: 0.22 }}
+        variants={{
+          hidden: { opacity: 0 },
+          visible: {
+            opacity: 1,
+            transition: { staggerChildren: 0.14, delayChildren: 0.05 },
+          },
+        }}
+        className={`relative z-10 py-24 px-4 sm:px-6 border-t overflow-hidden transition-colors duration-500 ${
+          isDark ? "border-white/5 bg-[#08080D]/90" : "border-zinc-300/80 bg-[#DFE1E8]/80"
+        }`}
+      >
+        {/* Subtle Animated Crimson Aura Behind About Section */}
+        <motion.div
+          animate={{
+            x: [0, 30, 0],
+            y: [0, -20, 0],
+            opacity: [0.12, 0.24, 0.12],
+          }}
+          transition={{ duration: 7, repeat: Infinity, ease: "easeInOut" }}
+          className="pointer-events-none absolute -left-20 top-1/3 w-96 h-96 rounded-full bg-red-600/20 blur-[120px]"
+        />
+
+        <div className="max-w-6xl mx-auto relative z-10">
+          <motion.div
+            variants={{
+              hidden: { opacity: 0, y: 24, filter: "blur(6px)" },
+              visible: { opacity: 1, y: 0, filter: "blur(0px)", transition: { duration: 0.55 } },
+            }}
+            className="mb-14 text-center sm:text-left"
+          >
+            <SectionAnimatedHeading
+              firstPart={lang === "EN" ? "About" : "À Propos de"}
+              highlightPart={lang === "EN" ? "Me" : "Moi"}
+              isDark={isDark}
+            />
+            <p className={`text-sm sm:text-base max-w-2xl mt-3 ${isDark ? "text-zinc-400" : "text-zinc-600"}`}>
+              {lang === "EN"
+                ? "Passionate mobile developer and cybersecurity engineering student based in Algiers."
+                : "Développeur mobile passionné et étudiant en ingénierie de la cybersécurité basé à Alger."}
+            </p>
+          </motion.div>
+
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
+            {/* Portrait with 3D Entrance & Floating Badges */}
+            <motion.div
+              variants={{
+                hidden: { opacity: 0, x: -45, scale: 0.9, rotateY: 14 },
+                visible: {
+                  opacity: 1,
+                  x: 0,
+                  scale: 1,
+                  rotateY: 0,
+                  transition: { duration: 0.75, ease: [0.16, 1, 0.3, 1] },
+                },
+              }}
+              className="lg:col-span-5 flex justify-center"
+              style={{ perspective: "1200px" }}
+            >
+              <motion.div
+                whileHover={{ scale: 1.03, rotateY: -5, rotateX: 3 }}
+                transition={{ type: "spring", stiffness: 260, damping: 20 }}
+                className="relative w-[280px] sm:w-[320px] aspect-[4/5] rounded-[36px] p-2 border-2 border-red-500/35 bg-gradient-to-b from-red-500/15 to-transparent shadow-[0_25px_70px_-15px_rgba(239,68,68,0.28)] group"
+              >
+                <div className="w-full h-full rounded-[28px] overflow-hidden relative bg-zinc-900">
+                  <img
+                    src="/profile.jpeg"
+                    alt="Oussama Kafif"
+                    onError={(e) => {
+                      (e.currentTarget as HTMLImageElement).style.display = "none";
+                    }}
+                    className="w-full h-full object-cover object-center transition-transform duration-700 group-hover:scale-105"
+                  />
+                  {/* Subtle Gradient Vignette */}
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent opacity-60 group-hover:opacity-30 transition-opacity" />
+                </div>
+
                 <motion.div
-                  key={idx}
-                  initial={{ opacity: 0, y: 12 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.3 + idx * 0.08 }}
-                  className={`p-3 rounded-2xl border ${
-                    isDark ? "bg-white/[0.02] border-white/10" : "bg-white/75 border-zinc-300"
+                  animate={{ y: [0, -7, 0] }}
+                  transition={{ duration: 3.8, repeat: Infinity, ease: "easeInOut" }}
+                  className={`absolute -left-4 top-8 px-3.5 py-2 rounded-2xl border backdrop-blur-md shadow-lg flex items-center gap-2 font-mono-code text-xs font-bold ${
+                    isDark ? "bg-[#111118]/90 border-white/15 text-white" : "bg-white/95 border-zinc-200 text-zinc-900"
                   }`}
                 >
-                  <div className="font-sans font-extrabold text-xl sm:text-2xl text-red-500">{m.val}</div>
-                  <div className={`font-mono-code text-[11px] mt-0.5 ${isDark ? "text-zinc-400" : "text-zinc-600"}`}>
-                    {m.label}
-                  </div>
+                  <Smartphone className="w-4 h-4 text-sky-400" />
+                  <span>Flutter Dev</span>
                 </motion.div>
-              ))}
-            </div>
-          </div>
 
-          {/* Right Column: Clean Portrait with Floating Mobile Dev Badges */}
-          <div className="lg:col-span-5 flex justify-center items-center relative">
-            <div className="absolute w-72 h-72 rounded-full bg-red-600/20 blur-3xl pointer-events-none" />
+                <motion.div
+                  animate={{ y: [0, 8, 0] }}
+                  transition={{ duration: 4.4, repeat: Infinity, ease: "easeInOut", delay: 0.4 }}
+                  className={`absolute -right-4 top-1/2 px-3.5 py-2 rounded-2xl border backdrop-blur-md shadow-lg flex items-center gap-2 font-mono-code text-xs font-bold ${
+                    isDark ? "bg-[#111118]/90 border-white/15 text-white" : "bg-white/95 border-zinc-200 text-zinc-900"
+                  }`}
+                >
+                  <Shield className="w-4 h-4 text-emerald-400" />
+                  <span>CyberSec</span>
+                </motion.div>
 
-            <div className="relative w-[290px] sm:w-[330px] aspect-[4/5] rounded-[36px] p-2 border-2 border-red-500/35 bg-gradient-to-b from-red-500/15 to-transparent shadow-[0_25px_70px_-15px_rgba(239,68,68,0.28)]">
-              <div className="w-full h-full rounded-[28px] overflow-hidden relative bg-zinc-900">
-                <img
-                  src="/profile.jpeg"
-                  alt="Oussama Kafif"
-                  onError={(e) => {
-                    e.currentTarget.style.display = "none";
-                  }}
-                  className="w-full h-full object-cover object-center"
-                />
-              </div>
+                <motion.div
+                  animate={{ y: [0, -6, 0] }}
+                  transition={{ duration: 4.1, repeat: Infinity, ease: "easeInOut", delay: 0.8 }}
+                  className={`absolute left-6 -bottom-4 px-3.5 py-1.5 rounded-full border backdrop-blur-md shadow-lg flex items-center gap-2 font-mono-code text-[11px] font-bold ${
+                    isDark ? "bg-red-600 text-white border-red-400/40" : "bg-red-600 text-white border-red-500"
+                  }`}
+                >
+                  <span className="w-2 h-2 rounded-full bg-white animate-ping" />
+                  <span>USTHB • CSE RELEV</span>
+                </motion.div>
+              </motion.div>
+            </motion.div>
+
+            {/* Description & Impact Metrics with Staggered Reveal */}
+            <motion.div
+              variants={{
+                hidden: { opacity: 0, x: 40 },
+                visible: {
+                  opacity: 1,
+                  x: 0,
+                  transition: { duration: 0.65, staggerChildren: 0.12 },
+                },
+              }}
+              className="lg:col-span-7 space-y-6"
+            >
+              <motion.h3
+                variants={{
+                  hidden: { opacity: 0, y: 20, filter: "blur(6px)" },
+                  visible: { opacity: 1, y: 0, filter: "blur(0px)", transition: { duration: 0.5 } },
+                }}
+                className={`font-sans font-bold text-2xl sm:text-3xl ${isDark ? "text-white" : "text-zinc-900"}`}
+              >
+                {lang === "EN"
+                  ? "Engineering secure mobile products & driving tech communities."
+                  : "Concevoir des produits mobiles sécurisés et animer les communautés tech."}
+              </motion.h3>
 
               <motion.div
-                animate={{ y: [0, -8, 0] }}
-                transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
-                className={`absolute -left-5 top-8 px-3.5 py-2 rounded-2xl border backdrop-blur-md shadow-lg flex items-center gap-2 font-mono-code text-xs font-bold ${
-                  isDark
-                    ? "bg-[#111118]/90 border-white/15 text-white"
-                    : "bg-white/95 border-zinc-200 text-zinc-900"
-                }`}
+                variants={{
+                  hidden: { opacity: 0, y: 20, filter: "blur(6px)" },
+                  visible: { opacity: 1, y: 0, filter: "blur(0px)", transition: { duration: 0.55 } },
+                }}
+                className={`space-y-4 text-sm sm:text-base leading-relaxed ${isDark ? "text-zinc-300" : "text-zinc-700"}`}
               >
-                <Smartphone className="w-4 h-4 text-sky-400" />
-                <span>Flutter &amp; Dart</span>
+                <p>
+                  {lang === "EN" ? (
+                    <>
+                      I am <span className="font-semibold text-red-500">Oussama Kafif</span>, a 3rd-year engineering student in{" "}
+                      <span className={`font-semibold ${isDark ? "text-white" : "text-zinc-950"}`}>Cybersecurity at USTHB</span> (Université des Sciences et de la Technologie Houari Boumediene). My dual background gives me a distinct edge: building beautiful cross-platform applications while baking robust security, authentication, and data policies right from day one.
+                    </>
+                  ) : (
+                    <>
+                      Je m'appelle <span className="font-semibold text-red-500">Oussama Kafif</span>, étudiant en 3ème année en{" "}
+                      <span className={`font-semibold ${isDark ? "text-white" : "text-zinc-950"}`}>Ingénierie Cybersécurité à l'USTHB</span>. Cette double compétence me permet de concevoir des applications mobiles raffinées tout en garantissant une sécurité et une intégrité de données irréprochables dès la conception.
+                    </>
+                  )}
+                </p>
+
+                <p>
+                  {lang === "EN" ? (
+                    <>
+                      As the <span className="font-semibold text-red-500">RELEV Department Manager at CSE</span> (Club Scientifique de l'ESI), I actively direct hackathons, secure top-tier national sponsors (KEPLER Technologies, BRENCO Algérie), and organize massive events like the <span className="font-semibold">DATA HACK</span> datathon and the upcoming <span className="font-semibold">ICT SUMMIT 2026</span>.
+                    </>
+                  ) : (
+                    <>
+                      En tant que <span className="font-semibold text-red-500">Manager du Département RELEV au CSE</span> (Club Scientifique de l'ESI), je pilote l'organisation de hackathons majeurs, collabore avec des sponsors officiels (KEPLER Technologies, BRENCO Algérie) et dirige le datathon phare <span className="font-semibold">DATA HACK</span> ainsi que l'<span className="font-semibold">ICT SUMMIT 2026</span>.
+                    </>
+                  )}
+                </p>
               </motion.div>
 
+              {/* 4 Impact Stat Cards with Stagger & Hover Lift */}
               <motion.div
-                animate={{ y: [0, 8, 0] }}
-                transition={{ duration: 4.6, repeat: Infinity, ease: "easeInOut", delay: 0.5 }}
-                className={`absolute -right-5 top-1/2 px-3.5 py-2 rounded-2xl border backdrop-blur-md shadow-lg flex items-center gap-2 font-mono-code text-xs font-bold ${
-                  isDark
-                    ? "bg-[#111118]/90 border-white/15 text-white"
-                    : "bg-white/95 border-zinc-200 text-zinc-900"
-                }`}
+                variants={{
+                  hidden: { opacity: 0, y: 20 },
+                  visible: {
+                    opacity: 1,
+                    y: 0,
+                    transition: { staggerChildren: 0.08 },
+                  },
+                }}
+                className="grid grid-cols-2 sm:grid-cols-4 gap-3 pt-3"
               >
-                <Database className="w-4 h-4 text-emerald-400" />
-                <span>Supabase • Firebase</span>
+                {[
+                  { num: "3+", label: lang === "EN" ? "Mobile Apps Built" : "Apps Développées" },
+                  { num: "6+", label: lang === "EN" ? "Events Organized" : "Events Organisés" },
+                  { num: "3rd Yr", label: "USTHB CyberSec" },
+                  { num: "100%", label: "Cross-Platform" },
+                ].map((st, i) => (
+                  <motion.div
+                    key={i}
+                    variants={{
+                      hidden: { opacity: 0, y: 18, scale: 0.92 },
+                      visible: { opacity: 1, y: 0, scale: 1, transition: { duration: 0.4 } },
+                    }}
+                    whileHover={{ y: -5, scale: 1.03, borderColor: "rgba(239,68,68,0.55)" }}
+                    className={`p-3.5 rounded-2xl border transition-colors ${
+                      isDark ? "bg-[#111118]/80 border-white/10" : "bg-white border-zinc-300 shadow-2xs"
+                    }`}
+                  >
+                    <div className="font-sans font-extrabold text-2xl text-red-500">{st.num}</div>
+                    <div className={`text-xs font-mono-code mt-0.5 ${isDark ? "text-zinc-400" : "text-zinc-600"}`}>
+                      {st.label}
+                    </div>
+                  </motion.div>
+                ))}
               </motion.div>
-
-              <motion.div
-                animate={{ y: [0, -6, 0] }}
-                transition={{ duration: 4.2, repeat: Infinity, ease: "easeInOut", delay: 1 }}
-                className="absolute -bottom-4 left-6 px-4 py-2 rounded-2xl bg-red-600 text-white shadow-lg shadow-red-600/35 flex items-center gap-2 font-mono-code text-xs font-bold"
-              >
-                <Shield className="w-3.5 h-3.5" />
-                <span>CyberSec • USTHB</span>
-              </motion.div>
-            </div>
+            </motion.div>
           </div>
         </div>
-      </main>
+      </motion.section>
 
       {/* SECTION 2: EXPERIENCE TIMELINE (#experience) */}
       <Timeline
@@ -4729,7 +5498,12 @@ export default function App() {
       />
 
       {/* SECTION 3A: FEATURED MOBILE WORK (1 -> 3 EMULATOR SPLIT) (#work) */}
-      <WorkPhoneSplitSection isDark={isDark} lang={lang} clock={clock} />
+      <WorkPhoneSplitSection
+        isDark={isDark}
+        lang={lang}
+        clock={clock}
+        onOpenProjectModal={(id) => setSelectedModalProject(id)}
+      />
 
       {/* SECTION 3B: 5 INTERACTIVE 3D GLASS FOLDERS ARCHIVE */}
       <GlassFoldersSection isDark={isDark} lang={lang} />
@@ -4739,6 +5513,220 @@ export default function App() {
 
       {/* SECTION 5: CONTACT & WHATSAPP (#contact) */}
       <ContactSection isDark={isDark} lang={lang} />
+
+      {/* =========================================================================
+       * SECTION 6: ARCHITECTURAL FOOTER — Animated Staggered Scroll Reveal
+       * ========================================================================= */}
+      <motion.footer
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: false, amount: 0.2 }}
+        variants={{
+          hidden: { opacity: 0, y: 40 },
+          visible: {
+            opacity: 1,
+            y: 0,
+            transition: { duration: 0.75, ease: [0.16, 1, 0.3, 1], staggerChildren: 0.12 },
+          },
+        }}
+        className="relative z-10 w-full overflow-hidden border-t border-white/10 bg-[#060609] text-white pt-16 pb-12"
+      >
+        {/* Animated Top Laser Horizon Line */}
+        <motion.div
+          initial={{ scaleX: 0, opacity: 0 }}
+          whileInView={{ scaleX: 1, opacity: 1 }}
+          viewport={{ once: false }}
+          transition={{ duration: 1.1, ease: [0.16, 1, 0.3, 1] }}
+          className="absolute top-0 inset-x-0 h-[2px] bg-gradient-to-r from-transparent via-red-500 to-transparent origin-center shadow-[0_0_20px_rgba(239,68,68,0.9)]"
+        />
+
+        {/* Subtle Architectural Dot Grid */}
+        <div
+          className="pointer-events-none absolute inset-0 opacity-20"
+          style={{
+            backgroundImage: "radial-gradient(#ffffff 1px, transparent 1px)",
+            backgroundSize: "24px 24px",
+          }}
+        />
+
+        {/* Pulsing Crimson Glow Accent */}
+        <motion.div
+          animate={{
+            scale: [1, 1.25, 1],
+            opacity: [0.15, 0.3, 0.15],
+          }}
+          transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
+          className="pointer-events-none absolute -top-12 left-1/2 -translate-x-1/2 w-64 h-64 rounded-full bg-red-600/25 blur-3xl"
+        />
+
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 relative z-10">
+          <div className="grid grid-cols-1 md:grid-cols-12 gap-10 pb-14 border-b border-white/10">
+            {/* Col 1: Identity & Headline */}
+            <motion.div
+              variants={{
+                hidden: { opacity: 0, y: 30, filter: "blur(6px)" },
+                visible: { opacity: 1, y: 0, filter: "blur(0px)", transition: { duration: 0.6 } },
+              }}
+              className="md:col-span-5 space-y-4"
+            >
+              <span className="font-mono-code text-[11px] font-bold uppercase tracking-[0.22em] text-red-500 flex items-center gap-2">
+                <span className="w-2 h-2 rounded-full bg-red-500 animate-ping" />
+                <span>FLUTTER &amp; CYBERSECURITY ENGINEER</span>
+              </span>
+              <h2 className="font-sans font-extrabold text-4xl sm:text-5xl tracking-tight name-crimson-shimmer-dark inline-block">
+                Oussama Kafif
+              </h2>
+              <p className="text-sm text-zinc-400 max-w-sm leading-relaxed">
+                I design and build secure, user-focused cross-platform mobile products with clean Flutter architectures, Supabase backends, and pragmatic engineering decisions.
+              </p>
+              <div className="flex flex-wrap gap-2 pt-2">
+                {["Flutter", "Dart", "Supabase", "Firebase", "PostgreSQL", "CyberSec"].map((tag, idx) => (
+                  <motion.span
+                    key={tag}
+                    whileHover={{ y: -3, scale: 1.06, borderColor: "rgba(239,68,68,0.6)" }}
+                    transition={{ duration: 0.18, delay: idx * 0.02 }}
+                    className="font-mono-code text-[10px] px-2.5 py-1 rounded-md bg-white/5 border border-white/10 text-zinc-300 cursor-default"
+                  >
+                    {tag}
+                  </motion.span>
+                ))}
+              </div>
+            </motion.div>
+
+            {/* Col 2: Navigate */}
+            <motion.div
+              variants={{
+                hidden: { opacity: 0, y: 30, filter: "blur(6px)" },
+                visible: { opacity: 1, y: 0, filter: "blur(0px)", transition: { duration: 0.6 } },
+              }}
+              className="md:col-span-2 space-y-3"
+            >
+              <span className="font-mono-code text-xs font-bold uppercase tracking-wider text-zinc-400 block">
+                NAVIGATE
+              </span>
+              <ul className="space-y-2 text-sm font-medium text-zinc-300">
+                {[
+                  { label: "Home", href: "#home" },
+                  { label: "About", href: "#about" },
+                  { label: "Experience", href: "#experience" },
+                  { label: "Work", href: "#work" },
+                  { label: "Skills", href: "#skills" },
+                  { label: "Contact", href: "#contact" },
+                ].map((nav) => (
+                  <li key={nav.label}>
+                    <motion.a
+                      whileHover={{ x: 5 }}
+                      href={nav.href}
+                      className="inline-block hover:text-red-500 transition-colors"
+                    >
+                      {nav.label}
+                    </motion.a>
+                  </li>
+                ))}
+              </ul>
+            </motion.div>
+
+            {/* Col 3: Projects & Pages */}
+            <motion.div
+              variants={{
+                hidden: { opacity: 0, y: 30, filter: "blur(6px)" },
+                visible: { opacity: 1, y: 0, filter: "blur(0px)", transition: { duration: 0.6 } },
+              }}
+              className="md:col-span-2 space-y-3"
+            >
+              <span className="font-mono-code text-xs font-bold uppercase tracking-wider text-zinc-400 block">
+                PROJECTS
+              </span>
+              <ul className="space-y-2 text-sm font-medium text-zinc-300">
+                {[
+                  { label: "Masarif App", url: "https://github.com/oussamakafif/masarif" },
+                  { label: "DataHack App", url: "https://github.com/oussamakafif/Organizer-App-DH" },
+                  { label: "USTHB Docs", url: "https://github.com/oussamakafif/USTHB-SRC" },
+                  { label: "GitHub Repos", url: "https://github.com/oussamakafif" },
+                ].map((proj) => (
+                  <li key={proj.label}>
+                    <motion.a
+                      whileHover={{ x: 5 }}
+                      href={proj.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-1 hover:text-red-500 transition-colors"
+                    >
+                      <span>{proj.label}</span>
+                      <span className="text-xs text-red-500">↗</span>
+                    </motion.a>
+                  </li>
+                ))}
+              </ul>
+            </motion.div>
+
+            {/* Col 4: Reach Me */}
+            <motion.div
+              variants={{
+                hidden: { opacity: 0, y: 30, filter: "blur(6px)" },
+                visible: { opacity: 1, y: 0, filter: "blur(0px)", transition: { duration: 0.6 } },
+              }}
+              className="md:col-span-3 space-y-3"
+            >
+              <span className="font-mono-code text-xs font-bold uppercase tracking-wider text-zinc-400 block">
+                REACH ME
+              </span>
+              <div className="space-y-1.5 text-xs text-zinc-300">
+                <p>
+                  <span className="text-zinc-500">Email:</span>{" "}
+                  <a href="mailto:oussamakf2006@gmail.com" className="text-red-400 hover:underline">
+                    oussamakf2006@gmail.com
+                  </a>
+                </p>
+                <p>
+                  <span className="text-zinc-500">WhatsApp:</span>{" "}
+                  <a href="https://wa.me/213540047273" target="_blank" rel="noopener noreferrer" className="text-emerald-400 hover:underline">
+                    +213 540 04 72 73
+                  </a>
+                </p>
+                <p><span className="text-zinc-500">Location:</span> Algiers, Algeria</p>
+                <p><span className="text-zinc-500">Availability:</span> Open to freelance &amp; remote mobile roles</p>
+              </div>
+
+              <div className="flex items-center gap-4 pt-3 font-mono-code text-xs font-bold">
+                <motion.a whileHover={{ y: -2 }} href="https://github.com/oussamakafif" target="_blank" rel="noopener noreferrer" className="hover:text-red-500 transition-colors">
+                  GITHUB
+                </motion.a>
+                <motion.a whileHover={{ y: -2 }} href="https://www.linkedin.com/in/oussama-kafif-31558a320/" target="_blank" rel="noopener noreferrer" className="hover:text-red-500 transition-colors">
+                  LINKEDIN
+                </motion.a>
+                <motion.a whileHover={{ y: -2 }} href="mailto:oussamakf2006@gmail.com" className="hover:text-red-500 transition-colors">
+                  EMAIL
+                </motion.a>
+              </div>
+            </motion.div>
+          </div>
+
+          {/* Bottom Bar: Copyright & Back to Top */}
+          <motion.div
+            variants={{
+              hidden: { opacity: 0, y: 16 },
+              visible: { opacity: 1, y: 0, transition: { duration: 0.55 } },
+            }}
+            className="pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs font-mono-code text-zinc-500"
+          >
+            <div>
+              © 2026 Oussama Kafif. Crafted with intent in Algiers, Algeria.
+            </div>
+
+            <motion.button
+              whileHover={{ y: -3, scale: 1.04 }}
+              whileTap={{ scale: 0.96 }}
+              type="button"
+              onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+              className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 border border-white/10 text-zinc-300 hover:text-white hover:border-red-500/50 transition-colors cursor-pointer"
+            >
+              <span>BACK TO TOP</span>
+              <span className="text-red-500">↗</span>
+            </motion.button>
+          </motion.div>
+        </div>
+      </motion.footer>
     </div>
   );
 }
