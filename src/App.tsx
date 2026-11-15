@@ -1143,116 +1143,72 @@ function SectionAnimatedHeading({
   centered?: boolean;
 }) {
   return (
-    <div className={`relative ${centered ? "flex justify-center" : ""}`}>
+    <motion.div
+      initial={{ opacity: 0, y: 18 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, amount: 0.1 }}
+      transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
+      className={`relative ${centered ? "flex justify-center" : ""}`}
+    >
       <h2
         className={`font-sans font-extrabold text-3xl sm:text-5xl lg:text-6xl tracking-tight leading-[1.08] flex flex-wrap items-baseline gap-x-3 ${
           centered ? "justify-center text-center" : ""
         }`}
       >
-        <span className="inline-flex flex-wrap">
-          {firstPart.split("").map((char, index) => (
-            <motion.span
-              key={index}
-              initial={{ opacity: 0, y: 16 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-40px" }}
-              transition={{
-                duration: 0.35,
-                delay: index * 0.025,
-                ease: [0.22, 1, 0.36, 1],
-              }}
-              className={`inline-block cursor-default select-none transition-colors ${
-                char === " " ? "mr-2" : ""
-              } ${isDark ? "text-white" : "text-zinc-950 font-black"}`}
-            >
-              {char === " " ? "\u00A0" : char}
-            </motion.span>
-          ))}
+        <span className={isDark ? "text-white" : "text-zinc-950 font-black"}>
+          {firstPart}
         </span>
 
-        <span className="relative inline-flex">
-          {highlightPart.split("").map((char, index) => (
-            <motion.span
-              key={index}
-              initial={{ opacity: 0, y: 16 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-40px" }}
-              transition={{
-                duration: 0.35,
-                delay: 0.15 + index * 0.025,
-                ease: [0.22, 1, 0.36, 1],
-              }}
-              className="inline-block cursor-default select-none"
-            >
-              <span
-                className={`inline-block cursor-default ${
-                  isDark ? "name-crimson-shimmer-dark" : "name-crimson-shimmer-light font-black"
-                }`}
-              >
-                {char}
-              </span>
-            </motion.span>
-          ))}
+        <span className="relative inline-block">
+          <span
+            className={
+              isDark
+                ? "name-crimson-shimmer-dark inline-block"
+                : "name-crimson-shimmer-light font-black inline-block"
+            }
+          >
+            {highlightPart}
+          </span>
 
           <motion.span
             initial={{ scaleX: 0, opacity: 0 }}
             whileInView={{ scaleX: 1, opacity: 1 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.65, delay: 0.3, ease: [0.16, 1, 0.3, 1] }}
+            transition={{ duration: 0.65, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
             className="absolute -bottom-1.5 left-0 right-0 h-[3px] rounded-full bg-gradient-to-r from-red-600 via-rose-500 to-transparent origin-left shadow-[0_0_12px_rgba(239,68,68,0.8)]"
           />
         </span>
       </h2>
-    </div>
+    </motion.div>
   );
 }
 
 function HeroAnimatedName({ isDark }: { isDark: boolean }) {
-  const fullName = "Oussama Kafif";
-
   return (
     <div className="relative mb-3">
-      <h1 className="font-sans font-extrabold text-4xl sm:text-6xl lg:text-7xl tracking-tight leading-[1.05] flex flex-wrap items-baseline gap-x-3 sm:gap-x-4">
-        {fullName.split(" ").map((word, wordIdx) => (
-          <span key={wordIdx} className="inline-flex">
-            {word.split("").map((char, charIdx) => {
-              const globalIdx = wordIdx * 8 + charIdx;
-              const isLastName = wordIdx === 1;
-              return (
-                <motion.span
-                  key={charIdx}
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{
-                    duration: 0.4,
-                    delay: globalIdx * 0.03,
-                    ease: [0.22, 1, 0.36, 1],
-                  }}
-                  className="inline-block cursor-default select-none"
-                >
-                  <span
-                    className={
-                      isLastName
-                        ? isDark
-                          ? "name-crimson-shimmer-dark"
-                          : "name-crimson-shimmer-light font-black"
-                        : isDark
-                        ? "text-white"
-                        : "text-zinc-950 font-black"
-                    }
-                  >
-                    {char}
-                  </span>
-                </motion.span>
-              );
-            })}
-          </span>
-        ))}
-      </h1>
+      <motion.h1
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+        className="font-sans font-extrabold text-4xl sm:text-6xl lg:text-7xl tracking-tight leading-[1.05] flex flex-wrap items-baseline gap-x-3 sm:gap-x-4"
+      >
+        <span className={isDark ? "text-white" : "text-zinc-950 font-black"}>
+          Oussama
+        </span>
+        <span
+          className={
+            isDark
+              ? "name-crimson-shimmer-dark inline-block"
+              : "name-crimson-shimmer-light font-black inline-block"
+          }
+        >
+          Kafif
+        </span>
+      </motion.h1>
       <motion.div
         initial={{ scaleX: 0, opacity: 0 }}
         animate={{ scaleX: 1, opacity: 1 }}
-        transition={{ duration: 0.7, delay: 0.45, ease: [0.16, 1, 0.3, 1] }}
+        transition={{ duration: 0.7, delay: 0.25, ease: [0.16, 1, 0.3, 1] }}
         className="h-[3px] w-44 sm:w-64 rounded-full bg-gradient-to-r from-red-600 via-rose-500 to-transparent origin-left shadow-[0_0_12px_rgba(239,68,68,0.8)]"
       />
     </div>
