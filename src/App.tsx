@@ -3448,6 +3448,8 @@ function ContactSection({ isDark, lang }: { isDark: boolean; lang: "EN" | "FR" }
   const [subject, setSubject] = useState("");
   const [message, setMessage] = useState("");
   const [submitted, setSubmitted] = useState(false);
+  const [isSending, setIsSending] = useState(false);
+  const [statusMsg, setStatusMsg] = useState("");
   const [copiedPhone, setCopiedPhone] = useState(false);
 
   const handleCopyPhone = () => {
@@ -3456,14 +3458,55 @@ function ContactSection({ isDark, lang }: { isDark: boolean; lang: "EN" | "FR" }
     setTimeout(() => setCopiedPhone(false), 2200);
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setSubmitted(true);
-    const mailtoUrl = `mailto:oussamakf2006@gmail.com?subject=${encodeURIComponent(
-      subject || `Portfolio Contact from ${name}`
-    )}&body=${encodeURIComponent(`Name: ${name}\nEmail: ${email}\n\n${message}`)}`;
-    window.open(mailtoUrl, "_blank");
-    setTimeout(() => setSubmitted(false), 4000);
+    setIsSending(true);
+
+    try {
+      const formData = new URLSearchParams();
+      formData.append("form-name", "contact");
+      formData.append("name", name);
+      formData.append("email", email);
+      formData.append("subject", subject || "Portfolio Contact");
+      formData.append("message", message);
+
+      const res = await fetch("/", {
+        method: "POST",
+        headers: { "Content-Type": "application/x-www-form-urlencoded" },
+        body: formData.toString(),
+      });
+
+      if (res.ok) {
+        setSubmitted(true);
+        setStatusMsg(
+          lang === "EN"
+            ? "Message received! I'll get back to you shortly."
+            : "Message envoyé avec succès ! Je te répondrai rapidement."
+        );
+        setName("");
+        setEmail("");
+        setSubject("");
+        setMessage("");
+      } else {
+        throw new Error("Netlify form offline");
+      }
+    } catch {
+      // Graceful fallback to mailto if offline or testing locally
+      const mailtoUrl = `mailto:oussamakf2006@gmail.com?subject=${encodeURIComponent(
+        subject || `Portfolio Contact from ${name}`
+      )}&body=${encodeURIComponent(`Name: ${name}\nEmail: ${email}\n\n${message}`)}`;
+      window.open(mailtoUrl, "_blank");
+      setSubmitted(true);
+      setStatusMsg(
+        lang === "EN" ? "Opening mail client..." : "Ouverture du client mail..."
+      );
+    } finally {
+      setIsSending(false);
+      setTimeout(() => {
+        setSubmitted(false);
+        setStatusMsg("");
+      }, 6000);
+    }
   };
 
   return (
@@ -3595,6 +3638,10 @@ function ContactSection({ isDark, lang }: { isDark: boolean; lang: "EN" | "FR" }
           </div>
 
           <motion.form
+            name="contact"
+            method="POST"
+            data-netlify="true"
+            data-netlify-honeypot="bot-field"
             onSubmit={handleSubmit}
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -3605,6 +3652,14 @@ function ContactSection({ isDark, lang }: { isDark: boolean; lang: "EN" | "FR" }
                 : "bg-white border-zinc-300 shadow-xl"
             }`}
           >
+            {/* Hidden fields for Netlify Forms */}
+            <input type="hidden" name="form-name" value="contact" />
+            <p className="hidden">
+              <label>
+                Don’t fill this out if you're human: <input name="bot-field" />
+              </label>
+            </p>
+
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-4">
               <div>
                 <label className="block font-mono-code text-xs uppercase tracking-wider text-red-500 mb-2">
@@ -3612,6 +3667,7 @@ function ContactSection({ isDark, lang }: { isDark: boolean; lang: "EN" | "FR" }
                 </label>
                 <input
                   type="text"
+                  name="name"
                   required
                   value={name}
                   onChange={(e) => setName(e.target.value)}
@@ -3629,6 +3685,7 @@ function ContactSection({ isDark, lang }: { isDark: boolean; lang: "EN" | "FR" }
                 </label>
                 <input
                   type="email"
+                  name="email"
                   required
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
@@ -3648,6 +3705,7 @@ function ContactSection({ isDark, lang }: { isDark: boolean; lang: "EN" | "FR" }
               </label>
               <input
                 type="text"
+                name="subject"
                 value={subject}
                 onChange={(e) => setSubject(e.target.value)}
                 placeholder={lang === "EN" ? "Flutter Mobile App / Remote Opportunity" : "Projet Mobile Flutter / Opportunité"}
@@ -3665,6 +3723,7 @@ function ContactSection({ isDark, lang }: { isDark: boolean; lang: "EN" | "FR" }
               </label>
               <textarea
                 rows={4}
+                name="message"
                 required
                 value={message}
                 onChange={(e) => setMessage(e.target.value)}
@@ -3677,15 +3736,28 @@ function ContactSection({ isDark, lang }: { isDark: boolean; lang: "EN" | "FR" }
               />
             </div>
 
+            {statusMsg && (
+              <div className="mb-4 p-3 rounded-xl bg-emerald-500/15 border border-emerald-500/30 text-emerald-400 text-xs font-mono-code flex items-center gap-2">
+                <CheckCircle2 className="w-4 h-4 shrink-0" />
+                <span>{statusMsg}</span>
+              </div>
+            )}
+
             <div className="flex flex-wrap items-center justify-between gap-4">
               <button
                 type="submit"
-                className="inline-flex items-center gap-2.5 px-7 py-3.5 rounded-xl font-sans font-bold text-sm text-white bg-red-600 hover:bg-red-500 shadow-[0_10px_30px_-5px_rgba(220,38,38,0.65)] transition-all cursor-pointer"
+                disabled={isSending}
+                className="inline-flex items-center gap-2.5 px-7 py-3.5 rounded-xl font-sans font-bold text-sm text-white bg-red-600 hover:bg-red-500 disabled:opacity-50 shadow-[0_10px_30px_-5px_rgba(220,38,38,0.65)] transition-all cursor-pointer"
               >
-                {submitted ? (
+                {isSending ? (
+                  <>
+                    <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin" />
+                    <span>{lang === "EN" ? "Sending..." : "Envoi en cours..."}</span>
+                  </>
+                ) : submitted ? (
                   <>
                     <CheckCircle2 className="w-4 h-4" />
-                    <span>{lang === "EN" ? "Opening Email Client..." : "Ouverture du client mail..."}</span>
+                    <span>{lang === "EN" ? "Sent!" : "Envoyé !"}</span>
                   </>
                 ) : (
                   <>
