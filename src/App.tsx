@@ -1308,13 +1308,8 @@ function WorkPhoneSplitSection({
   const [usthbGalleryIdx, setUsthbGalleryIdx] = useState(0);
   const [customScreens, setCustomScreens] = useState<Record<string, string>>({
     masarif: "",
-    datahack: "",
     usthb: "",
   });
-
-  const [masarifCurrency, setMasarifCurrency] = useState<"DZD" | "SAR">("DZD");
-  const [dhTab, setDhTab] = useState<"checkin" | "live" | "mentors">("checkin");
-  const [usthbRole, setUsthbRole] = useState<"Student" | "Delegate" | "Admin">("Student");
 
   const { scrollYProgress } = useScroll({
     target: sectionRef,
@@ -1347,25 +1342,9 @@ function WorkPhoneSplitSection({
       ],
     },
     {
-      id: "datahack",
-      name: "DataHack App",
-      accentGlow: "from-red-600/25 via-rose-500/15 to-transparent",
-      shortDesc:
-        lang === "EN"
-          ? "Real-time organizer app built solo for CSE's flagship DataHack datathon."
-          : "Application mobile temps réel créée pour gérer le datathon phare DataHack du CSE.",
-      stack: "Flutter • Firebase • Firestore",
-      repoUrl: "https://github.com/oussamakafif/Organizer-App-DH",
-      screens: [
-        { title: "QR Check-in", subtitle: "Scannage participant < 1s", icon: QrCode },
-        { title: "Planning Live", subtitle: "Synchronisation Firestore", icon: Rocket },
-        { title: "File Mentors", subtitle: "Role-based dispatch", icon: Users },
-      ],
-    },
-    {
       id: "usthb",
       name: "USTHB Docs",
-      accentGlow: "from-red-600/20 via-rose-500/10 to-transparent",
+      accentGlow: "from-blue-600/20 via-sky-500/10 to-transparent",
       shortDesc:
         lang === "EN"
           ? "Academic document sharing platform with a 3-role permission engine."
@@ -1391,56 +1370,40 @@ function WorkPhoneSplitSection({
     const clamped = Math.max(0, Math.min(1, v));
     const travel = Math.min(1, clamped / 0.38);
     const split = Math.max(0, Math.min(1, (clamped - 0.28) / 0.72));
-    const collapseOffsetPercent = (1 - split) * 104;
-    const descendOffsetPx = (1 - travel) * -60;
-    const rotateYDeg = (1 - split) * 16 + split * 3;
-    const scaleVal = 0.88 + split * 0.12;
+    const collapseOffsetPercent = (1 - split) * 48;
+    const descendOffsetPx = (1 - travel) * -50;
+    const rotateYDeg = (1 - split) * 12 + split * 2;
+    const scaleVal = 0.92 + split * 0.08;
     return `translate3d(${collapseOffsetPercent}%, ${descendOffsetPx}px, 0px) rotateY(${rotateYDeg}deg) scale(${scaleVal})`;
   });
   const card0Opacity = useTransform(scrollYProgress, (v) => {
     if (typeof window !== "undefined" && window.innerWidth < 1024) return 1;
     const clamped = Math.max(0, Math.min(1, v));
     const split = Math.max(0, Math.min(1, (clamped - 0.28) / 0.72));
-    return 0.3 + split * 0.7;
+    return 0.4 + split * 0.6;
   });
 
   const card1Transform = useTransform(scrollYProgress, (v) => {
     if (typeof window !== "undefined" && window.innerWidth < 1024) return "none";
     const clamped = Math.max(0, Math.min(1, v));
     const travel = Math.min(1, clamped / 0.38);
-    const descendOffsetPx = (1 - travel) * -60;
-    const scaleVal = 0.95 + travel * 0.05;
-    return `translate3d(0%, ${descendOffsetPx}px, 0px) rotateY(0deg) scale(${scaleVal})`;
+    const split = Math.max(0, Math.min(1, (clamped - 0.28) / 0.72));
+    const collapseOffsetPercent = -(1 - split) * 48;
+    const descendOffsetPx = (1 - travel) * -50;
+    const rotateYDeg = -(1 - split) * 12 - split * 2;
+    const scaleVal = 0.92 + split * 0.08;
+    return `translate3d(${collapseOffsetPercent}%, ${descendOffsetPx}px, 0px) rotateY(${rotateYDeg}deg) scale(${scaleVal})`;
   });
   const card1Opacity = useTransform(scrollYProgress, (v) => {
     if (typeof window !== "undefined" && window.innerWidth < 1024) return 1;
     const clamped = Math.max(0, Math.min(1, v));
-    const travel = Math.min(1, clamped / 0.38);
-    return 0.5 + travel * 0.5;
-  });
-
-  const card2Transform = useTransform(scrollYProgress, (v) => {
-    if (typeof window !== "undefined" && window.innerWidth < 1024) return "none";
-    const clamped = Math.max(0, Math.min(1, v));
-    const travel = Math.min(1, clamped / 0.38);
     const split = Math.max(0, Math.min(1, (clamped - 0.28) / 0.72));
-    const collapseOffsetPercent = -(1 - split) * 104;
-    const descendOffsetPx = (1 - travel) * -60;
-    const rotateYDeg = -(1 - split) * 16 - split * 3;
-    const scaleVal = 0.88 + split * 0.12;
-    return `translate3d(${collapseOffsetPercent}%, ${descendOffsetPx}px, 0px) rotateY(${rotateYDeg}deg) scale(${scaleVal})`;
-  });
-  const card2Opacity = useTransform(scrollYProgress, (v) => {
-    if (typeof window !== "undefined" && window.innerWidth < 1024) return 1;
-    const clamped = Math.max(0, Math.min(1, v));
-    const split = Math.max(0, Math.min(1, (clamped - 0.28) / 0.72));
-    return 0.3 + split * 0.7;
+    return 0.4 + split * 0.6;
   });
 
   const cardStyles = [
     { transform: card0Transform, opacity: card0Opacity, zIndex: 20 },
-    { transform: card1Transform, opacity: card1Opacity, zIndex: 30 },
-    { transform: card2Transform, opacity: card2Opacity, zIndex: 20 },
+    { transform: card1Transform, opacity: card1Opacity, zIndex: 20 },
   ];
 
   return (
@@ -1465,7 +1428,7 @@ function WorkPhoneSplitSection({
 
       <div className="relative mt-6">
         <div
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 lg:gap-8 items-start relative z-10"
+          className="grid grid-cols-1 md:grid-cols-2 gap-10 lg:gap-14 max-w-4xl mx-auto items-start relative z-10"
           style={{ perspective: "1600px" }}
         >
           {workItems.map((item, idx) => {
@@ -1477,7 +1440,7 @@ function WorkPhoneSplitSection({
                   opacity: cardStyles[idx].opacity,
                   zIndex: cardStyles[idx].zIndex,
                 }}
-                className={`flex flex-col items-center ${idx === 2 ? "md:col-span-2 lg:col-span-1" : ""}`}
+                className="flex flex-col items-center"
               >
                 {/* Clickable Mobile Chassis */}
                 <div
@@ -1672,69 +1635,18 @@ function WorkPhoneSplitSection({
                           </div>
                         </div>
                       ) : (
-                        <div className="p-3.5 flex-1 flex flex-col justify-between overflow-y-auto">
-                          {item.id === "datahack" && (
-                            <div className="space-y-2.5">
-                              <div className="flex items-center justify-between">
-                                <div className="flex items-center gap-2">
-                                  <div className="w-7 h-7 rounded-xl bg-red-500/15 border border-red-500/30 flex items-center justify-center text-red-500">
-                                    <QrCode className="w-4 h-4" />
-                                  </div>
-                                  <div>
-                                    <div className="font-sans font-bold text-xs leading-none">DataHack App</div>
-                                    <div className="text-[10px] text-emerald-400 font-mono-code mt-0.5">● Live Sync</div>
-                                  </div>
-                                </div>
-                              </div>
-
-                              <div
-                                className={`grid grid-cols-3 gap-1 p-1 rounded-xl text-[10px] font-mono-code ${
-                                  isDark ? "bg-[#111116]" : "bg-zinc-200/70"
-                                }`}
-                              >
-                                {(["checkin", "live", "mentors"] as const).map((tab) => (
-                                  <button
-                                    key={tab}
-                                    type="button"
-                                    onClick={(e) => {
-                                      e.stopPropagation();
-                                      setDhTab(tab);
-                                    }}
-                                    className={`py-1 rounded-lg uppercase font-bold transition-all cursor-pointer ${
-                                      dhTab === tab ? "bg-red-600 text-white" : "text-zinc-400 hover:text-white"
-                                    }`}
-                                  >
-                                    {tab}
-                                  </button>
-                                ))}
-                              </div>
-
-                              <div
-                                className={`p-3 rounded-2xl border text-center space-y-1.5 ${
-                                  isDark ? "bg-[#111116] border-white/10" : "bg-white border-zinc-200"
-                                }`}
-                              >
-                                <div className="mx-auto w-12 h-12 rounded-2xl bg-red-500/10 border border-red-500/30 flex items-center justify-center text-red-500">
-                                  <QrCode className="w-6 h-6" />
-                                </div>
-                                <div className="font-sans font-bold text-xs">
-                                  {dhTab === "checkin"
-                                    ? "QR Check-In Ready"
-                                    : dhTab === "live"
-                                    ? "Timer: 18h : 42m"
-                                    : "Mentors Queue: 4"}
-                                </div>
-                                <div className="text-[10px] font-mono-code text-zinc-400">148 / 150 Checked In</div>
-                              </div>
-                            </div>
-                          )}
-
+                        <div className="p-4 flex-1 flex flex-col justify-between items-center text-center">
+                          <div className="my-auto space-y-2">
+                            <Smartphone className="w-10 h-10 mx-auto text-zinc-500 opacity-60" />
+                            <div className="font-sans font-bold text-sm">{item.name}</div>
+                            <div className="text-xs font-mono-code text-zinc-400">{item.stack}</div>
+                          </div>
                           <div
-                            className={`pt-2 border-t flex items-center justify-between text-[10px] font-mono-code ${
+                            className={`pt-2 w-full border-t flex items-center justify-center text-[10px] font-mono-code ${
                               isDark ? "border-white/10 text-zinc-500" : "border-zinc-200 text-zinc-500"
                             }`}
                           >
-                            <span>{item.stack}</span>
+                            <span>{item.screens.length} Features</span>
                           </div>
                         </div>
                       )}
