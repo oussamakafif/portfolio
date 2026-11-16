@@ -4648,7 +4648,7 @@ export default function App() {
                     : "bg-zinc-900 text-white border-zinc-800 font-bold"
                 }`}
               >
-                iOS • Android
+                Android
               </span>
             </motion.div>
 
