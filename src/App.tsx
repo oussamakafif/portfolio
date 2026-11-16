@@ -890,7 +890,10 @@ const NIMBUS_CSS = `
 @keyframes nvDoor{0%{fill:transparent}30%{fill:#FCA5A5}100%{fill:rgba(239,68,68,.75)}}
 .nv-ico[data-fx="wave"] svg{animation:nvWave .9s ease-in-out both;transform-origin:50% 92%}
 @keyframes nvWave{0%{transform:none}20%{transform:rotate(-15deg)}40%{transform:rotate(12deg)}60%{transform:rotate(-8deg)}80%{transform:rotate(4deg)}100%{transform:translateY(-1px) scale(1.08)}}
-@media (max-width:640px){.nimbus-nav:not([data-compact="false"]) .nimbus-item{height:42px;padding:0 14px;gap:7px}.nimbus-nav:not([data-compact="false"]) .nimbus-label{font-size:13px}}
+@media (max-width:860px){.nimbus-item{height:40px;padding:0 14px;gap:6px}.nimbus-label{font-size:13px}}
+@media (max-width:640px){.nimbus-nav{padding:4px 6px;gap:2px;max-width:calc(100vw - 16px);overflow-x:auto;-webkit-overflow-scrolling:touch}.nimbus-nav::-webkit-scrollbar{display:none}.nimbus-item{height:35px;padding:0 8px;gap:4px}.nimbus-label{font-size:11.5px}.nv-ico svg{width:13px;height:13px}}
+@media (max-width:440px){.nimbus-nav{padding:3px 4px;gap:1px}.nimbus-item{height:32px;padding:0 6px;gap:3px}.nimbus-label{font-size:10.5px}.nv-ico svg{width:12px;height:12px}}
+@media (max-width:375px){.nimbus-nav{padding:2px 3px;gap:0px}.nimbus-item{height:30px;padding:0 4.5px;gap:2.5px}.nimbus-label{font-size:10px}.nv-ico svg{width:11px;height:11px}}
 `;
 
 const VERT = `attribute vec2 a;void main(){gl_Position=vec4(a,0.,1.);}`;
@@ -4530,8 +4533,8 @@ export default function App() {
       />
 
       {/* Fixed Top Responsive Liquid Glass Navbar */}
-      <header className="fixed top-4 sm:top-5 inset-x-0 z-50 px-3 sm:px-6 pointer-events-none">
-        <div className="max-w-6xl mx-auto flex flex-col lg:flex-row items-center justify-center gap-2.5 relative">
+      <header className="fixed top-2.5 sm:top-5 inset-x-0 z-50 px-2 sm:px-6 pointer-events-none">
+        <div className="max-w-6xl mx-auto flex flex-col lg:flex-row items-center justify-center gap-2 relative">
           <div className="pointer-events-auto max-w-full flex justify-center">
             <LiquidNavbar
               items={navItems}
@@ -4542,7 +4545,7 @@ export default function App() {
             />
           </div>
 
-          <div className="pointer-events-auto lg:absolute lg:right-0 flex items-center gap-2">
+          <div className="pointer-events-auto lg:absolute lg:right-0 flex items-center gap-1.5 sm:gap-2 scale-90 sm:scale-100 origin-top">
             <button
               type="button"
               onClick={() => setLang(lang === "EN" ? "FR" : "EN")}
