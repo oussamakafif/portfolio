@@ -32,6 +32,7 @@ import {
   MessageCircle,
   CheckCircle2,
   Shield,
+  User,
   Users,
   FolderOpen,
   Copy,
@@ -840,13 +841,28 @@ export const NimbusIcons = {
       <path d="M4.8 20c1.2-3.4 4-5 7.2-5s6 1.6 7.2 5" />
     </>
   ),
+  briefcase: I(
+    <>
+      <rect width="18" height="13" x="3" y="6" rx="2" />
+      <path d="M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2" />
+      <path d="M12 11v2" />
+      <path d="M3 13a18 18 0 0 0 18 0" />
+    </>
+  ),
+  history: I(
+    <>
+      <path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8" />
+      <path d="M3 3v5h5" />
+      <path d="M12 7v5l4 2" />
+    </>
+  ),
 };
 
 const DEFAULT_ITEMS: LiquidNavItem[] = [
   { label: "Home", icon: NimbusIcons.home, fx: "glow" },
   { label: "About", icon: NimbusIcons.user, fx: "wave" },
-  { label: "Experience", icon: NimbusIcons.drop, fx: "pop" },
-  { label: "Work", icon: NimbusIcons.drop, fx: "pop" },
+  { label: "Experience", icon: NimbusIcons.history, fx: "pop" },
+  { label: "Work", icon: NimbusIcons.briefcase, fx: "pop" },
   { label: "Skills", icon: NimbusIcons.globe, fx: "spin" },
   { label: "Contact", icon: NimbusIcons.plane, fx: "plane" },
 ];
@@ -1534,6 +1550,42 @@ function SectionAnimatedHeading({
   );
 }
 
+const FlutterOfficialIcon = ({ className = "w-4 h-4" }: { className?: string }) => (
+  <svg viewBox="0 0 24 24" className={className} fill="none">
+    <path d="M14.314 0L2.3 12l4.5 4.5L23.3 0h-8.986z" fill="#54C5F8" />
+    <path d="M14.286 11.5L7.7 18.086 12.2 22.586l4.286-4.286L23.3 11.5h-9.014z" fill="#29B6F6" />
+    <path d="M12.2 22.586l2.1-2.1 4.4 2.1H12.2z" fill="#01579B" />
+    <path d="M16.486 18.3L12.2 14.014l4.286-4.286L20.772 14l-4.286 4.3z" fill="#02569B" />
+  </svg>
+);
+
+const DartOfficialIcon = ({ className = "w-4 h-4" }: { className?: string }) => (
+  <svg viewBox="0 0 24 24" className={className} fill="none">
+    <path d="M4.1 3.5h7.4L19.9 11.9l-4.1 8.6H8.6L4.1 16V3.5z" fill="#0175C2" />
+    <path d="M8.6 20.5l7.3-7.3-3.8-3.8-7.3 7.3 3.8 3.8z" fill="#02569B" />
+    <path d="M4.1 3.5l4.5 4.5H16L11.5 3.5H4.1z" fill="#29B6F6" />
+    <path d="M16 8l3.9 3.9-4.1 8.6-3.8-3.8 4-8.7z" fill="#00B4AB" />
+  </svg>
+);
+
+const HackTheBoxOfficialIcon = ({ className = "w-4 h-4" }: { className?: string }) => (
+  <svg viewBox="0 0 24 24" className={className} fill="currentColor">
+    <path
+      d="M11.996 0a1.119 1.119 0 0 0-.56.152L2.08 5.568a1.119 1.119 0 0 0-.56.969v10.926c0 .4.214.77.56.969l9.356 5.416a1.118 1.118 0 0 0 1.12 0l9.356-5.416c.346-.2.56-.569.56-.969V6.537c0-.4-.214-.77-.56-.969L12.556.152A1.119 1.119 0 0 0 11.996 0zm0 2.298l7.994 4.629-3.327 1.926-7.994-4.629 3.327-1.926zm-8.238 5.767l7.119 4.122v7.697l-7.119-4.122V8.065zm16.476 0v7.697l-7.119 4.122V12.187l7.119-4.122z"
+      fill="#9FEF00"
+    />
+  </svg>
+);
+
+const TryHackMeOfficialIcon = ({ className = "w-4 h-4" }: { className?: string }) => (
+  <svg viewBox="0 0 24 24" className={className} fill="none">
+    <path
+      d="M12 0L1.608 6v12L12 24l10.392-6V6L12 0zm-.008 2.308l8.396 4.848-3.486 2.013-8.396-4.848 3.486-2.013zm-8.384 6.055l7.172 4.14v7.712l-7.172-4.14V8.363zm16.784 0v7.712l-7.172 4.14v-7.712l7.172-4.14z"
+      fill="#EA3223"
+    />
+  </svg>
+);
+
 function HeroAnimatedName({ isDark }: { isDark: boolean }) {
   return (
     <div className="relative mb-3">
@@ -1752,10 +1804,10 @@ function WorkPhoneSplitSection({
                 {/* Clickable Mobile Chassis */}
                 <div
                   onClick={() => onOpenProjectModal(item.id)}
-                  className="relative group/phone w-full max-w-[285px] sm:max-w-[305px] cursor-pointer"
+                  className="relative group/phone w-full max-w-[315px] sm:max-w-[340px] md:max-w-[350px] cursor-pointer"
                 >
                   <div
-                    className={`absolute -inset-3 rounded-[48px] bg-gradient-to-b ${item.accentGlow} blur-xl opacity-50 group-hover/phone:opacity-95 transition-opacity pointer-events-none`}
+                    className={`absolute -inset-3 rounded-[54px] bg-gradient-to-b ${item.accentGlow} blur-xl opacity-50 group-hover/phone:opacity-95 transition-opacity pointer-events-none`}
                   />
 
                   <div className="absolute top-4 inset-x-0 z-30 flex justify-center opacity-0 group-hover/phone:opacity-100 transition-all pointer-events-none -translate-y-1 group-hover/phone:translate-y-0">
@@ -1766,14 +1818,14 @@ function WorkPhoneSplitSection({
                   </div>
 
                   <div
-                    className={`relative rounded-[40px] p-2.5 border-2 transition-all duration-300 group-hover/phone:-translate-y-2 group-hover/phone:scale-[1.02] ${
+                    className={`relative rounded-[46px] p-2.5 sm:p-3 border-2 transition-all duration-300 group-hover/phone:-translate-y-2 group-hover/phone:scale-[1.02] ${
                       isDark
                         ? "bg-[#121218] border-white/15 group-hover/phone:border-red-500 shadow-[0_25px_60px_-15px_rgba(0,0,0,0.85)] group-hover/phone:shadow-[0_25px_60px_-10px_rgba(239,68,68,0.35)]"
                         : "bg-zinc-900 border-zinc-700 group-hover/phone:border-red-500 shadow-[0_25px_50px_-15px_rgba(0,0,0,0.28)]"
                     }`}
                   >
                     <div
-                      className={`w-full h-[420px] rounded-[31px] overflow-hidden flex flex-col justify-between relative border ${
+                      className={`w-full h-[540px] sm:h-[590px] rounded-[36px] overflow-hidden flex flex-col justify-between relative border ${
                         isDark ? "bg-[#08080C] border-white/5 text-white" : "bg-[#F8FAFC] border-zinc-200 text-zinc-950"
                       }`}
                     >
@@ -1783,7 +1835,7 @@ function WorkPhoneSplitSection({
                         }`}
                       >
                         <span>{clock}</span>
-                        <div className="w-14 h-3.5 rounded-full bg-black border border-white/10 flex items-center justify-end pr-1.5">
+                        <div className="w-16 h-3.5 rounded-full bg-black border border-white/10 flex items-center justify-end pr-1.5">
                           <span className="w-1.5 h-1.5 rounded-full bg-red-500" />
                         </div>
                         <label
@@ -1803,19 +1855,37 @@ function WorkPhoneSplitSection({
 
                       {item.id === "masarif" ? (
                         <div className="relative flex-1 w-full h-full overflow-hidden group/masarifpic flex flex-col justify-between">
-                          <img
-                            src={MASARIF_GALLERY[masarifGalleryIdx].src}
-                            alt={MASARIF_GALLERY[masarifGalleryIdx].title}
-                            className="w-full h-full object-cover object-top transition-all duration-300"
-                          />
+                          <motion.div
+                            key={masarifGalleryIdx}
+                            drag="x"
+                            dragConstraints={{ left: 0, right: 0 }}
+                            dragElastic={0.25}
+                            onDragEnd={(_, info) => {
+                              if (info.offset.x < -30 || info.velocity.x < -300) {
+                                setMasarifGalleryIdx((prev) => (prev < MASARIF_GALLERY.length - 1 ? prev + 1 : 0));
+                              } else if (info.offset.x > 30 || info.velocity.x > 300) {
+                                setMasarifGalleryIdx((prev) => (prev > 0 ? prev - 1 : MASARIF_GALLERY.length - 1));
+                              }
+                            }}
+                            className="w-full h-full cursor-grab active:cursor-grabbing select-none"
+                          >
+                            <img
+                              src={MASARIF_GALLERY[masarifGalleryIdx].src}
+                              alt={MASARIF_GALLERY[masarifGalleryIdx].title}
+                              draggable={false}
+                              className="w-full h-full object-cover object-top transition-all duration-300 pointer-events-none"
+                            />
+                          </motion.div>
 
                           {/* Top indicator tag */}
                           <div className="absolute top-2 inset-x-2 flex items-center justify-between pointer-events-none">
                             <span className="px-2 py-0.5 rounded-full bg-black/70 backdrop-blur-md text-emerald-400 font-mono-code text-[9px] font-bold border border-emerald-500/30">
                               {MASARIF_GALLERY[masarifGalleryIdx].title}
                             </span>
-                            <span className="px-1.5 py-0.5 rounded-md bg-black/70 text-white font-mono-code text-[9px] border border-white/10">
-                              {masarifGalleryIdx + 1}/{MASARIF_GALLERY.length}
+                            <span className="px-1.5 py-0.5 rounded-md bg-black/70 text-white font-mono-code text-[9px] border border-white/10 flex items-center gap-1">
+                              <span>↔ Swipe</span>
+                              <span>•</span>
+                              <span>{masarifGalleryIdx + 1}/{MASARIF_GALLERY.length}</span>
                             </span>
                           </div>
 
@@ -1882,19 +1952,37 @@ function WorkPhoneSplitSection({
                         </div>
                       ) : item.id === "usthb" ? (
                         <div className="relative flex-1 w-full h-full overflow-hidden group/usthbpic flex flex-col justify-between">
-                          <img
-                            src={USTHB_GALLERY[usthbGalleryIdx].src}
-                            alt={USTHB_GALLERY[usthbGalleryIdx].title}
-                            className="w-full h-full object-cover object-top transition-all duration-300"
-                          />
+                          <motion.div
+                            key={usthbGalleryIdx}
+                            drag="x"
+                            dragConstraints={{ left: 0, right: 0 }}
+                            dragElastic={0.25}
+                            onDragEnd={(_, info) => {
+                              if (info.offset.x < -30 || info.velocity.x < -300) {
+                                setUsthbGalleryIdx((prev) => (prev < USTHB_GALLERY.length - 1 ? prev + 1 : 0));
+                              } else if (info.offset.x > 30 || info.velocity.x > 300) {
+                                setUsthbGalleryIdx((prev) => (prev > 0 ? prev - 1 : USTHB_GALLERY.length - 1));
+                              }
+                            }}
+                            className="w-full h-full cursor-grab active:cursor-grabbing select-none"
+                          >
+                            <img
+                              src={USTHB_GALLERY[usthbGalleryIdx].src}
+                              alt={USTHB_GALLERY[usthbGalleryIdx].title}
+                              draggable={false}
+                              className="w-full h-full object-cover object-top transition-all duration-300 pointer-events-none"
+                            />
+                          </motion.div>
 
                           {/* Top indicator tag */}
                           <div className="absolute top-2 inset-x-2 flex items-center justify-between pointer-events-none">
                             <span className="px-2 py-0.5 rounded-full bg-blue-950/85 backdrop-blur-md text-sky-300 font-mono-code text-[9px] font-bold border border-sky-400/35">
                               {USTHB_GALLERY[usthbGalleryIdx].title}
                             </span>
-                            <span className="px-1.5 py-0.5 rounded-md bg-black/70 text-white font-mono-code text-[9px] border border-white/10">
-                              {usthbGalleryIdx + 1}/{USTHB_GALLERY.length}
+                            <span className="px-1.5 py-0.5 rounded-md bg-black/70 text-white font-mono-code text-[9px] border border-white/10 flex items-center gap-1">
+                              <span>↔ Swipe</span>
+                              <span>•</span>
+                              <span>{usthbGalleryIdx + 1}/{USTHB_GALLERY.length}</span>
                             </span>
                           </div>
 
@@ -3471,8 +3559,11 @@ const OFFICIAL_TECH_SKILLS: TechItem[] = [
     name: "Flutter",
     color: "#38BDF8",
     svg: (
-      <svg viewBox="0 0 24 24" className="w-8 h-8" fill="currentColor">
-        <path d="M14.314 0L2.3 12 6 15.7 21.684.013h-7.357zm.014 11.072L7.857 17.53l6.47 6.47H21.7l-6.46-6.468 6.46-6.46h-7.37z" />
+      <svg viewBox="0 0 24 24" className="w-8 h-8" fill="none">
+        <path d="M14.314 0L2.3 12l4.5 4.5L23.3 0h-8.986z" fill="#54C5F8" />
+        <path d="M14.286 11.5L7.7 18.086 12.2 22.586l4.286-4.286L23.3 11.5h-9.014z" fill="#29B6F6" />
+        <path d="M12.2 22.586l2.1-2.1 4.4 2.1H12.2z" fill="#01579B" />
+        <path d="M16.486 18.3L12.2 14.014l4.286-4.286L20.772 14l-4.286 4.3z" fill="#02569B" />
       </svg>
     ),
   },
@@ -3481,8 +3572,11 @@ const OFFICIAL_TECH_SKILLS: TechItem[] = [
     name: "Dart",
     color: "#00B4AB",
     svg: (
-      <svg viewBox="0 0 24 24" className="w-8 h-8" fill="currentColor">
-        <path d="M4.105 4.105S9.158 1.58 11.684.316a3.079 3.079 0 0 1 2.526.315l5.684 5.685c.632.631.948 1.579.948 2.526v11.368h-11.37L4.106 14.84V4.105zm1.895 12.632l4.42 4.42h8.843v-7.578l-6.947-6.948H5.999v10.106z" />
+      <svg viewBox="0 0 24 24" className="w-8 h-8" fill="none">
+        <path d="M4.1 3.5h7.4L19.9 11.9l-4.1 8.6H8.6L4.1 16V3.5z" fill="#0175C2" />
+        <path d="M8.6 20.5l7.3-7.3-3.8-3.8-7.3 7.3 3.8 3.8z" fill="#02569B" />
+        <path d="M4.1 3.5l4.5 4.5H16L11.5 3.5H4.1z" fill="#29B6F6" />
+        <path d="M16 8l3.9 3.9-4.1 8.6-3.8-3.8 4-8.7z" fill="#00B4AB" />
       </svg>
     ),
   },
@@ -3491,8 +3585,9 @@ const OFFICIAL_TECH_SKILLS: TechItem[] = [
     name: "Supabase",
     color: "#3ECF8E",
     svg: (
-      <svg viewBox="0 0 24 24" className="w-8 h-8" fill="currentColor">
-        <path d="M13.7 21.8c-.5.6-1.5.2-1.5-.6v-7.5h8.4c1 0 1.6 1.2.9 2l-7.8 6.1zM10.3 2.2c.5-.6 1.5-.2 1.5.6v7.5H3.4c-1 0-1.6-1.2-.9-2l7.8-6.1z" />
+      <svg viewBox="0 0 24 24" className="w-8 h-8" fill="none">
+        <path d="M13.7 21.8c-.5.6-1.5.2-1.5-.6v-7.5h8.4c1 0 1.6 1.2.9 2l-7.8 6.1z" fill="#3ECF8E" />
+        <path d="M10.3 2.2c.5-.6 1.5-.2 1.5.6v7.5H3.4c-1 0-1.6-1.2-.9-2l7.8-6.1z" fill="#249361" />
       </svg>
     ),
   },
@@ -3502,73 +3597,58 @@ const OFFICIAL_TECH_SKILLS: TechItem[] = [
     color: "#FFCA28",
     svg: (
       <svg viewBox="0 0 24 24" className="w-8 h-8" fill="currentColor">
-        <path d="M3.89 15.672L6.255.461A.542.542 0 0 1 7.27.288l2.543 4.771zm16.794 3.692l-2.25-14a.54.54 0 0 0-.919-.295L3.316 19.365l7.856 4.427a1.621 1.621 0 0 0 1.588 0zM14.3 7.147l-1.82-3.482a.542.542 0 0 0-.96 0L3.53 17.984z" />
+        <path d="M3.89 15.672L6.255.461A.542.542 0 0 1 7.27.288l2.543 4.771zm16.794 3.692l-2.25-14a.54.54 0 0 0-.919-.295L3.316 19.365l7.856 4.427a1.621 1.621 0 0 0 1.588 0zM14.3 7.147l-1.82-3.482a.542.542 0 0 0-.96 0L3.53 17.984z" fill="#FFCA28" />
       </svg>
     ),
   },
   {
     id: "postgresql",
     name: "PostgreSQL",
-    color: "#60A5FA",
+    color: "#4169E1",
     svg: (
-      <svg viewBox="0 0 24 24" className="w-8 h-8" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
-        <ellipse cx="12" cy="5" rx="9" ry="3" />
-        <path d="M3 5v14c0 1.66 4.03 3 9 3s9-1.34 9-3V5" />
-        <path d="M3 12c0 1.66 4.03 3 9 3s9-1.34 9-3" />
+      <svg viewBox="0 0 24 24" className="w-8 h-8" fill="currentColor">
+        <path d="M11.97 0C7.23 0 3.79 2.5 3.03 5.48c-.6 2.37.15 4.67 1.74 6.22-.05.35-.09.7-.09 1.07 0 4.14 3.36 7.5 7.5 7.5.95 0 1.86-.18 2.7-.5 1.51 1.75 3.73 2.78 6.09 2.78 2.73 0 4.95-1.5 5.58-3.78.29-1.04.2-2.11-.23-3.08.35-.9.55-1.89.55-2.92 0-3.9-3.03-7.1-6.85-7.44C19.5 2.22 16.03 0 11.97 0zm.03 2c3.42 0 6.3 1.8 7.02 4.31-1.03.36-1.93.99-2.6 1.81-1.15-.69-2.52-1.12-4.02-1.12-3.87 0-7 2.69-7 6 0 .42.06.83.16 1.22C4.33 12.8 3.8 11.2 4.14 9.54 4.7 7.03 7.8 2 12 2z" />
       </svg>
     ),
   },
   {
     id: "java",
     name: "Java",
-    color: "#F97316",
+    color: "#E76F00",
     svg: (
-      <svg viewBox="0 0 24 24" className="w-8 h-8" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
-        <path d="M17 8h1a4 4 0 1 1 0 8h-1" />
-        <path d="M3 8h14v9a4 4 0 0 1-4 4H7a4 4 0 0 1-4-4Z" />
-        <line x1="6" y1="2" x2="6" y2="4" />
-        <line x1="10" y1="2" x2="10" y2="4" />
-        <line x1="14" y1="2" x2="14" y2="4" />
+      <svg viewBox="0 0 24 24" className="w-8 h-8" fill="currentColor">
+        <path d="M8.85 16.84c-1.82-.09-3.23-.39-3.23-.74 0-.43 2.05-.78 4.64-.78 2.62 0 4.7.35 4.7.78 0 .43-2.08.78-4.7.78-.47 0-.94-.01-1.41-.04zm7.44-2.61c.96.22 1.56.5 1.56.8 0 .58-2.22 1.06-5.26 1.06s-5.32-.48-5.32-1.06c0-.3.6-.58 1.57-.8.56-.13 1.25-.22 2.03-.27-1.16-.6-1.84-1.29-1.84-2.02 0-1.57 3.23-2.85 7.21-2.85.34 0 .66.01.99.03-.89.65-1.43 1.34-1.43 2.08 0 .84.81 1.62 2.14 2.28.61.05 1.16.12 1.63.22.45.1.72.33.72.55 0 .28-.5.53-1.34.71l-.1.03c-.2.04-.41.08-.63.11-.47.07-.98.12-1.52.16 1.38.35 2.21.72 2.21 1.13 0 .16-.14.32-.4.46-.26.15-.65.28-1.14.39-.49.1-1.1.18-1.78.23-.68.05-1.43.08-2.2.08-3.4 0-5.87-.58-5.87-1.38 0-.46.85-.88 2.3-1.18l.2-.04c.14-.03.29-.05.45-.07.45-.07.95-.12 1.48-.16-1.5-.4-2.43-.84-2.43-1.33 0-.67 1.73-1.25 4.31-1.43-.1-.32-.16-.66-.16-1 0-1.87 2.62-3.4 5.92-3.4 1.35 0 2.58.26 3.52.71-.85.39-1.42.92-1.54 1.52 1.67.73 2.69 1.67 2.69 2.7 0 1.13-1.24 2.14-3.23 2.8z" />
       </svg>
     ),
   },
   {
     id: "javascript",
     name: "JavaScript",
-    color: "#FACC15",
+    color: "#F7DF1E",
     svg: (
       <svg viewBox="0 0 24 24" className="w-8 h-8" fill="currentColor">
-        <rect x="2" y="2" width="20" height="20" rx="4" fillOpacity="0.18" stroke="currentColor" strokeWidth="1.6" />
-        <text x="6.5" y="17" fontSize="10.5" fontWeight="800" fontFamily="JetBrains Mono, monospace" fill="currentColor">
-          JS
-        </text>
+        <rect width="24" height="24" rx="4" fill="#F7DF1E" />
+        <path d="M12.4 17.8c.4.7.9 1.2 1.8 1.2 1 0 1.6-.5 1.6-1.6v-7.1h2.8v7.1c0 2.5-1.5 3.6-3.8 3.6-2 0-3.2-1-3.7-2.3l1.3-.9zm-6.2-.2c.3.5.7.9 1.4.9.7 0 1.1-.3 1.1-.8 0-.5-.4-.7-1.2-1.1l-.4-.2c-1.3-.6-2.1-1.3-2.1-2.8 0-1.4 1.1-2.5 2.8-2.5 1.2 0 2.1.4 2.7 1.5l-1.2.8c-.3-.5-.6-.7-1.1-.7-.5 0-.9.3-.9.7 0 .5.3.7 1.1 1l.4.2c1.4.6 2.3 1.3 2.3 2.9 0 1.7-1.3 2.6-3.1 2.6-1.7 0-2.8-.8-3.3-2l1.6-.7z" fill="#000000" />
       </svg>
     ),
   },
   {
     id: "c",
     name: "C Language",
-    color: "#818CF8",
+    color: "#00599C",
     svg: (
       <svg viewBox="0 0 24 24" className="w-8 h-8" fill="currentColor">
-        <polygon points="12 2 21 7 21 17 12 22 3 17 3 7 12 2" fillOpacity="0.16" stroke="currentColor" strokeWidth="1.6" />
-        <text x="8.2" y="16.2" fontSize="11.5" fontWeight="800" fontFamily="JetBrains Mono, monospace" fill="currentColor">
-          C
-        </text>
+        <path d="M11.99 0C5.37 0 0 5.37 0 11.99s5.37 11.99 11.99 11.99c4.22 0 7.93-2.18 10.08-5.49l-3.38-1.95c-1.4 2.15-3.89 3.56-6.7 3.56-4.48 0-8.11-3.63-8.11-8.11s3.63-8.11 8.11-8.11c2.81 0 5.3 1.41 6.7 3.56l3.38-1.95C19.92 2.18 16.21 0 11.99 0z" fill="#00599C" />
       </svg>
     ),
   },
   {
     id: "git",
     name: "Git",
-    color: "#F43F5E",
+    color: "#F05032",
     svg: (
-      <svg viewBox="0 0 24 24" className="w-8 h-8" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
-        <circle cx="6" cy="6" r="2.5" />
-        <circle cx="18" cy="6" r="2.5" />
-        <circle cx="6" cy="18" r="2.5" />
-        <path d="M6 8.5v7" />
-        <path d="M18 8.5c0 4.5-12 2.5-12 7" />
+      <svg viewBox="0 0 24 24" className="w-8 h-8" fill="currentColor">
+        <path d="M21.71 10.71l-8.42-8.42a1.83 1.83 0 0 0-2.58 0L8.85 4.15 11.4 6.7a2.18 2.18 0 0 1 2.76 2.78l2.6 2.6a2.18 2.18 0 1 1-1.3 1.28l-2.42-2.42v5.7a2.18 2.18 0 1 1-1.84 0v-6.3L8.6 7.74a2.18 2.18 0 1 1-1.28-1.3L2.29 11.4a1.83 1.83 0 0 0 0 2.58l8.42 8.42a1.83 1.83 0 0 0 2.58 0l8.42-8.42a1.83 1.83 0 0 0 0-2.57z" fill="#F05032" />
       </svg>
     ),
   },
@@ -3589,12 +3669,10 @@ const OFFICIAL_TECH_SKILLS: TechItem[] = [
   {
     id: "linux",
     name: "Linux",
-    color: "#FBBF24",
+    color: "#FCC624",
     svg: (
-      <svg viewBox="0 0 24 24" className="w-8 h-8" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
-        <rect x="2" y="4" width="20" height="16" rx="3" />
-        <path d="m7 9 3 3-3 3" />
-        <path d="M12 15h5" />
+      <svg viewBox="0 0 24 24" className="w-8 h-8" fill="currentColor">
+        <path d="M12.003 0C8.423 0 6.643 2.582 6.643 5.467c0 1.258.337 2.87 1.01 4.545-2.022 1.347-3.364 3.73-3.364 6.46 0 .895.166 1.75.466 2.545C2.56 19.98 1 20.84 1 21.82 1 23.02 4.14 24 8.01 24c1.17 0 2.27-.09 3.24-.26 1.26.17 2.62.26 3.99.26 3.87 0 7.01-.98 7.01-2.18 0-.98-1.56-1.84-3.755-2.803.3-.795.465-1.65.465-2.545 0-2.73-1.34-5.113-3.363-6.46.673-1.675 1.01-3.287 1.01-4.545C16.607 2.582 14.827 0 12.003 0z" fill="#FCC624" />
       </svg>
     ),
   },
@@ -3609,7 +3687,6 @@ const OFFICIAL_TECH_SKILLS: TechItem[] = [
       </svg>
     ),
   },
-  
 ];
 
 function DockKeyItem({
@@ -4157,8 +4234,8 @@ export default function App() {
   const navItems: LiquidNavItem[] = [
     { label: lang === "EN" ? "Home" : "Accueil", href: "#home", icon: NimbusIcons.home, fx: "glow" },
     { label: lang === "EN" ? "About" : "À propos", href: "#about", icon: NimbusIcons.user, fx: "wave" },
-    { label: lang === "EN" ? "Experience" : "Parcours", href: "#experience", icon: NimbusIcons.drop, fx: "pop" },
-    { label: lang === "EN" ? "Work" : "Projets", href: "#work", icon: NimbusIcons.drop, fx: "pop" },
+    { label: lang === "EN" ? "Experience" : "Parcours", href: "#experience", icon: NimbusIcons.history, fx: "pop" },
+    { label: lang === "EN" ? "Work" : "Projets", href: "#work", icon: NimbusIcons.briefcase, fx: "pop" },
     { label: lang === "EN" ? "Skills" : "Skills", href: "#skills", icon: NimbusIcons.globe, fx: "spin" },
     { label: lang === "EN" ? "Contact" : "Contact", href: "#contact", icon: NimbusIcons.plane, fx: "plane" },
   ];
@@ -4532,10 +4609,40 @@ export default function App() {
         }}
       />
 
-      {/* Fixed Top Responsive Liquid Glass Navbar */}
-      <header className="fixed top-2.5 sm:top-5 inset-x-0 z-50 px-2 sm:px-6 pointer-events-none">
-        <div className="max-w-6xl mx-auto flex flex-col lg:flex-row items-center justify-center gap-2 relative">
-          <div className="pointer-events-auto max-w-full flex justify-center">
+      {/* Mobile-Only Top Floating Controls (Lang & Theme) */}
+      <div className="sm:hidden fixed top-3 right-3 z-50 flex items-center gap-2 pointer-events-auto">
+        <button
+          type="button"
+          onClick={() => setLang(lang === "EN" ? "FR" : "EN")}
+          className={`font-mono-code text-[11px] font-bold px-2.5 py-1.5 rounded-full border backdrop-blur-xl shadow-md transition-all ${
+            isDark
+              ? "bg-[#0F0F15]/90 border-white/10 text-zinc-200"
+              : "bg-white/95 border-zinc-300 text-zinc-800"
+          }`}
+        >
+          <span className={lang === "EN" ? "text-red-500 font-extrabold" : "opacity-50"}>EN</span>
+          <span className="mx-1 opacity-30">/</span>
+          <span className={lang === "FR" ? "text-red-500 font-extrabold" : "opacity-50"}>FR</span>
+        </button>
+
+        <button
+          type="button"
+          onClick={() => setIsDark(!isDark)}
+          aria-label="Toggle Theme"
+          className={`w-8 h-8 rounded-full border backdrop-blur-xl shadow-md flex items-center justify-center transition-all ${
+            isDark
+              ? "bg-[#0F0F15]/90 border-white/10 text-zinc-200"
+              : "bg-white/95 border-zinc-300 text-zinc-800"
+          }`}
+        >
+          {isDark ? <Sun className="w-3.5 h-3.5 text-amber-400" /> : <Moon className="w-3.5 h-3.5 text-zinc-700" />}
+        </button>
+      </div>
+
+      {/* Desktop-Only Fixed Top Liquid Glass Navbar */}
+      <header className="hidden sm:block fixed top-5 inset-x-0 z-50 px-6 pointer-events-none">
+        <div className="max-w-6xl mx-auto flex items-center justify-center relative">
+          <div className="pointer-events-auto flex justify-center">
             <LiquidNavbar
               items={navItems}
               active={activeNav}
@@ -4545,7 +4652,7 @@ export default function App() {
             />
           </div>
 
-          <div className="pointer-events-auto lg:absolute lg:right-0 flex items-center gap-1.5 sm:gap-2 scale-90 sm:scale-100 origin-top">
+          <div className="pointer-events-auto absolute right-0 flex items-center gap-2">
             <button
               type="button"
               onClick={() => setLang(lang === "EN" ? "FR" : "EN")}
@@ -4555,9 +4662,9 @@ export default function App() {
                   : "bg-[#ECEEF3]/90 border-zinc-300 text-zinc-800 hover:border-red-500/60 shadow-xs"
               }`}
             >
-              <span className={lang === "EN" ? "text-red-500" : "opacity-50"}>EN</span>
+              <span className={lang === "EN" ? "text-red-500 font-extrabold" : "opacity-50"}>EN</span>
               <span className="mx-1 opacity-30">/</span>
-              <span className={lang === "FR" ? "text-red-500" : "opacity-50"}>FR</span>
+              <span className={lang === "FR" ? "text-red-500 font-extrabold" : "opacity-50"}>FR</span>
             </button>
 
             <button
@@ -4570,11 +4677,63 @@ export default function App() {
                   : "bg-[#ECEEF3]/90 border-zinc-300 text-zinc-800 hover:text-red-600 hover:border-red-500/60 shadow-xs"
               }`}
             >
-              {isDark ? <Sun className="w-4 h-4" /> : <Moon className="w-4 h-4" />}
+              {isDark ? <Sun className="w-4 h-4 text-amber-400" /> : <Moon className="w-4 h-4 text-zinc-700" />}
             </button>
           </div>
         </div>
       </header>
+
+      {/* Mobile-Only Bottom Navigation Bar (Mobile App Style) */}
+      <nav
+        aria-label="Mobile Navigation"
+        className={`sm:hidden fixed bottom-0 inset-x-0 z-50 px-2 pt-1.5 pb-[max(0.6rem,env(safe-area-inset-bottom))] border-t backdrop-blur-2xl transition-colors duration-300 ${
+          isDark
+            ? "bg-[#0B0B11]/94 border-white/10 shadow-[0_-10px_35px_rgba(0,0,0,0.7)]"
+            : "bg-white/95 border-zinc-200/90 shadow-[0_-10px_25px_rgba(0,0,0,0.08)]"
+        }`}
+      >
+        <div className="grid grid-cols-6 items-center justify-items-center max-w-md mx-auto">
+          {navItems.map((item, idx) => {
+            const isActive = activeNav === idx;
+            return (
+              <a
+                key={item.label}
+                href={item.href}
+                onClick={() => setActiveNav(idx)}
+                className={`relative flex flex-col items-center justify-center py-1 px-1 rounded-xl w-full transition-all duration-200 select-none ${
+                  isActive
+                    ? isDark
+                      ? "text-red-500 font-bold"
+                      : "text-red-600 font-bold"
+                    : isDark
+                    ? "text-zinc-400 hover:text-zinc-200"
+                    : "text-zinc-600 hover:text-zinc-900"
+                }`}
+              >
+                {isActive && (
+                  <motion.span
+                    layoutId="mobileNavActivePill"
+                    className="absolute inset-x-1 inset-y-0.5 rounded-xl bg-red-500/12 -z-10 border border-red-500/25"
+                    transition={{ type: "spring", stiffness: 380, damping: 30 }}
+                  />
+                )}
+
+                {/* Icon (Bigger than text) */}
+                <span className={`relative transition-transform duration-200 ${isActive ? "scale-110 text-red-500" : ""}`}>
+                  <span className="[&>svg]:w-5 [&>svg]:h-5 [&>svg]:stroke-[2.2]">
+                    {item.icon}
+                  </span>
+                </span>
+
+                {/* Text (Below icon) */}
+                <span className={`text-[9.5px] tracking-tight mt-0.5 leading-none truncate max-w-full ${isActive ? "font-bold text-red-500" : "font-medium"}`}>
+                  {item.label}
+                </span>
+              </a>
+            );
+          })}
+        </div>
+      </nav>
 
       {/* =========================================================================
        * SECTION 1: HERO (#home)
@@ -4584,7 +4743,7 @@ export default function App() {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 0.6 }}
-        className="relative z-10 max-w-6xl mx-auto px-4 sm:px-6 pt-36 pb-20 lg:pt-40 lg:pb-28"
+        className="relative z-10 max-w-6xl mx-auto px-4 sm:px-6 pt-20 sm:pt-36 pb-28 sm:pb-20 lg:pt-40 lg:pb-28"
       >
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-8 items-center">
           <motion.div
@@ -4608,11 +4767,6 @@ export default function App() {
               }}
               className="flex flex-wrap items-center gap-2.5 mb-5"
             >
-              <span className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-mono-code font-bold bg-red-500/10 border border-red-500/30 text-red-500">
-                <span className="w-2 h-2 rounded-full bg-red-500 animate-ping" />
-                <span>{lang === "EN" ? "Mobile Application Developer" : "Développeur d'Applications Mobiles"}</span>
-              </span>
-
               <span
                 className={`inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-mono-code font-medium border ${
                   isDark
@@ -4682,7 +4836,7 @@ export default function App() {
                 className="group inline-flex items-center gap-2.5 px-6 py-3.5 rounded-xl font-bold text-sm text-white bg-red-600 hover:bg-red-500 shadow-[0_10px_30px_-5px_rgba(220,38,38,0.55)] transition-all"
               >
                 <span>{lang === "EN" ? "View Mobile Apps" : "Voir mes Apps"}</span>
-                <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
+                <Smartphone className="w-4 h-4 transition-transform group-hover:scale-110" />
               </motion.a>
 
               <motion.a
@@ -4696,7 +4850,7 @@ export default function App() {
                 }`}
               >
                 <span>{lang === "EN" ? "About Me" : "En savoir plus"}</span>
-                <ChevronRight className="w-4 h-4 text-red-500" />
+                <User className="w-4 h-4 text-red-500 transition-transform group-hover:scale-110" />
               </motion.a>
 
               
@@ -4874,39 +5028,66 @@ export default function App() {
                   <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent opacity-60 group-hover:opacity-30 transition-opacity" />
                 </div>
 
-                <div
-                  className={`absolute -left-2 sm:-left-4 top-8 px-3 sm:px-3.5 py-2 rounded-2xl border backdrop-blur-md shadow-lg flex items-center gap-2 font-mono-code text-xs font-bold ${
+                {/* Floating Official Badge 1: Flutter */}
+                <motion.div
+                  animate={{ y: [0, -7, 0] }}
+                  transition={{ duration: 3.2, repeat: Infinity, ease: "easeInOut" }}
+                  className={`absolute -left-3 sm:-left-6 top-6 px-3 py-1.5 rounded-2xl border backdrop-blur-md shadow-lg flex items-center gap-2 font-mono-code text-xs font-bold ${
                     isDark ? "bg-[#111118]/90 border-white/15 text-white" : "bg-white/95 border-zinc-200 text-zinc-900"
                   }`}
                 >
-                  <Smartphone className="w-4 h-4 text-sky-400" />
-                  <span>Flutter Dev</span>
-                </div>
+                  <FlutterOfficialIcon className="w-4 h-4" />
+                  <span>Flutter</span>
+                </motion.div>
 
-                <a
+                {/* Floating Official Badge 2: Dart */}
+                <motion.div
+                  animate={{ y: [0, 7, 0] }}
+                  transition={{ duration: 3.6, repeat: Infinity, ease: "easeInOut", delay: 0.3 }}
+                  className={`absolute -right-3 sm:-right-6 top-10 px-3 py-1.5 rounded-2xl border backdrop-blur-md shadow-lg flex items-center gap-2 font-mono-code text-xs font-bold ${
+                    isDark ? "bg-[#111118]/90 border-white/15 text-white" : "bg-white/95 border-zinc-200 text-zinc-900"
+                  }`}
+                >
+                  <DartOfficialIcon className="w-4 h-4" />
+                  <span>Dart</span>
+                </motion.div>
+
+                {/* Floating Official Badge 3: Hack The Box */}
+                <motion.a
                   href="https://profile.hackthebox.com/profile/019fa823-b9b9-73f2-9ea3-8d7bfb72a750?utm_medium=copy_url"
                   target="_blank"
                   rel="noopener noreferrer"
                   title="View HackTheBox Profile"
-                  className={`group absolute -right-2 sm:-right-4 top-1/2 px-3 sm:px-3.5 py-2 rounded-2xl border backdrop-blur-md shadow-lg flex items-center gap-2 font-mono-code text-xs font-bold transition-all hover:scale-105 cursor-pointer ${
+                  animate={{ y: [0, -6, 0] }}
+                  transition={{ duration: 3.4, repeat: Infinity, ease: "easeInOut", delay: 0.6 }}
+                  className={`group absolute -left-3 sm:-left-6 bottom-8 px-3 py-1.5 rounded-2xl border backdrop-blur-md shadow-lg flex items-center gap-2 font-mono-code text-xs font-bold transition-all hover:scale-105 cursor-pointer ${
                     isDark
-                      ? "bg-[#111118]/90 border-white/15 text-white hover:border-emerald-400 hover:shadow-[0_0_20px_-3px_rgba(16,185,129,0.45)]"
-                      : "bg-white/95 border-zinc-200 text-zinc-900 hover:border-emerald-500 hover:shadow-md"
+                      ? "bg-[#111118]/90 border-white/15 text-white hover:border-[#9FEF00]/60 hover:shadow-[0_0_20px_-3px_rgba(159,239,0,0.35)]"
+                      : "bg-white/95 border-zinc-200 text-zinc-900 hover:border-[#9FEF00] hover:shadow-md"
                   }`}
                 >
-                  <Shield className="w-4 h-4 text-emerald-400 animate-pulse" />
-                  <span>CyberSec</span>
-                  <ExternalLink className="w-3 h-3 text-emerald-400 opacity-70 group-hover:opacity-100 transition-opacity" />
-                </a>
+                  <HackTheBoxOfficialIcon className="w-4 h-4" />
+                  <span className="group-hover:text-[#9FEF00] transition-colors">Hack The Box</span>
+                  <ExternalLink className="w-3 h-3 text-[#9FEF00] opacity-70 group-hover:opacity-100 transition-opacity" />
+                </motion.a>
 
-                <div
-                  className={`absolute left-6 -bottom-4 px-3.5 py-1.5 rounded-full border backdrop-blur-md shadow-lg flex items-center gap-2 font-mono-code text-[11px] font-bold ${
-                    isDark ? "bg-red-600 text-white border-red-400/40" : "bg-red-600 text-white border-red-500"
+                {/* Floating Official Badge 4: TryHackMe */}
+                <motion.a
+                  href="https://tryhackme.com"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  title="TryHackMe"
+                  animate={{ y: [0, 6, 0] }}
+                  transition={{ duration: 3.8, repeat: Infinity, ease: "easeInOut", delay: 0.9 }}
+                  className={`group absolute -right-3 sm:-right-6 bottom-6 px-3 py-1.5 rounded-2xl border backdrop-blur-md shadow-lg flex items-center gap-2 font-mono-code text-xs font-bold transition-all hover:scale-105 cursor-pointer ${
+                    isDark
+                      ? "bg-[#111118]/90 border-white/15 text-white hover:border-red-500/60 hover:shadow-[0_0_20px_-3px_rgba(239,68,68,0.35)]"
+                      : "bg-white/95 border-zinc-200 text-zinc-900 hover:border-red-500 hover:shadow-md"
                   }`}
                 >
-                  <span className="w-2 h-2 rounded-full bg-white animate-ping" />
-                  <span>USTHB • CSE RELEV</span>
-                </div>
+                  <TryHackMeOfficialIcon className="w-4 h-4" />
+                  <span className="group-hover:text-red-500 transition-colors">TryHackMe</span>
+                </motion.a>
               </div>
             </motion.div>
 
@@ -5104,7 +5285,7 @@ export default function App() {
               className="md:col-span-2 space-y-3"
             >
               <span className="font-mono-code text-xs font-bold uppercase tracking-wider text-zinc-400 block">PROJECTS</span>
-              <ul className="space-y-2 text-sm font-medium text-zinc-300">
+              <ul className="space-y-2.5 text-sm font-medium text-zinc-300">
                 {[
                   { label: "Masarif App", url: "https://github.com/oussamakafif/masarif" },
                   { label: "DataHack App", url: "https://github.com/oussamakafif/Organizer-App-DH" },
@@ -5116,10 +5297,9 @@ export default function App() {
                       href={proj.url}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="inline-flex items-center gap-1 hover:text-red-500 transition-colors"
+                      className="inline-block border-b border-red-500/50 hover:border-red-500 text-zinc-300 hover:text-white transition-colors pb-0.5"
                     >
-                      <span>{proj.label}</span>
-                      <span className="text-xs text-red-500">↗</span>
+                      {proj.label}
                     </a>
                   </li>
                 ))}
@@ -5178,7 +5358,7 @@ export default function App() {
             <button
               type="button"
               onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
-              className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 border border-white/10 text-zinc-300 hover:text-white hover:border-red-500/50 transition-colors cursor-pointer"
+              className="hidden sm:inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 border border-white/10 text-zinc-300 hover:text-white hover:border-red-500/50 transition-colors cursor-pointer"
             >
               <span>BACK TO TOP</span>
               <span className="text-red-500">↗</span>
