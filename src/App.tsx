@@ -39,6 +39,26 @@ import {
   Check,
   Play,
 } from "lucide-react";
+import {
+  SiFlutter,
+  SiDart,
+  SiPython,
+  SiJavascript,
+  SiTypescript,
+  SiC,
+  SiSupabase,
+  SiFirebase,
+  SiPostgresql,
+  SiLinux,
+  SiGit,
+  SiGithub,
+  SiDocker,
+  SiHackthebox,
+  SiTryhackme,
+  SiAndroid,
+  SiPostman,
+} from "react-icons/si";
+import { FaJava } from "react-icons/fa6";
 
 /* Custom SVG icons for Github & Linkedin (removed from lucide-react v1.x) */
 const Github = ({ className = "" }: { className?: string }) => (
@@ -1549,42 +1569,6 @@ function SectionAnimatedHeading({
     </motion.div>
   );
 }
-
-const FlutterOfficialIcon = ({ className = "w-4 h-4" }: { className?: string }) => (
-  <svg viewBox="0 0 24 24" className={className} fill="none">
-    <path d="M14.314 0L2.3 12l4.5 4.5L23.3 0h-8.986z" fill="#54C5F8" />
-    <path d="M14.286 11.5L7.7 18.086 12.2 22.586l4.286-4.286L23.3 11.5h-9.014z" fill="#29B6F6" />
-    <path d="M12.2 22.586l2.1-2.1 4.4 2.1H12.2z" fill="#01579B" />
-    <path d="M16.486 18.3L12.2 14.014l4.286-4.286L20.772 14l-4.286 4.3z" fill="#02569B" />
-  </svg>
-);
-
-const DartOfficialIcon = ({ className = "w-4 h-4" }: { className?: string }) => (
-  <svg viewBox="0 0 24 24" className={className} fill="none">
-    <path d="M4.1 3.5h7.4L19.9 11.9l-4.1 8.6H8.6L4.1 16V3.5z" fill="#0175C2" />
-    <path d="M8.6 20.5l7.3-7.3-3.8-3.8-7.3 7.3 3.8 3.8z" fill="#02569B" />
-    <path d="M4.1 3.5l4.5 4.5H16L11.5 3.5H4.1z" fill="#29B6F6" />
-    <path d="M16 8l3.9 3.9-4.1 8.6-3.8-3.8 4-8.7z" fill="#00B4AB" />
-  </svg>
-);
-
-const HackTheBoxOfficialIcon = ({ className = "w-4 h-4" }: { className?: string }) => (
-  <svg viewBox="0 0 24 24" className={className} fill="currentColor">
-    <path
-      d="M11.996 0a1.119 1.119 0 0 0-.56.152L2.08 5.568a1.119 1.119 0 0 0-.56.969v10.926c0 .4.214.77.56.969l9.356 5.416a1.118 1.118 0 0 0 1.12 0l9.356-5.416c.346-.2.56-.569.56-.969V6.537c0-.4-.214-.77-.56-.969L12.556.152A1.119 1.119 0 0 0 11.996 0zm0 2.298l7.994 4.629-3.327 1.926-7.994-4.629 3.327-1.926zm-8.238 5.767l7.119 4.122v7.697l-7.119-4.122V8.065zm16.476 0v7.697l-7.119 4.122V12.187l7.119-4.122z"
-      fill="#9FEF00"
-    />
-  </svg>
-);
-
-const TryHackMeOfficialIcon = ({ className = "w-4 h-4" }: { className?: string }) => (
-  <svg viewBox="0 0 24 24" className={className} fill="none">
-    <path
-      d="M12 0L1.608 6v12L12 24l10.392-6V6L12 0zm-.008 2.308l8.396 4.848-3.486 2.013-8.396-4.848 3.486-2.013zm-8.384 6.055l7.172 4.14v7.712l-7.172-4.14V8.363zm16.784 0v7.712l-7.172 4.14v-7.712l7.172-4.14z"
-      fill="#EA3223"
-    />
-  </svg>
-);
 
 function HeroAnimatedName({ isDark }: { isDark: boolean }) {
   return (
@@ -3557,135 +3541,110 @@ const OFFICIAL_TECH_SKILLS: TechItem[] = [
   {
     id: "flutter",
     name: "Flutter",
-    color: "#38BDF8",
-    svg: (
-      <svg viewBox="0 0 24 24" className="w-8 h-8" fill="none">
-        <path d="M14.314 0L2.3 12l4.5 4.5L23.3 0h-8.986z" fill="#54C5F8" />
-        <path d="M14.286 11.5L7.7 18.086 12.2 22.586l4.286-4.286L23.3 11.5h-9.014z" fill="#29B6F6" />
-        <path d="M12.2 22.586l2.1-2.1 4.4 2.1H12.2z" fill="#01579B" />
-        <path d="M16.486 18.3L12.2 14.014l4.286-4.286L20.772 14l-4.286 4.3z" fill="#02569B" />
-      </svg>
-    ),
+    color: "#02569B",
+    svg: <SiFlutter className="w-8 h-8" />,
   },
   {
     id: "dart",
     name: "Dart",
-    color: "#00B4AB",
-    svg: (
-      <svg viewBox="0 0 24 24" className="w-8 h-8" fill="none">
-        <path d="M4.1 3.5h7.4L19.9 11.9l-4.1 8.6H8.6L4.1 16V3.5z" fill="#0175C2" />
-        <path d="M8.6 20.5l7.3-7.3-3.8-3.8-7.3 7.3 3.8 3.8z" fill="#02569B" />
-        <path d="M4.1 3.5l4.5 4.5H16L11.5 3.5H4.1z" fill="#29B6F6" />
-        <path d="M16 8l3.9 3.9-4.1 8.6-3.8-3.8 4-8.7z" fill="#00B4AB" />
-      </svg>
-    ),
+    color: "#0175C2",
+    svg: <SiDart className="w-8 h-8" />,
   },
   {
-    id: "supabase",
-    name: "Supabase",
-    color: "#3ECF8E",
-    svg: (
-      <svg viewBox="0 0 24 24" className="w-8 h-8" fill="none">
-        <path d="M13.7 21.8c-.5.6-1.5.2-1.5-.6v-7.5h8.4c1 0 1.6 1.2.9 2l-7.8 6.1z" fill="#3ECF8E" />
-        <path d="M10.3 2.2c.5-.6 1.5-.2 1.5.6v7.5H3.4c-1 0-1.6-1.2-.9-2l7.8-6.1z" fill="#249361" />
-      </svg>
-    ),
+    id: "android",
+    name: "Android SDK",
+    color: "#3DDC84",
+    svg: <SiAndroid className="w-8 h-8" />,
   },
   {
-    id: "firebase",
-    name: "Firebase",
-    color: "#FFCA28",
-    svg: (
-      <svg viewBox="0 0 24 24" className="w-8 h-8" fill="currentColor">
-        <path d="M3.89 15.672L6.255.461A.542.542 0 0 1 7.27.288l2.543 4.771zm16.794 3.692l-2.25-14a.54.54 0 0 0-.919-.295L3.316 19.365l7.856 4.427a1.621 1.621 0 0 0 1.588 0zM14.3 7.147l-1.82-3.482a.542.542 0 0 0-.96 0L3.53 17.984z" fill="#FFCA28" />
-      </svg>
-    ),
-  },
-  {
-    id: "postgresql",
-    name: "PostgreSQL",
-    color: "#4169E1",
-    svg: (
-      <svg viewBox="0 0 24 24" className="w-8 h-8" fill="currentColor">
-        <path d="M11.97 0C7.23 0 3.79 2.5 3.03 5.48c-.6 2.37.15 4.67 1.74 6.22-.05.35-.09.7-.09 1.07 0 4.14 3.36 7.5 7.5 7.5.95 0 1.86-.18 2.7-.5 1.51 1.75 3.73 2.78 6.09 2.78 2.73 0 4.95-1.5 5.58-3.78.29-1.04.2-2.11-.23-3.08.35-.9.55-1.89.55-2.92 0-3.9-3.03-7.1-6.85-7.44C19.5 2.22 16.03 0 11.97 0zm.03 2c3.42 0 6.3 1.8 7.02 4.31-1.03.36-1.93.99-2.6 1.81-1.15-.69-2.52-1.12-4.02-1.12-3.87 0-7 2.69-7 6 0 .42.06.83.16 1.22C4.33 12.8 3.8 11.2 4.14 9.54 4.7 7.03 7.8 2 12 2z" />
-      </svg>
-    ),
+    id: "python",
+    name: "Python",
+    color: "#3776AB",
+    svg: <SiPython className="w-8 h-8" />,
   },
   {
     id: "java",
     name: "Java",
-    color: "#E76F00",
-    svg: (
-      <svg viewBox="0 0 24 24" className="w-8 h-8" fill="currentColor">
-        <path d="M8.85 16.84c-1.82-.09-3.23-.39-3.23-.74 0-.43 2.05-.78 4.64-.78 2.62 0 4.7.35 4.7.78 0 .43-2.08.78-4.7.78-.47 0-.94-.01-1.41-.04zm7.44-2.61c.96.22 1.56.5 1.56.8 0 .58-2.22 1.06-5.26 1.06s-5.32-.48-5.32-1.06c0-.3.6-.58 1.57-.8.56-.13 1.25-.22 2.03-.27-1.16-.6-1.84-1.29-1.84-2.02 0-1.57 3.23-2.85 7.21-2.85.34 0 .66.01.99.03-.89.65-1.43 1.34-1.43 2.08 0 .84.81 1.62 2.14 2.28.61.05 1.16.12 1.63.22.45.1.72.33.72.55 0 .28-.5.53-1.34.71l-.1.03c-.2.04-.41.08-.63.11-.47.07-.98.12-1.52.16 1.38.35 2.21.72 2.21 1.13 0 .16-.14.32-.4.46-.26.15-.65.28-1.14.39-.49.1-1.1.18-1.78.23-.68.05-1.43.08-2.2.08-3.4 0-5.87-.58-5.87-1.38 0-.46.85-.88 2.3-1.18l.2-.04c.14-.03.29-.05.45-.07.45-.07.95-.12 1.48-.16-1.5-.4-2.43-.84-2.43-1.33 0-.67 1.73-1.25 4.31-1.43-.1-.32-.16-.66-.16-1 0-1.87 2.62-3.4 5.92-3.4 1.35 0 2.58.26 3.52.71-.85.39-1.42.92-1.54 1.52 1.67.73 2.69 1.67 2.69 2.7 0 1.13-1.24 2.14-3.23 2.8z" />
-      </svg>
-    ),
-  },
-  {
-    id: "javascript",
-    name: "JavaScript",
-    color: "#F7DF1E",
-    svg: (
-      <svg viewBox="0 0 24 24" className="w-8 h-8" fill="currentColor">
-        <rect width="24" height="24" rx="4" fill="#F7DF1E" />
-        <path d="M12.4 17.8c.4.7.9 1.2 1.8 1.2 1 0 1.6-.5 1.6-1.6v-7.1h2.8v7.1c0 2.5-1.5 3.6-3.8 3.6-2 0-3.2-1-3.7-2.3l1.3-.9zm-6.2-.2c.3.5.7.9 1.4.9.7 0 1.1-.3 1.1-.8 0-.5-.4-.7-1.2-1.1l-.4-.2c-1.3-.6-2.1-1.3-2.1-2.8 0-1.4 1.1-2.5 2.8-2.5 1.2 0 2.1.4 2.7 1.5l-1.2.8c-.3-.5-.6-.7-1.1-.7-.5 0-.9.3-.9.7 0 .5.3.7 1.1 1l.4.2c1.4.6 2.3 1.3 2.3 2.9 0 1.7-1.3 2.6-3.1 2.6-1.7 0-2.8-.8-3.3-2l1.6-.7z" fill="#000000" />
-      </svg>
-    ),
+    color: "#ED8B00",
+    svg: <FaJava className="w-8 h-8" />,
   },
   {
     id: "c",
     name: "C Language",
     color: "#00599C",
-    svg: (
-      <svg viewBox="0 0 24 24" className="w-8 h-8" fill="currentColor">
-        <path d="M11.99 0C5.37 0 0 5.37 0 11.99s5.37 11.99 11.99 11.99c4.22 0 7.93-2.18 10.08-5.49l-3.38-1.95c-1.4 2.15-3.89 3.56-6.7 3.56-4.48 0-8.11-3.63-8.11-8.11s3.63-8.11 8.11-8.11c2.81 0 5.3 1.41 6.7 3.56l3.38-1.95C19.92 2.18 16.21 0 11.99 0z" fill="#00599C" />
-      </svg>
-    ),
+    svg: <SiC className="w-8 h-8" />,
   },
   {
-    id: "git",
-    name: "Git",
-    color: "#F05032",
-    svg: (
-      <svg viewBox="0 0 24 24" className="w-8 h-8" fill="currentColor">
-        <path d="M21.71 10.71l-8.42-8.42a1.83 1.83 0 0 0-2.58 0L8.85 4.15 11.4 6.7a2.18 2.18 0 0 1 2.76 2.78l2.6 2.6a2.18 2.18 0 1 1-1.3 1.28l-2.42-2.42v5.7a2.18 2.18 0 1 1-1.84 0v-6.3L8.6 7.74a2.18 2.18 0 1 1-1.28-1.3L2.29 11.4a1.83 1.83 0 0 0 0 2.58l8.42 8.42a1.83 1.83 0 0 0 2.58 0l8.42-8.42a1.83 1.83 0 0 0 0-2.57z" fill="#F05032" />
-      </svg>
-    ),
+    id: "javascript",
+    name: "JavaScript",
+    color: "#F7DF1E",
+    svg: <SiJavascript className="w-8 h-8" />,
   },
   {
-    id: "github",
-    name: "GitHub",
-    color: "#E4E4E7",
-    svg: (
-      <svg viewBox="0 0 24 24" className="w-8 h-8" fill="currentColor">
-        <path
-          fillRule="evenodd"
-          clipRule="evenodd"
-          d="M12 2C6.477 2 2 6.477 2 12c0 4.42 2.865 8.166 6.839 9.489.5.092.682-.217.682-.482 0-.237-.008-.866-.013-1.7-2.782.603-3.369-1.34-3.369-1.34-.454-1.156-1.11-1.464-1.11-1.464-.908-.62.069-.608.069-.608 1.003.07 1.531 1.03 1.531 1.03.892 1.529 2.341 1.087 2.91.831.092-.646.35-1.086.636-1.336-2.22-.253-4.555-1.11-4.555-4.943 0-1.091.39-1.984 1.029-2.683-.103-.253-.446-1.27.098-2.647 0 0 .84-.269 2.75 1.025A9.578 9.578 0 0112 6.836c.85.004 1.705.114 2.504.336 1.909-1.294 2.747-1.025 2.747-1.025.546 1.377.203 2.394.1 2.647.64.699 1.028 1.592 1.028 2.683 0 3.842-2.339 4.687-4.566 4.935.359.309.678.919.678 1.852 0 1.336-.012 2.415-.012 2.743 0 .267.18.578.688.48C19.138 20.161 22 16.416 22 12c0-5.523-4.477-10-10-10z"
-        />
-      </svg>
-    ),
+    id: "typescript",
+    name: "TypeScript",
+    color: "#3178C6",
+    svg: <SiTypescript className="w-8 h-8" />,
+  },
+  {
+    id: "supabase",
+    name: "Supabase",
+    color: "#3ECF8E",
+    svg: <SiSupabase className="w-8 h-8" />,
+  },
+  {
+    id: "firebase",
+    name: "Firebase",
+    color: "#FFCA28",
+    svg: <SiFirebase className="w-8 h-8" />,
+  },
+  {
+    id: "postgresql",
+    name: "PostgreSQL",
+    color: "#4169E1",
+    svg: <SiPostgresql className="w-8 h-8" />,
+  },
+  {
+    id: "docker",
+    name: "Docker",
+    color: "#2496ED",
+    svg: <SiDocker className="w-8 h-8" />,
   },
   {
     id: "linux",
     name: "Linux",
     color: "#FCC624",
-    svg: (
-      <svg viewBox="0 0 24 24" className="w-8 h-8" fill="currentColor">
-        <path d="M12.003 0C8.423 0 6.643 2.582 6.643 5.467c0 1.258.337 2.87 1.01 4.545-2.022 1.347-3.364 3.73-3.364 6.46 0 .895.166 1.75.466 2.545C2.56 19.98 1 20.84 1 21.82 1 23.02 4.14 24 8.01 24c1.17 0 2.27-.09 3.24-.26 1.26.17 2.62.26 3.99.26 3.87 0 7.01-.98 7.01-2.18 0-.98-1.56-1.84-3.755-2.803.3-.795.465-1.65.465-2.545 0-2.73-1.34-5.113-3.363-6.46.673-1.675 1.01-3.287 1.01-4.545C16.607 2.582 14.827 0 12.003 0z" fill="#FCC624" />
-      </svg>
-    ),
+    svg: <SiLinux className="w-8 h-8" />,
   },
   {
-    id: "restapi",
+    id: "git",
+    name: "Git",
+    color: "#F05032",
+    svg: <SiGit className="w-8 h-8" />,
+  },
+  {
+    id: "github",
+    name: "GitHub",
+    color: "#E4E4E7",
+    svg: <SiGithub className="w-8 h-8" />,
+  },
+  {
+    id: "postman",
     name: "REST API",
-    color: "#EF4444",
-    svg: (
-      <svg viewBox="0 0 24 24" className="w-8 h-8" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
-        <path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83" />
-        <circle cx="12" cy="12" r="3" />
-      </svg>
-    ),
+    color: "#FF6C37",
+    svg: <SiPostman className="w-8 h-8" />,
+  },
+  {
+    id: "hackthebox",
+    name: "Hack The Box",
+    color: "#9FEF00",
+    svg: <SiHackthebox className="w-8 h-8" />,
+  },
+  {
+    id: "tryhackme",
+    name: "TryHackMe",
+    color: "#EA3223",
+    svg: <SiTryhackme className="w-8 h-8" />,
   },
 ];
 
@@ -4872,7 +4831,7 @@ export default function App() {
                 isDark ? "bg-[#12121A] border-white/15 text-white" : "bg-white border-zinc-300 text-zinc-900"
               }`}
             >
-              <span className="w-2 h-2 rounded-full bg-sky-400" />
+              <SiFlutter className="w-3.5 h-3.5 text-[#02569B] dark:text-[#38BDF8]" />
               <span>Flutter &amp; Dart</span>
             </div>
 
@@ -4881,7 +4840,7 @@ export default function App() {
                 isDark ? "bg-[#12121A] border-white/15 text-white" : "bg-white border-zinc-300 text-zinc-900"
               }`}
             >
-              <span className="w-2 h-2 rounded-full bg-emerald-400" />
+              <SiSupabase className="w-3.5 h-3.5 text-[#3ECF8E]" />
               <span>Supabase • Firebase</span>
             </div>
 
@@ -5036,7 +4995,7 @@ export default function App() {
                     isDark ? "bg-[#111118]/90 border-white/15 text-white" : "bg-white/95 border-zinc-200 text-zinc-900"
                   }`}
                 >
-                  <FlutterOfficialIcon className="w-4 h-4" />
+                  <SiFlutter className="w-4 h-4 text-[#02569B] dark:text-[#38BDF8]" />
                   <span>Flutter</span>
                 </motion.div>
 
@@ -5048,7 +5007,7 @@ export default function App() {
                     isDark ? "bg-[#111118]/90 border-white/15 text-white" : "bg-white/95 border-zinc-200 text-zinc-900"
                   }`}
                 >
-                  <DartOfficialIcon className="w-4 h-4" />
+                  <SiDart className="w-4 h-4 text-[#0175C2] dark:text-[#00B4AB]" />
                   <span>Dart</span>
                 </motion.div>
 
@@ -5066,7 +5025,7 @@ export default function App() {
                       : "bg-white/95 border-zinc-200 text-zinc-900 hover:border-[#9FEF00] hover:shadow-md"
                   }`}
                 >
-                  <HackTheBoxOfficialIcon className="w-4 h-4" />
+                  <SiHackthebox className="w-4 h-4 text-[#9FEF00]" />
                   <span className="group-hover:text-[#9FEF00] transition-colors">Hack The Box</span>
                   <ExternalLink className="w-3 h-3 text-[#9FEF00] opacity-70 group-hover:opacity-100 transition-opacity" />
                 </motion.a>
@@ -5085,7 +5044,7 @@ export default function App() {
                       : "bg-white/95 border-zinc-200 text-zinc-900 hover:border-red-500 hover:shadow-md"
                   }`}
                 >
-                  <TryHackMeOfficialIcon className="w-4 h-4" />
+                  <SiTryhackme className="w-4 h-4 text-[#EA3223]" />
                   <span className="group-hover:text-red-500 transition-colors">TryHackMe</span>
                 </motion.a>
               </div>
