@@ -4440,7 +4440,7 @@ export default function App() {
 
   return (
     <div
-      className={`min-h-screen relative overflow-x-hidden transition-colors duration-500 selection:bg-red-600 selection:text-white ${
+      className={`min-h-screen relative transition-colors duration-500 selection:bg-red-600 selection:text-white ${
         isDark ? "bg-[#070709] text-white" : "bg-[#E6E8EF] text-zinc-950"
       }`}
     >
