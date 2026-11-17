@@ -42,9 +42,7 @@ import {
 import {
   SiFlutter,
   SiDart,
-  SiPython,
   SiJavascript,
-  SiTypescript,
   SiC,
   SiSupabase,
   SiFirebase,
@@ -52,11 +50,9 @@ import {
   SiLinux,
   SiGit,
   SiGithub,
-  SiDocker,
+  SiPostman,
   SiHackthebox,
   SiTryhackme,
-  SiAndroid,
-  SiPostman,
 } from "react-icons/si";
 import { FaJava } from "react-icons/fa6";
 
@@ -3551,42 +3547,6 @@ const OFFICIAL_TECH_SKILLS: TechItem[] = [
     svg: <SiDart className="w-8 h-8" />,
   },
   {
-    id: "android",
-    name: "Android SDK",
-    color: "#3DDC84",
-    svg: <SiAndroid className="w-8 h-8" />,
-  },
-  {
-    id: "python",
-    name: "Python",
-    color: "#3776AB",
-    svg: <SiPython className="w-8 h-8" />,
-  },
-  {
-    id: "java",
-    name: "Java",
-    color: "#ED8B00",
-    svg: <FaJava className="w-8 h-8" />,
-  },
-  {
-    id: "c",
-    name: "C Language",
-    color: "#00599C",
-    svg: <SiC className="w-8 h-8" />,
-  },
-  {
-    id: "javascript",
-    name: "JavaScript",
-    color: "#F7DF1E",
-    svg: <SiJavascript className="w-8 h-8" />,
-  },
-  {
-    id: "typescript",
-    name: "TypeScript",
-    color: "#3178C6",
-    svg: <SiTypescript className="w-8 h-8" />,
-  },
-  {
     id: "supabase",
     name: "Supabase",
     color: "#3ECF8E",
@@ -3605,16 +3565,22 @@ const OFFICIAL_TECH_SKILLS: TechItem[] = [
     svg: <SiPostgresql className="w-8 h-8" />,
   },
   {
-    id: "docker",
-    name: "Docker",
-    color: "#2496ED",
-    svg: <SiDocker className="w-8 h-8" />,
+    id: "java",
+    name: "Java",
+    color: "#ED8B00",
+    svg: <FaJava className="w-8 h-8" />,
   },
   {
-    id: "linux",
-    name: "Linux",
-    color: "#FCC624",
-    svg: <SiLinux className="w-8 h-8" />,
+    id: "javascript",
+    name: "JavaScript",
+    color: "#F7DF1E",
+    svg: <SiJavascript className="w-8 h-8" />,
+  },
+  {
+    id: "c",
+    name: "C Language",
+    color: "#00599C",
+    svg: <SiC className="w-8 h-8" />,
   },
   {
     id: "git",
@@ -3629,22 +3595,16 @@ const OFFICIAL_TECH_SKILLS: TechItem[] = [
     svg: <SiGithub className="w-8 h-8" />,
   },
   {
-    id: "postman",
+    id: "linux",
+    name: "Linux",
+    color: "#FCC624",
+    svg: <SiLinux className="w-8 h-8" />,
+  },
+  {
+    id: "restapi",
     name: "REST API",
     color: "#FF6C37",
     svg: <SiPostman className="w-8 h-8" />,
-  },
-  {
-    id: "hackthebox",
-    name: "Hack The Box",
-    color: "#9FEF00",
-    svg: <SiHackthebox className="w-8 h-8" />,
-  },
-  {
-    id: "tryhackme",
-    name: "TryHackMe",
-    color: "#EA3223",
-    svg: <SiTryhackme className="w-8 h-8" />,
   },
 ];
 
@@ -3758,16 +3718,6 @@ export function SkillsSection({ isDark, lang }: { isDark: boolean; lang: "EN" | 
               <span className={`font-bold ${isDark ? "text-white" : "text-zinc-900"}`}>
                 {OFFICIAL_TECH_SKILLS[selectedIdx]?.name}
               </span>
-              {OFFICIAL_TECH_SKILLS[selectedIdx]?.id === "hackthebox" && (
-                <a
-                  href="https://profile.hackthebox.com/profile/019fa823-b9b9-73f2-9ea3-8d7bfb72a750?utm_medium=copy_url"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="ml-2 px-2 py-0.5 rounded-md bg-[#9FEF00]/20 text-[#9FEF00] text-[10px] font-bold hover:bg-[#9FEF00] hover:text-black transition-colors"
-                >
-                  View Profile ↗
-                </a>
-              )}
             </div>
           </div>
 
@@ -3906,7 +3856,7 @@ function ContactSection({ isDark, lang }: { isDark: boolean; lang: "EN" | "FR" }
                   </div>
                   <div>
                     <span className="font-mono-code text-[11px] font-bold uppercase tracking-wider text-emerald-500 block">
-                      WhatsApp Direct • Instant Reply
+                      WhatsApp Direct
                     </span>
                     <h4 className="font-sans font-extrabold text-base sm:text-lg">+213 540 04 72 73</h4>
                   </div>
