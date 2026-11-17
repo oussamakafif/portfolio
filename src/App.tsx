@@ -923,9 +923,13 @@ const NIMBUS_CSS = `
 .nv-ico[data-fx="wave"] svg{animation:nvWave .9s ease-in-out both;transform-origin:50% 92%}
 @keyframes nvWave{0%{transform:none}20%{transform:rotate(-15deg)}40%{transform:rotate(12deg)}60%{transform:rotate(-8deg)}80%{transform:rotate(4deg)}100%{transform:translateY(-1px) scale(1.08)}}
 @media (max-width:860px){.nimbus-item{height:40px;padding:0 14px;gap:6px}.nimbus-label{font-size:13px}}
-@media (max-width:640px){.nimbus-nav{padding:4px 6px;gap:2px;max-width:calc(100vw - 16px);overflow-x:auto;-webkit-overflow-scrolling:touch}.nimbus-nav::-webkit-scrollbar{display:none}.nimbus-item{height:35px;padding:0 8px;gap:4px}.nimbus-label{font-size:11.5px}.nv-ico svg{width:13px;height:13px}}
-@media (max-width:440px){.nimbus-nav{padding:3px 4px;gap:1px}.nimbus-item{height:32px;padding:0 6px;gap:3px}.nimbus-label{font-size:10.5px}.nv-ico svg{width:12px;height:12px}}
-@media (max-width:375px){.nimbus-nav{padding:2px 3px;gap:0px}.nimbus-item{height:30px;padding:0 4.5px;gap:2.5px}.nimbus-label{font-size:10px}.nv-ico svg{width:11px;height:11px}}
+@media (max-width:640px){.nimbus-nav:not(.nimbus-mobile){padding:4px 6px;gap:2px;max-width:calc(100vw - 16px);overflow-x:auto;-webkit-overflow-scrolling:touch}.nimbus-nav:not(.nimbus-mobile)::-webkit-scrollbar{display:none}.nimbus-nav:not(.nimbus-mobile) .nimbus-item{height:35px;padding:0 8px;gap:4px}.nimbus-nav:not(.nimbus-mobile) .nimbus-label{font-size:11.5px}.nimbus-nav:not(.nimbus-mobile) .nv-ico svg{width:13px;height:13px}}
+.nimbus-mobile{width:100% !important;max-width:430px !important;display:flex !important;justify-content:space-around !important;align-items:center !important;padding:5px 6px 7px 6px !important;border-radius:26px !important;gap:2px !important;box-shadow:0 12px 35px -8px rgba(0,0,0,0.7),0 0 0 1px rgba(239,68,68,0.25) !important}
+.nimbus-mobile .nimbus-item{display:flex !important;flex-direction:column !important;justify-content:center !important;align-items:center !important;gap:3px !important;height:50px !important;flex:1 1 0 !important;min-width:0 !important;padding:2px 2px !important;border-radius:18px !important}
+.nimbus-mobile .nv-ico{display:flex !important;align-items:center !important;justify-content:center !important}
+.nimbus-mobile .nv-ico svg{width:19px !important;height:19px !important}
+.nimbus-mobile .nimbus-label{font-size:9.5px !important;font-weight:700 !important;line-height:1 !important;letter-spacing:-.01em !important;text-align:center !important;white-space:nowrap !important}
+.nimbus-mobile .nimbus-drop{top:4px !important;bottom:4px !important;border-radius:18px !important}
 `;
 
 const VERT = `attribute vec2 a;void main(){gl_Position=vec4(a,0.,1.);}`;
@@ -3704,20 +3708,13 @@ export function SkillsSection({ isDark, lang }: { isDark: boolean; lang: "EN" | 
           }`}
         >
           <div
-            className={`flex items-center justify-between px-3 pb-5 mb-5 border-b text-xs font-mono-code ${
+            className={`flex items-center px-3 pb-5 mb-5 border-b text-xs font-mono-code ${
               isDark ? "border-white/10 text-zinc-400" : "border-zinc-300/90 text-zinc-600"
             }`}
           >
             <div className="flex items-center gap-2">
               <span className="w-2.5 h-2.5 rounded-full bg-red-500 animate-pulse" />
               <span className="uppercase tracking-wider font-bold">{lang === "EN" ? "Tech Stack" : "Stack Technique"}</span>
-            </div>
-
-            <div className="flex items-center gap-2">
-              <span className="w-2 h-2 rounded-full" style={{ backgroundColor: OFFICIAL_TECH_SKILLS[selectedIdx]?.color }} />
-              <span className={`font-bold ${isDark ? "text-white" : "text-zinc-900"}`}>
-                {OFFICIAL_TECH_SKILLS[selectedIdx]?.name}
-              </span>
             </div>
           </div>
 
@@ -4592,57 +4589,19 @@ export default function App() {
         </div>
       </header>
 
-      {/* Mobile-Only Bottom Navigation Bar (Mobile App Style) */}
-      <nav
-        aria-label="Mobile Navigation"
-        className={`sm:hidden fixed bottom-0 inset-x-0 z-50 px-2 pt-1.5 pb-[max(0.6rem,env(safe-area-inset-bottom))] border-t backdrop-blur-2xl transition-colors duration-300 ${
-          isDark
-            ? "bg-[#0B0B11]/94 border-white/10 shadow-[0_-10px_35px_rgba(0,0,0,0.7)]"
-            : "bg-white/95 border-zinc-200/90 shadow-[0_-10px_25px_rgba(0,0,0,0.08)]"
-        }`}
-      >
-        <div className="grid grid-cols-6 items-center justify-items-center max-w-md mx-auto">
-          {navItems.map((item, idx) => {
-            const isActive = activeNav === idx;
-            return (
-              <a
-                key={item.label}
-                href={item.href}
-                onClick={() => setActiveNav(idx)}
-                className={`relative flex flex-col items-center justify-center py-1 px-1 rounded-xl w-full transition-all duration-200 select-none ${
-                  isActive
-                    ? isDark
-                      ? "text-red-500 font-bold"
-                      : "text-red-600 font-bold"
-                    : isDark
-                    ? "text-zinc-400 hover:text-zinc-200"
-                    : "text-zinc-600 hover:text-zinc-900"
-                }`}
-              >
-                {isActive && (
-                  <motion.span
-                    layoutId="mobileNavActivePill"
-                    className="absolute inset-x-1 inset-y-0.5 rounded-xl bg-red-500/12 -z-10 border border-red-500/25"
-                    transition={{ type: "spring", stiffness: 380, damping: 30 }}
-                  />
-                )}
-
-                {/* Icon (Bigger than text) */}
-                <span className={`relative transition-transform duration-200 ${isActive ? "scale-110 text-red-500" : ""}`}>
-                  <span className="[&>svg]:w-5 [&>svg]:h-5 [&>svg]:stroke-[2.2]">
-                    {item.icon}
-                  </span>
-                </span>
-
-                {/* Text (Below icon) */}
-                <span className={`text-[9.5px] tracking-tight mt-0.5 leading-none truncate max-w-full ${isActive ? "font-bold text-red-500" : "font-medium"}`}>
-                  {item.label}
-                </span>
-              </a>
-            );
-          })}
+      {/* Mobile-Only Bottom Animated Liquid Glass Navbar */}
+      <div className="sm:hidden fixed bottom-2.5 inset-x-0 z-50 px-2.5 flex justify-center pointer-events-none">
+        <div className="pointer-events-auto w-full max-w-md flex justify-center">
+          <LiquidNavbar
+            items={navItems}
+            active={activeNav}
+            onChange={(i) => setActiveNav(i)}
+            tone={isDark ? "dark" : "light"}
+            sound={true}
+            className="nimbus-mobile"
+          />
         </div>
-      </nav>
+      </div>
 
       {/* =========================================================================
        * SECTION 1: HERO (#home)
